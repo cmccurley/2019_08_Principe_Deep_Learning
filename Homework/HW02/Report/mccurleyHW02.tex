@@ -1,0 +1,196 @@
+\documentclass{article}[12 pt]
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{appendix}
+\usepackage{array}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{caption}
+\usepackage{url}
+\usepackage{float}
+\usepackage{pdfpages}
+\usepackage{shortvrb}
+\usepackage{mathtools}
+\usepackage{multirow}
+\usepackage{hyperref}
+\usepackage{commath}
+\usepackage{tabularx}
+\usepackage{bm}
+
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+		T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\graphicspath{{"E:/University of Florida/Classes/2019_08_Principe_Deep_Learning/Homework/HW02/Report/Images/"}{"C:/Users/Conma/Desktop/HW02/Report/Images/"}{"/media/cmccurley/0000-0001/University of Florida/Classes/2019_08_Principe_Deep_Learning/Homework/HW02/Report/Images/"}}
+\geometry{margin=1 in}
+
+\newcommand{\smallvskip}{\vspace{5 pt}}
+\newcommand{\medvskip}{\vspace{30 pt}}
+\newcommand{\bigvskip}{\vspace{100 pt}}
+\newcommand{\tR}{\mathtt{R}}
+
+
+
+
+\begin{document}
+	
+\begin{center}
+	\textbf{\Large Connor McCurley} \\
+	EEE 6814 \qquad \textbf{\large Homework 2} \qquad Fall 2019 
+\end{center}
+
+
+
+
+\section*{Experiment 1 - Single Hidden Layer MLP}
+
+\subsection*{Baseline Architecture}
+To provide a baseline model, I designed a single hidden layer MLP and implemented it in pytorch (code included).  The model architecture consisted of an input layer which took the EEG features, a hidden layer with a variable number of units (described more in the following), each of which employed ReLU activation functions and six output neurons which fed into a soft-max activation (Figure \ref{fig:Q1_architecture}).  
+
+\begin{center}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.75\textwidth]{"Q1_architecture"}
+		\caption{Architecture of the baseline MLP.  The network defines a single hidden layer MLP with 14 units in the hidden layer and 6 neurons in the output layer.  ReLU activations were applied at the hidden units, while a softmax was used at the output to provide  class score probabilities. }
+		\label{fig:Q1_architecture}
+	\end{figure}
+\end{center}
+
+\noindent
+\subsection*{Training}
+Since the data labels were categorical, I employed a cross-entropy loss function.  I split the data from patient 1 into training and validation folds to train the MLP.  A variety of parameters were explored in training (described in section 2).  Below I show the results of training a single hidden layer MLP with 14 units in hidden layer.  A learning rate of $\eta = 0.1$ was applied with stochastic gradient descent to update the network parameters.  Ten percent of the training data was randomly chosen for validation.  The model was randomly initialized 10 times. Training was ended when validation loss began to increase. The model with the best validation performance after training was chosen as the final model.  After training, the data from patient 2 was used in test.  Learning curves for the ``best" model and a confusion matrix for the test performance are shown in  Figures \ref{fig:Q1_learning_curve} and \ref{fig:Q1_confusion_matrix}, respectively.   
+
+\begin{center}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.65\textwidth]{"Q1_learning_curve_singleHL_14_units_learningRate_point1_validationSize_10"}
+		\caption{Learning curves for the ``best" instance of the model described in Figure \ref{fig:Q1_architecture}. At 200 epochs the cross-entropy loss on the training dataset is approximately 0.2, while validation loss is around 0.65. After 200 batch epochs, the model begins to overfit the training data.}
+		\label{fig:Q1_learning_curve}
+	\end{figure}
+\end{center}
+
+\begin{center}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.75\textwidth]{"Q1_confusion_mat_singleHL_14_units_learningRate_point1_validationSize_10"}
+		\caption{Confusion matrix for testing on patient 2.  It can be observed from the figure that sleep stages 2 and 4, as well as the awake state, were generally classified with low error.  Stage 1 was often predicted as stage 4 or awake and stage 5 was sometimes mis-judged as state 4. The cross entropy loss on this test set was calculated as 0.96.}
+		\label{fig:Q1_confusion_matrix}
+	\end{figure}
+\end{center}
+
+\subsection*{Baseline Results}
+It can be observed from the figures that the network begins to overfit at approximately 200 batch training epochs.  This is determined by the fact that training error continues to decrease with additional updating, while performance loss on the sequestered validation data increases.  At the end of training for this particular model, the cross-entropy loss for the training data was approximately 0.2, while validation error was around 0.65.  Testing this model on patient 2's data provided the results shown in Figure \ref{fig:Q1_confusion_matrix}. It can be observed from the figure that sleep stages 2 and 4, as well as the awake state, were generally classified with low error.  Stage 1 was often predicted as stage 4 or awake and stage 5 was sometimes mis-judged as state 4. The cross entropy loss on this test set was calculated as 0.96.
+
+\section*{Experiment 2 - Parameter Variation}
+Next, experiments  were conducted to test the effects of hyper-parameter variations.  Only one parameter was changed in each test.  Training was conducted in the same fashion as the baseline model for each parameter set.  The models were randomly initialized 10 times and trained until the validation loss began to increase.  The training and validation sets were constructed from patient 1's data and the test set was formed from patient 2's data, exclusively. \newline
+
+\noindent
+Note: I did not test stopping criteria in this experimentation, as it seemed unfruitful to purposely overtrain the model.  (Although I acknowledge the possibility that my validation fold was not truly representative of the test data.)
+
+
+\subsection*{Learning Rate}
+	
+The effects of varying learning rate are summarized in Tables \ref{tab:Q2_learning_rate_variation_14} and \ref{tab:Q2_learning_rate_variation_40}.  The model exhibiting the best validation performance was used to generate the  test loss for single hidden layer MLPs with 14 and 40 units in the hidden layers, respectively.  It can be observed that moderate learning rates consistently provided the ``best" performance.
+
+\begin{table}[H]
+	\caption{Test loss for a single hidden layer MLP with 14 units in the hidden layer.  Cross-entropy loss on a sequestered test set is shown as well as the number of epochs for varying learning rates.}
+	\label{tab:Q2_learning_rate_variation_14}
+	\begin{center}
+		\begin{tabularx}{\textwidth}{ |X|X|X|X|X|X|X| } 
+			\hline
+			- & $\eta=0.0001$ & $\bm{\eta=0.001}$ & $\eta=0.01$ & $\eta=0.1$ & $\eta=1$ & $\eta=10$\\
+			\hline
+			Epochs & 600 &  $\bm{200}$ & 200 & 200 & 200 & 200\\
+			\hline
+			Test Loss & 2.99 & $\bm{1.14}$ & 1.22 & 1.22 & 2.71 & 3.46\\
+			\hline
+		\end{tabularx}
+	\end{center}
+\end{table}
+
+\begin{table}[H]
+	\caption{Test loss for a single hidden layer MLP with 40 units in the hidden layer.  Cross-entropy loss on a sequestered test set is shown as well as the number of epochs for varying learning rates.}
+	\label{tab:Q2_learning_rate_variation_40}
+	\begin{center}
+		\begin{tabularx}{\textwidth}{ |X|X|X|X|X|X|X| } 
+			\hline
+			- & $\eta=0.0001$ & $\eta=0.001$ & $\bm{\eta=0.01}$ & $\eta=0.1$ & $\eta=1$ & $\eta=10$\\
+			\hline
+			Epochs & 600 &  600 & $\bm{200}$ & 200 & 200 & 200\\
+			\hline
+			Test Loss & 1.78 & 1.49 & $\bm{1.04}$ & 1.45 & 2.26 & 3.86\\
+			\hline
+		\end{tabularx}
+	\end{center}
+\end{table}
+
+\subsection*{Number of Layers}
+Next, the effects of layer size were tested.  The number of hidden layers was varied from 1 to 6.  The number of units in each hidden layer was fixed as 10, and the learning rate was set to $\eta=0.01$.  The test loss and number of training epochs for each model are shown in Table \ref{tab:Q2_number_hidden_layer_variation}.  It can be observed that the required number of epochs for parameter convergence generally increased as the number of hidden layers increased.  Additionally, the networks greatly over-fit as they got deeper.  
+
+\begin{table}[H]
+	\caption{Test loss and number of training epochs as a function of the number of hidden layers.  Each hidden layer contained 10 neurons.  The learning rate was fixed to $\eta=0.01$.}
+	\label{tab:Q2_number_hidden_layer_variation}
+	\begin{center}
+		\begin{tabularx}{\textwidth}{ |X|X|X|X|X|X|X| } 
+			\hline
+			\# Hidden Layers & 1 & $\bm{2}$ & 3 & 4 & 5 & 6\\
+			\hline
+			Epochs & 200 &  $\bm{1200}$ & 1000 & 1500 & 1700 & 2500\\
+			\hline
+			Test Loss & 1.09 & $\bm{1.03}$ & 1.27 & 1.14 & 1.46 & 2.76\\
+			\hline
+		\end{tabularx}
+	\end{center}
+\end{table}
+
+\subsection*{Number of Units in Each Layer}
+Finally, given that that a 2 hidden layer MLP obtained the best performance in the previous experimentation, this architecture was chosen to test the effects of the number of units.  The learning rate was fixed again at $\eta=0.01$.  The number of units in the first and second hidden layer were varied.  Table \ref{tab:Q2_number_hidden_units_variation} shows the number of training epochs required for convergence as well as the cross-entropy loss on the test set.  From the experimentation, it was determined that a smaller number of units in the first hidden layer and a larger number (in comparison) in the second hidden layer provided the best performance on an un-seen test set.  Although this result may not be general.
+
+\begin{table}[H]
+	\caption{Test loss and number of training epochs as a function of the number of units in a 2 hidden layer MLP.  The learning rate was fixed to $\eta=0.01$.}
+	\label{tab:Q2_number_hidden_units_variation}
+	\begin{center}
+		\begin{tabularx}{\textwidth}{ |X|X|X|X|X| } 
+			\hline
+			\# Units 1st HL & 10 & 10 & $\bm{5}$ & 40\\
+			\hline
+			\# Units 2nd HL & 10 & 5 & $\bm{10}$ & 40\\
+			\hline
+			Epochs & 2000 & 4000 & $\bm{1000}$ & 800\\
+			\hline
+			Test Loss & 1.16 & 1.13 & $\bm{0.94}$ & 1.38\\
+			\hline
+		\end{tabularx}
+	\end{center}
+\end{table}
+
+\section*{Experiment 3 - Generalization}
+Finally, given that the data from each patient could be drastically different, it makes sense that data from both patients should be incorporated in training. In attempt to improve generalization, K-fold cross validation incorporating data from \textbf{both patients} was implemented.  A 2 hidden layer MLP was implemented with 5 units in the first hidden layer and 10 in the second hidden layer.  The learning rate was, again, fixed at $\eta=0.01$.   To perform this cross-validation, the data was first split into train/ test sets.  5-fold cross-validation was then applied to the training data, where a model was trained 10 times on 4 folds and validated on the 5th.  The most accurate model was selected from the cross-validation and applied to the combined test set.  Since training was relatively fast, the process was repeated 5 times.  Learning curves and test confusion matrix for one k-fold run is shown in Figures \ref*{fig:Q3_learning_curve} and \ref{fig:Q3_confusion_matrix}.  The mean test accuracy for the 5 trials was found as: $0.61 \pm 0.08$.  This confirms the hypothesis that augmenting the training set with data from both patients did, indeed, improve generalization.
+
+\begin{center}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.65\textwidth]{"Q3_learning_curve_5_fold"}
+		\caption{Learning curves for the ``best model" chosen during 5-fold cross-validation.  Validation loss begins to increase after approximately 3500 training epochs.}
+		\label{fig:Q3_learning_curve}
+	\end{figure}
+\end{center}
+
+\begin{center}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.75\textwidth]{"Q3_confusion_matrix_5_fold"}
+		\caption{Confusion matrix for the ``best model" chosen during 5-fold cross-validation.  The total cross-entropy loss evaluated to 0.62 for the combined test set.}
+		\label{fig:Q3_confusion_matrix}
+	\end{figure}
+\end{center}
+
+
+\begin{thebibliography}{00}
+	\bibitem{Principe}Principe, Jose C., Euliano, Niel R., Lefebvre, W. Curt. "Chapter III- Multilayer Perceptrons," in Neural and Adaptive Systems: Fundamentals Through Simulation, 1997
+\end{thebibliography}
+
+\end{document}
