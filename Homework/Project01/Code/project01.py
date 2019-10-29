@@ -30,6 +30,8 @@ import sklearn.model_selection as ms
 import sklearn.metrics as metrics
 from sklearn.metrics import confusion_matrix
 from sklearn.utils.multiclass import unique_labels
+from fashion_mnist_master.utils import mnist_reader
+from setParams import *
 
 
 
@@ -136,48 +138,23 @@ class Feedforward(torch.nn.Module):
 if __name__== "__main__":
     
     print('Running Main...')
-    import os
-    current_dir = os.getcwd()
+
+    ####################### Set Parameters ###########################
+    parameters = setParams()
     
-    from Code.fashion_mnist_master.utils import mnist_reader
-    X_train, y_train = mnist_reader.load_mnist(current_dir + '\\Code\\fashion_mnist_master\\data\\fashion', kind='train')
-    X_test, y_test = mnist_reader.load_mnist(current_dir + '\\Code\\fashion_mnist_master\\data\\fashion', kind='t10k')
+    ####################### Import data ##############################
+    print('Loading data...')
+    cwd = os.getcwd()
     
-    import matplotlib.pyplot as plt
+    
+    X_train, y_train = mnist_reader.load_mnist(parameters["dataPath"], kind='train')
+    X_test, y_test = mnist_reader.load_mnist(parameters["dataPath"], kind='t10k')
+    
     plt.figure()
     plt.imshow(X_train[0,:].reshape((28,28)), cmap='gray')
     
-#    ####################### Set Parameters ###########################
-#    parameters = dict()
-#    parameters["hiddenSize"] = 14
-#    parameters["outputSize"] = 6
-#    parameters["learningRate"] = 0.1
-#    parameters["numEpochs"] = 10000
-#    parameters["numTrials"] = 10
-#    parameters["validationSize"] = 0.1
-#    parameters["labels"] = ['Stage 1', 'Stage 2', 'Stage 3', 'Stage 4', 'Stage 5', 'Awake']
-#    parameters["updateIter"] = 200 
-#    
-#    ####################### Import data ##############################
-#    print('Loading data...')
-#    cwd = os.getcwd()
-#    
-#    # import data form patient 1
-#    dataFilePath = '../Data/Sleepdata1 Input.asc'
-#    labelFilePath = '../Data/Sleepdata1 Desired.asc'
-#    skipHeader = 1
-#    X_p1,y_p1 =  readData(dataFilePath, labelFilePath, skipHeader)
-#    y_p1 = np.argmax(y_p1,axis=1) # convert from one-hot to index
-#    
-#    # import data form patient 2
-#    dataFilePath = '../Data/Sleepdata2 Input.asc'
-#    labelFilePath = '../Data/Sleepdata2 Desired.asc'
-#    skipHeader = 1
-#    X_p2,y_p2 =  readData(dataFilePath, labelFilePath, skipHeader)
-#    y_p2 = np.argmax(y_p2,axis=1) # convert from one-hot to index
-#    
-#
-#    ####################### Define Training Subset ###################
+
+#    ####################### Define Validation Set ####################
 #
 #    # partition data into training and validation    
 #    X_train, X_val, y_train, y_val = ms.train_test_split(X_p1, y_p1, test_size=parameters["validationSize"], random_state=42)
