@@ -1,12 +1,12 @@
 This is BibTeX, Version 0.99dThe top-level auxiliary file: mccurleyProject1.aux
 The style file: IEEEtran.bst
 Database file #1: Project1.bib
-I was expecting a `,' or a `}'---line 82 of file Project1.bib
+I was expecting a `,' or a `}'---line 88 of file Project1.bib
  :  
  :  journal = {Proceedings of the 19th Symposium of the Pattern Recognition Association of South Africa (PRASA 2008)}
 (Error may have been on previous line)
 I'm skipping whatever remains of this entry
-I was expecting a `,' or a `}'---line 197 of file Project1.bib
+I was expecting a `,' or a `}'---line 203 of file Project1.bib
  :  
  :  number = {2}
 (Error may have been on previous line)
@@ -15,6 +15,8 @@ I'm skipping whatever remains of this entry
 -- http://www.michaelshell.org/tex/ieeetran/bibtex/
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
 Warning--empty booktitle in VanDerMaaten2009DRReview
+Warning--empty booktitle in vanDerMaaten2008tSNE
+Warning--empty booktitle in Thorstensen2009ManifoldThesis
 
 Done.
 (There were 2 error messages)
