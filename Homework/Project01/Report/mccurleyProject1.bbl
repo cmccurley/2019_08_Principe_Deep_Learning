@@ -83,6 +83,10 @@ M.~Sugiyama, ``Local fisher discriminant analysis for supervised dimensionality
 \bibitem{vanDerMaaten2008tSNE}
 L.~van~der Maaten and G.~E. Hinton, ``Visualizing data using t-sne,'' 2008.
 
+\bibitem{McInnes2018UMAP}
+L.~McInnes and J.~Healy, ``Umap: Uniform manifold approximation and projection
+  for dimension reduction,'' \emph{ArXiv}, vol. abs/1802.03426, 2018.
+
 \bibitem{Haykin2009NeuralNetworks}
 S.~S. Haykin, \emph{Neural networks and learning machines}, 3rd~ed.\hskip 1em
   plus 0.5em minus 0.4em\relax Upper Saddle River, NJ: Pearson Education, 2009.
