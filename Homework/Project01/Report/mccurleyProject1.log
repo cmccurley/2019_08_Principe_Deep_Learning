@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2019.4.9)  31 OCT 2019 18:46
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2019.4.9)  1 NOV 2019 21:31
 entering extended mode
 **./mccurleyProject1.tex
 (mccurleyProject1.tex
@@ -732,29 +732,29 @@ Package lettrine.sty Info: Targeted height = 17.3449pt
 
 
 ]
-Underfull \hbox (badness 1661) in paragraph at lines 89--90
+Underfull \hbox (badness 1661) in paragraph at lines 82--83
  []\OT1/ptm/m/it/10 Self-Organizing Fea-ture Map (SOM): [] \OT1/ptm/m/n/10 Ko-h
 o-nen's self-
  []
 
 [2]
 <"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project01/Re
-port/Images/""Signature".jpg, id=134, 2664.95625pt x 935.495pt>
+port/Images/""Signature".jpg, id=158, 2664.95625pt x 935.495pt>
 File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project
 01/Report/Images/""Signature".jpg Graphic file (type jpg)
 
 <use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project0
 1/Report/Images/""Signature".jpg>
 Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
-ng/Homework/Project01/Report/Images/""Signature".jpg used on input line 178.
+ng/Homework/Project01/Report/Images/""Signature".jpg used on input line 171.
 (pdftex.def)             Requested size: 103.19843pt x 36.21436pt.
  (mccurleyProject1.bbl
-LaTeX Font Info:    Try loading font information for U+msa on input line 33.
+LaTeX Font Info:    Try loading font information for U+msa on input line 76.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 33.
+LaTeX Font Info:    Try loading font information for U+msb on input line 76.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
@@ -773,22 +773,22 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 188.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 178.
 [3 <C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project01/
 Report/Images/Signature.jpg>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 188.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 178.
  (mccurleyProject1.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 188.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 188.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 178.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 178.
 Package rerunfilecheck Info: File `mccurleyProject1.out' has not changed.
 (rerunfilecheck)             Checksum: 140243674D0C0A46AC6D3A4E40979256;937.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 188.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 178.
  ) 
 Here is how much of TeX's memory you used:
- 11198 strings out of 493323
- 174222 string characters out of 3139067
- 280656 words of memory out of 3000000
- 14525 multiletter control sequences out of 15000+200000
+ 11215 strings out of 493323
+ 174579 string characters out of 3139067
+ 284021 words of memory out of 3000000
+ 14533 multiletter control sequences out of 15000+200000
  41087 words of font info for 82 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  61i,7n,96p,1558b,386s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -796,9 +796,9 @@ Here is how much of TeX's memory you used:
 KTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
 pe1/urw/times/utmbi8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/ut
 mr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on mccurleyProject1.pdf (3 pages, 460524 bytes).
+Output written on mccurleyProject1.pdf (3 pages, 467203 bytes).
 PDF statistics:
- 178 PDF objects out of 1000 (max. 8388607)
- 52 named destinations out of 1000 (max. 500000)
+ 204 PDF objects out of 1000 (max. 8388607)
+ 61 named destinations out of 1000 (max. 500000)
  126 words of extra memory for PDF output out of 10000 (max. 10000000)
 

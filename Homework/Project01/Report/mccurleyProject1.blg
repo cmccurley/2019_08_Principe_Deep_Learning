@@ -14,6 +14,10 @@ I'm skipping whatever remains of this entry
 -- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
 -- http://www.michaelshell.org/tex/ieeetran/bibtex/
 -- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+Warning--empty journal in Prasad2015Review
+Warning--empty title in Timofte2013NaiveBayes
+Warning--missing publisher in Timofte2013NaiveBayes
+Warning--empty booktitle in Swaroop2016TemplateMatching
 Warning--empty booktitle in VanDerMaaten2009DRReview
 Warning--empty booktitle in vanDerMaaten2008tSNE
 Warning--empty booktitle in Thorstensen2009ManifoldThesis

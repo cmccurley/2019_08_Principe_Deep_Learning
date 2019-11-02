@@ -53,17 +53,10 @@ Neural Network, Dimensionality Reduction, Manifold Learning, Multi-Layer Percept
 %===============================================================================================================================================================================================
 \section{Introduction} 
 
-\lettrine{A}{utonomous} image classification is a challenging problem which offers potential for significant advancement in the areas of biometrics, biology, medical diagnosis, security, and more \textbf{CITE}.  This paper focuses on the use of dimensionality reduction/ manifold learning in conjunction with multi-layer perceptron artificial neural networks to automatically classify clothing items from the well-known Fashion MNIST dataset \textbf{CITE}.  \\
-\indent A wide variety of approaches have been taken in attempt to solve detection and classification problems in imagery.
+\lettrine{A}{utonomous} image classification is a challenging problem which offers potential for significant advancement in the areas of biometrics, biology, medical diagnosis, security, and more \cite{Prasad2015Review,Lu2007Review}.  This paper focuses on the use of dimensionality reduction/ manifold learning in conjunction with multi-layer perceptron artificial neural networks to automatically classify clothing items from the well-known Fashion MNIST dataset \cite{Xiao2017FashionMNIST}.  \\
+\indent A wide variety of approaches have been taken in attempt to solve detection and classification problems in imagery.  \cite{Mensink2013KNN} used dissimilarity-based classifiers along with metric learning to dually drive samples toward their respective class representatives while also enforcing separation between classes.  \cite{Sanchez2011svm,Lin2011svm} utilized vector embeddings with linear support vector machines to discriminate between low-dimensional image representations.  The work in \cite{Shao2019DictionaryLearning} found sparse weighted combinations of dictionary atoms to accurately reconstruct images where specific bases equated to the various  classes.  The authors of \cite{Timofte2013NaiveBayes} utilized statistical properties to match samples to generating distributions.  The work in \cite{Swaroop2016TemplateMatching} employed traditional template matching to locate objects or compositions in imagery.  The review in \cite{Driss2017MLPandCNN} demonstrated that expansive uses of artificial neural networks in image classification.  This, of course, is just a small sample of image classification techniques.  The reviews in \cite{Prasad2015Review,Lu2007Review} elaborate extensively on the myriad of methods. \\
+\indent The remainder of this paper is organized as follows.  Section \ref{Methodology} describes the methodology used to perform dimensionality reduction and classification with multilayer perceptrons.  Classification results are presented in Section \ref*{Results}.  Practical insights to results are given in Section \ref{Discussion}.  Finally, Section \ref{Conclusions} reveals concluding remarks and discusses future lines of research.
 
-KNN/ dissimilarity-based
-Neural Net
-Convolutional Neural Net
-Support Vector Machine
-Decision trees
-dictionary learning
-matching
-statistical classifiers
 
 %===============================================================================================================================================================================================
 
@@ -177,9 +170,6 @@ A
 	\centering
 	\includegraphics[width=0.20\textwidth]{"Signature"}
 \end{figure}
-
-
-\newpage
 
 \bibliography{Project1}
 \bibliographystyle{IEEEtran}
