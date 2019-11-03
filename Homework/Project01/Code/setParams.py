@@ -45,7 +45,7 @@ def setParams():
     parameters["hiddenSize"] = 14
     parameters["outputSize"] = 10
     parameters["learningRate"] = 0.01
-    parameters["numEpochs"] = 10000
+    parameters["numEpochs"] = 100
     parameters["numTrials"] = 1
     parameters["updateIter"] = 200
 
