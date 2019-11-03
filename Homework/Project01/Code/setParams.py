@@ -21,22 +21,32 @@ def setParams():
     """
     ******************************************************************
         *  Func:      setParams()
-        *  Desc:      
+        *  Desc:
         *  Inputs:
-        *  Outputs: 
+        *  Outputs:
     ******************************************************************
     """
     parameters = dict()
-    
+
     ################### General Parameters ###########################
     parameters["dataPath"] = os.getcwd() + '/fashion_mnist_master/data/fashion'
-#    parameters["hiddenSize"] = 14
-#    parameters["outputSize"] = 6
-#    parameters["learningRate"] = 0.1
-#    parameters["numEpochs"] = 10000
-#    parameters["numTrials"] = 10
-#    parameters["validationSize"] = 0.1
-#    parameters["labels"] = ['Stage 1', 'Stage 2', 'Stage 3', 'Stage 4', 'Stage 5', 'Awake']
-#    parameters["updateIter"] = 200 
-    
+    parameters["classes"] = ["T-shirt/Top","Trouser", "Pullover", "Dress", "Coat", "Sandal", "Shirt", "Sneaker", "Bag", "Ankle Boot"]
+    parameters["class_num"] = [0,1,2,3,4,5,6,7,8,9]
+    parameters["width"] = 28
+    parameters["image_size"] = 784
+
+    ################### Data Parameters #############################
+    data_parameters = dict()
+    data_parameters["validationSize"] = 0.15
+
+    parameters["data_parameters"] = data_parameters
+
+    ################### Network Parameters ##########################
+    parameters["hiddenSize"] = 14
+    parameters["outputSize"] = 10
+    parameters["learningRate"] = 0.01
+    parameters["numEpochs"] = 10000
+    parameters["numTrials"] = 1
+    parameters["updateIter"] = 200
+
     return parameters
