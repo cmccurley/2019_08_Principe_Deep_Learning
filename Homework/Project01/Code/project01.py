@@ -345,7 +345,7 @@ if __name__== "__main__":
 
 
 
-    params = {'batch_size': 128,
+    params = {'batch_size': 1,
           'shuffle': True,
           'num_workers': 6}
     training_set = my_data(X_train,y_train)
@@ -389,6 +389,8 @@ if __name__== "__main__":
 
                 # compute loss
                 loss = criterion(y_pred, y_train)
+                
+                print('Epoch: {} idx: {} train loss: {}'.format(epoch, idx, loss.item()))
 
                 # backward pass
                 loss.backward() # computes the gradients
