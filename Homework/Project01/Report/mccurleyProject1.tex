@@ -161,68 +161,8 @@ Figures \ref{fig:base_model_confusion_mat},\ref{fig:pca_100_model_confusion_mat}
 	\end{center}
 \end{table} 
 
-\begin{center}
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=0.4\textwidth]{"models/base_model_confusion_mat"}
-		\caption{Confusion matrix for the base MLP on 10000 blind test images.}
-		\label{fig:base_model_confusion_mat}
-	\end{figure}
-\end{center}
-\begin{center}
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=0.4\textwidth]{"models/pca_100_model_confusion_mat"}
-		\caption{Confusion matrix for the PCA 100 model on 10000 blind test images.}
-		\label{fig:pca_100_model_confusion_mat}
-	\end{figure}
-\end{center}
-\begin{center}
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=0.4\textwidth]{"models/pca_400_model_confusion_mat"}
-		\caption{Confusion matrix for the PCA 400 model on 10000 blind test images.}
-		\label{fig:pca_400_model_confusion_mat}
-	\end{figure}
-\end{center}
-\begin{center}
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=0.4\textwidth]{"models/umap_100_model_confusion_mat"}
-		\caption{Confusion matrix for the UMAP 100 model on 10000 blind test images.}
-		\label{fig:umap_100_model_confusion_mat}
-	\end{figure}
-\end{center}\begin{center}
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=0.45\textwidth]{"models/umap_400_model_confusion_mat"}
-		\caption{Confusion matrix for the UMAP 400 model on 10000 blind test images.}
-		\label{fig:umap_400_model_confusion_mat}
-	\end{figure}
-\end{center}
-\begin{center}
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=0.4\textwidth]{"models/auto_100_model_confusion_mat"}
-		\caption{Confusion matrix for the autoencoder 100 model on 10000 blind test images.}
-		\label{fig:auto_100_model_confusion_mat}
-	\end{figure}
-\end{center}
-\begin{center}
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=0.4\textwidth]{"models/auto_400_model_confusion_mat"}
-		\caption{Confusion matrix for the autoencoder 400 model on 10000 blind test images.}
-		\label{fig:auto_400_model_confusion_mat}
-	\end{figure}
-\end{center} 
-
-
-
-
-
 %===============================================================================================================================================================================================
-
+\vspace{5cm}
 \section{Discussion} \label{Discussion}
 In this sections, observations are made on results and insight is given to potential influences.
 
@@ -267,6 +207,62 @@ In addition to the methods mentioned above, two mechanisms which could aid with 
 Three dimensionality reduction techniques were tested as preprocessing procedures for image classification with multi-layer perceptrons.  Reduced-dimensional feature representations for 10 classes of fashion items were developed through Principal Component Analysis, Uniform Manifold Approximation and Projection and Autoencoder Neural Networks.  MLPs were trained for each set of data and classification results were presented.  To the author's surprise, the network trained on the data projected to 100 dimensions through PCA provided the best classification performance with a test loss of 0.34.  The author believes that classification performance could be improved through the employment of several methods.  First, discrimination should be considered in the dimensionality reduction to enforce class separation.  Next, more extensive training procedures should be conducted for each experimental setup to find the optimal models in each scenario.  This would allow more insight to be gleaned from the results.  Finally, adding more data or augmenting the current collection would likely aid in model generalization. \\
 \indent
 Future research endeavors toward this topic include, among those listed previously, comparison of the dimensionality reduction with the MLP to common alternative classification methodologies such as: Vector Quantization, Support Vector Machines, and Convolutional Neural Networks. 
+
+\begin{center}
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.4\textwidth]{"models/base_model_confusion_mat"}
+		\caption{Confusion matrix for the base MLP on 10000 blind test images.}
+		\label{fig:base_model_confusion_mat}
+	\end{figure}
+\end{center}
+\begin{center}
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.4\textwidth]{"models/pca_100_model_confusion_mat"}
+		\caption{Confusion matrix for the PCA 100 model on 10000 blind test images.}
+		\label{fig:pca_100_model_confusion_mat}
+	\end{figure}
+\end{center}
+\begin{center}
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.4\textwidth]{"models/pca_400_model_confusion_mat"}
+		\caption{Confusion matrix for the PCA 400 model on 10000 blind test images.}
+		\label{fig:pca_400_model_confusion_mat}
+	\end{figure}
+\end{center}
+\begin{center}
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.4\textwidth]{"models/umap_100_model_confusion_mat"}
+		\caption{Confusion matrix for the UMAP 100 model on 10000 blind test images.}
+		\label{fig:umap_100_model_confusion_mat}
+	\end{figure}
+\end{center}\begin{center}
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.4\textwidth]{"models/umap_400_model_confusion_mat"}
+		\caption{Confusion matrix for the UMAP 400 model on 10000 blind test images.}
+		\label{fig:umap_400_model_confusion_mat}
+	\end{figure}
+\end{center}
+\begin{center}
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.4\textwidth]{"models/auto_100_model_confusion_mat"}
+		\caption{Confusion matrix for the autoencoder 100 model on 10000 blind test images.}
+		\label{fig:auto_100_model_confusion_mat}
+	\end{figure}
+\end{center}
+\begin{center}
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.4\textwidth]{"models/auto_400_model_confusion_mat"}
+		\caption{Confusion matrix for the autoencoder 400 model on 10000 blind test images.}
+		\label{fig:auto_400_model_confusion_mat}
+	\end{figure}
+\end{center} 
 
 
 %===============================================================================================================================================================================================
