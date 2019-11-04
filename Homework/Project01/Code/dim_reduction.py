@@ -76,6 +76,30 @@ def umap_dim_reduction(X_train, X_val, X_test, n_dims, y_train):
 
     return X_train_reduced, X_val_reduced, X_test_reduced
 
+def umap_dim_reduction(X_train, X_val, X_test, n_dims):
+
+    """
+    ******************************************************************
+        *  Func:      laplacian_dim_reduction()
+        *  Desc:      Performs dim reduction using Laplacian Eigenmaps
+        *  Inputs:    X_train, uint8 matrix of nSamples by nFeatures
+        *             y_train uint8 vector of class labels (0-9)
+        *  Outputs:
+    ******************************************************************
+    """
+
+    clf = umap.UMAP(n_components=n_dims)
+    print('Fitting Laplacian Eigenmpas...')
+    clf.fit(X_train,y_train)
+
+    X_train_reduced = clf.transform(X_train)
+    X_val_reduced = clf.transform(X_val)
+    X_test_reduced = clf.transform(X_test)
+
+
+
+    return X_train_reduced, X_val_reduced, X_test_reduced
+
 
 def plot_dist_distributions(X,y, parameters):
     """
@@ -110,7 +134,7 @@ def plot_dist_distributions(X,y, parameters):
 
 
         # save figure
-        plot_title = 'hist_umap_2_' + str(idx) + '.png'
+        plot_title = 'hist_auto_100_' + str(idx) + '.png'
         plt.savefig(plot_title)
 
 

@@ -187,9 +187,11 @@ def plot_confusion_matrix(y_true, y_pred, classes, totalLoss, normalize=False, t
         cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
         print("Normalized confusion matrix")
     else:
-        print(f'Confusion matrix \n Test Loss: {totalLoss}')
+        print(f'Confusion matrix \n Test Loss: {testLoss}')
 
     print(cm)
+
+    accuracy = 1 - testLoss
 
     fig, ax = plt.subplots()
     im = ax.imshow(cm, interpolation='nearest', cmap=cmap)
@@ -243,10 +245,10 @@ class Feedforward(torch.nn.Module):
             return output
 
 ###################### Define Autoencoder Class #######################
-class Autoencoder(torch.nn.Module):
+class Autoencoder100(torch.nn.Module):
 
     def __init__(self):
-        super(Autoencoder, self).__init__()
+        super(Autoencoder100, self).__init__()
         self.encoder = nn.Sequential(
             nn.Linear(28 * 28, 500),
             nn.ReLU(True),
@@ -257,6 +259,23 @@ class Autoencoder(torch.nn.Module):
             nn.ReLU(True),
             nn.Linear(150, 400),
             nn.ReLU(True),
+            nn.Linear(400, 500),
+            nn.ReLU(True), nn.Linear(500, 28 * 28), nn.Tanh())
+
+    def forward(self, x):
+        x = self.encoder(x)
+        x = self.decoder(x)
+        return x
+
+class Autoencoder400(torch.nn.Module):
+
+    def __init__(self):
+        super(Autoencoder400, self).__init__()
+        self.encoder = nn.Sequential(
+            nn.Linear(28 * 28, 500),
+            nn.ReLU(True),
+            nn.Linear(500, 400))
+        self.decoder = nn.Sequential(
             nn.Linear(400, 500),
             nn.ReLU(True), nn.Linear(500, 28 * 28), nn.Tanh())
 
@@ -314,155 +333,178 @@ if __name__== "__main__":
 #
 #    np.save('data_umap_400.npy', dataSet)
 #
-#    ######################## Load Data ###############################
-#    dataSet = np.load('data_umap_2.npy').item()
-#
-#    X_train = dataSet["X_train"]
-#    y_train = dataSet["y_train"]
-#    X_val = dataSet["X_val"]
-#    y_val = dataSet["y_val"]
-#    X_test = dataSet["X_test"]
-#    y_test = dataSet["y_test"]
+    ######################## Load Data ###############################
+    dataSet = np.load('data_umap_2.npy').item()
+
+    X_train = dataSet["X_train"]
+    y_train = dataSet["y_train"]
+    X_val = dataSet["X_val"]
+    y_val = dataSet["y_val"]
+    X_test = dataSet["X_test"]
+    y_test = dataSet["y_test"]
 #
 #    plot_dist_distributions(X_train,y_train, parameters)
 #
 #    ######################## Visualize Reduction ######################
-#    fig, ax = plt.subplots(1, figsize=(14, 10))
-#    plt.scatter(X_train[:,0],X_train[:,1], s=1, c=y_train, cmap='Spectral', alpha=1.0)
-#    plt.setp(ax, xticks=[], yticks=[])
-#    cbar = plt.colorbar(boundaries=np.arange(11)-0.5)
-#    cbar.set_ticks(np.arange(10))
-#    cbar.set_ticklabels(parameters["classes"])
-#    plt.title('Fashion MNIST Embedded via PCA')
+    fig, ax = plt.subplots(1, figsize=(14, 10))
+    plt.scatter(X_train[:,0],X_train[:,1], s=1, c=y_train, cmap='Spectral', alpha=1.0)
+    plt.setp(ax, xticks=[], yticks=[])
+    cbar = plt.colorbar(boundaries=np.arange(11)-0.5)
+    cbar.set_ticks(np.arange(10))
+    cbar.set_ticklabels(parameters["classes"])
+    plt.title('Fashion MNIST Embedded via UMAP')
 
 #    ###################### Convert data into torch format ############
-    X_train = torch.FloatTensor(X_train)
-    y_train = torch.LongTensor(y_train)
-    X_val = torch.FloatTensor(X_val)
-    y_val = torch.LongTensor(y_val)
-    X_test = torch.FloatTensor(X_test)
-    y_test = torch.LongTensor(y_test)
+#    X_train = torch.FloatTensor(X_train)
+#    y_train = torch.LongTensor(y_train)
+#    X_val = torch.FloatTensor(X_val)
+#    y_val = torch.LongTensor(y_val)
+#    X_test = torch.FloatTensor(X_test)
+#    y_test = torch.LongTensor(y_test)
+
+#    ########################### Apply Autoencoder ######################
+#
+#    model = Autoencoder100()
+#    model.load_state_dict(torch.load('autoencoder_100.pth'))
+#    model.eval()
+#
+#    X_train = model.encoder(X_train)
+#    X_val = model.encoder(X_val)
+#    X_test = model.encoder(X_test)
+#
+#    X_train = X_train.detach().numpy()
+#    X_val = X_val.detach().numpy()
+#    X_test = X_test.detach().numpy()
+#
+#    dataSet = dict()
+#    dataSet["X_train"] = X_train
+#    dataSet["y_train"] = y_train
+#    dataSet["X_val"] = X_val
+#    dataSet["y_val"] = y_val
+#    dataSet["X_test"] = X_test
+#    dataSet["y_test"] = y_test
+##
+#    np.save('data_auto_100.npy', dataSet)
+
+############################### Train Network ############################
+
+#    params = {'batch_size': 128,
+#          'shuffle': True,
+#          'num_workers': 6}
+#    training_set = my_data(X_train,y_train)
+#    training_generator = data.DataLoader(training_set, **params)
 
 
-
-    params = {'batch_size': 128,
-          'shuffle': True,
-          'num_workers': 6}
-    training_set = my_data(X_train,y_train)
-    training_generator = data.DataLoader(training_set, **params)
-
-
-    ############# run a number of trials, save best model ############
-    for trial in range(parameters["numTrials"]):
-
-        learningCurve = []
-        valLearningCurve = []
-
-        ####################### Define Network ###########################
-        inputSize = X_train.shape[1]
-
-        # instantiate model
-        model = Feedforward(inputSize,  parameters["outputSize"])
-
-        # define loss function
-        criterion = torch.nn.CrossEntropyLoss()
-
-        # define optimizer (stochastic gradient descent)
-        optimizer = torch.optim.Adamax(model.parameters(), parameters["learningRate"])
-
-        ##################### Train the Network ##########################
-
-        model.train()
-
-        ################# train a single network #####################
-        for epoch in range(parameters["numEpochs"]):
-
-            #set gradients to zero
-            optimizer.zero_grad()
-
-            for idx, batch in enumerate(training_generator):
-                X_train = batch["image"]
-                y_train = batch["label"]
-
-                # forward pass
-                y_pred = model(X_train) # predict output vector
-
-                # compute loss
-                loss = criterion(y_pred, y_train)
-
-                # backward pass
-                loss.backward() # computes the gradients
-                optimizer.step() # updates the weights
-
-            if not(epoch %  parameters["updateIter"]):
-                learningCurve.append(loss)
-                model.eval()
-                valLearningCurve.append(criterion(model(X_val),y_val))
-                model.train()
-
-                # if gradient of validation goes positive, stop training
-                if ((epoch > 20) and np.sign(valLearningCurve[-1].detach().numpy() - valLearningCurve[-2].detach().numpy())):
-                    break
-
-            if not(epoch % 2):
-                print('Epoch {}: train loss: {}'.format(epoch, loss.item()))
-
-
-
-            if (trial==0):
-                best_model = dict()
-                best_model["modelParameters"] = copy.deepcopy(model.state_dict())
-                best_model["learningCurve"] = learningCurve
-                best_model["valLearningCurve"] = valLearningCurve
-                best_model["numEpochs"] = epoch
-                best_model["validationLoss"] = valLearningCurve[-1]
-            else:
-                if (valLearningCurve[-1] > best_model["validationLoss"]):
-                    best_model["modelParameters"] = copy.deepcopy(model.state_dict())
-                    best_model["learningCurve"] = learningCurve
-                    best_model["valLearningCurve"] = valLearningCurve
-                    best_model["numEpochs"] = epoch
-                    best_model["validationLoss"] = valLearningCurve[-1]
-
-
-    ######################### Learning Curve ##########################
-
-    # retrieve optimal parameters
-    learningCurve = best_model["learningCurve"]
-    valLearningCurve = best_model["valLearningCurve"]
-
-    # plot the learning curve
-    plt.figure()
-    plt.plot(parameters["updateIter"]*np.arange(0,len(learningCurve),1),learningCurve, c='blue')
-    plt.plot(parameters["updateIter"]*np.arange(0,len(valLearningCurve),1),valLearningCurve, c='orange')
-    plt.title("Learing Curve", fontsize=18)
-    plt.xlabel('Iteration', fontsize=12)
-    plt.ylabel('Cross-Entropy Loss', fontsize=12)
-    plt.legend(['Training', 'Validation'])
-    plt.savefig('C:\\Users\\Conma\\Desktop\\HW01\\Report\\Images\\Q2_learning_curve_exact.jpg')
-    plt.close()
+#    ############# run a number of trials, save best model ############
+#    for trial in range(parameters["numTrials"]):
+#
+#        learningCurve = []
+#        valLearningCurve = []
+#
+#        ####################### Define Network ###########################
+#        inputSize = X_train.shape[1]
+#
+#        # instantiate model
+#        model = Feedforward(inputSize,  parameters["outputSize"])
+#
+#        # define loss function
+#        criterion = torch.nn.CrossEntropyLoss()
+#
+#        # define optimizer (stochastic gradient descent)
+#        optimizer = torch.optim.Adamax(model.parameters(), parameters["learningRate"])
+#
+#        ##################### Train the Network ##########################
+#
+#        model.train()
+#
+#        ################# train a single network #####################
+#        for epoch in range(parameters["numEpochs"]):
+#
+#            #set gradients to zero
+#            optimizer.zero_grad()
+#
+##            for idx, batch in enumerate(training_generator):
+##                X_train = batch["image"]
+##                y_train = batch["label"]
+#
+#            # forward pass
+#            y_pred = model(X_train) # predict output vector
+#
+#            # compute loss
+#            loss = criterion(y_pred, y_train)
+#
+#            # backward pass
+#            loss.backward() # computes the gradients
+#            optimizer.step() # updates the weights
+#
+#            if not(epoch %  parameters["updateIter"]):
+#                learningCurve.append(loss)
+#                model.eval()
+#                valLearningCurve.append(criterion(model(X_val),y_val))
+#                model.train()
+#
+#                # if gradient of validation goes positive, stop training
+#                if ((epoch > 600) and np.sign(valLearningCurve[-1].detach().numpy() - valLearningCurve[-2].detach().numpy())):
+#                    break
+#
+#            if not(epoch % 10):
+#                print('Trial: {} Epoch {}: train loss: {}'.format(trial, epoch, loss.item()))
 #
 #
 #
+#            if (trial==0):
+#                best_model = dict()
+#                best_model["modelParameters"] = copy.deepcopy(model.state_dict())
+#                best_model["learningCurve"] = learningCurve
+#                best_model["valLearningCurve"] = valLearningCurve
+#                best_model["numEpochs"] = epoch
+#                best_model["validationLoss"] = valLearningCurve[-1]
+#            else:
+#                if (valLearningCurve[-1] > best_model["validationLoss"]):
+#                    best_model["modelParameters"] = copy.deepcopy(model.state_dict())
+#                    best_model["learningCurve"] = learningCurve
+#                    best_model["valLearningCurve"] = valLearningCurve
+#                    best_model["numEpochs"] = epoch
+#                    best_model["validationLoss"] = valLearningCurve[-1]
 #
-#    ####################### Confusion Matrix #########################
 #
-    # revert model back to best performing
-    model.load_state_dict(best_model["modelParameters"])
-    model.eval()
-
-    # predict state labels
-    y_test_pred = model(X_test)
-    values, y_test_pred_index = y_test_pred.max(1)
-
-    # compute the loss
-    testLoss = criterion(y_test_pred, y_test)
-
-    testLoss = testLoss.detach().numpy()
-    testLoss = np.round(testLoss,2)
-
-    # plot the confusion matrix
-    plot_confusion_matrix(y_test.detach().numpy(), y_test_pred_index.detach().numpy(), parameters["classes"], testLoss, normalize=False, title='Normalized Confusion Matrix for Fashion-MNIST')
+#    ######################### Learning Curve ##########################
+#
+#    # retrieve optimal parameters
+#    learningCurve = best_model["learningCurve"]
+#    valLearningCurve = best_model["valLearningCurve"]
+#
+#    # plot the learning curve
+#    plt.figure()
+#    plt.plot(parameters["updateIter"]*np.arange(0,len(learningCurve),1),learningCurve, c='blue')
+#    plt.plot(parameters["updateIter"]*np.arange(0,len(valLearningCurve),1),valLearningCurve, c='orange')
+#    plt.title("Learing Curve", fontsize=18)
+#    plt.xlabel('Iteration', fontsize=12)
+#    plt.ylabel('Cross-Entropy Loss', fontsize=12)
+#    plt.legend(['Training', 'Validation'])
+##    plt.savefig('C:\\Users\\Conma\\Desktop\\HW01\\Report\\Images\\Q2_learning_curve_exact.jpg')
+##    plt.close()
+#
+##    ####################### Confusion Matrix #########################
+#
+##    np.save('model_auto_400.npy', best_model)
+#
+#    # revert model back to best performing
+#    model.load_state_dict(best_model["modelParameters"])
+#    model.eval()
+#
+#    # predict state labels
+#    y_test_pred = model(X_test)
+#    values, y_test_pred_index = y_test_pred.max(1)
+#
+#    # compute the loss
+#    testLoss = criterion(y_test_pred, y_test)
+#
+#    testLoss = testLoss.detach().numpy()
+#    testLoss = np.round(testLoss,2)
+#
+#    # plot the confusion matrix
+#    plot_confusion_matrix(y_test.detach().numpy(), y_test_pred_index.detach().numpy(), parameters["classes"], testLoss, normalize=False, title='Normalized Confusion Matrix for Fashion-MNIST')
 
 
 ##################################################################
@@ -470,14 +512,14 @@ if __name__== "__main__":
 ##################################################################
 
 
-#    params = {'batch_size': 10,
-#              'shuffle': True,
-#              'num_workers': 6}
-#    training_set = my_data(X_train,y_train)
-#    training_generator = data.DataLoader(training_set, **params)
-
-
-############# run a number of trials, save best model ############
+##    params = {'batch_size': 10,
+##              'shuffle': True,
+##              'num_workers': 6}
+##    training_set = my_data(X_train,y_train)
+##    training_generator = data.DataLoader(training_set, **params)
+#
+#
+############## run a number of trials, save best model ############
 #    print('Training autoencoder...')
 #    for trial in range(parameters["numTrials"]):
 #
@@ -488,7 +530,7 @@ if __name__== "__main__":
 #        inputSize = X_train.shape[1]
 #
 #        # instantiate model
-#        model = Autoencoder()
+#        model = Autoencoder400()
 #
 #        # define loss function
 #        criterion = torch.nn.MSELoss()
@@ -506,19 +548,19 @@ if __name__== "__main__":
 #            #set gradients to zero
 #            optimizer.zero_grad()
 #
-#            for idx, batch in enumerate(training_generator):
-#                X_train = batch["image"]
-#                y_train = batch["label"]
+##            for idx, batch in enumerate(training_generator):
+##                X_train = batch["image"]
+##                y_train = batch["label"]
 #
-#                # forward pass
-#                y_pred = model(X_train) # predict output vector
+#            # forward pass
+#            y_pred = model(X_train) # predict output vector
 #
-#                # compute loss
-#                loss = criterion(y_pred, X_train)
+#            # compute loss
+#            loss = criterion(y_pred, X_train)
 #
-#                # backward pass
-#                loss.backward() # computes the gradients
-#                optimizer.step() # updates the weights
+#            # backward pass
+#            loss.backward() # computes the gradients
+#            optimizer.step() # updates the weights
 #
 #            if not(epoch %  parameters["updateIter"]):
 #                learningCurve.append(loss)
@@ -527,7 +569,7 @@ if __name__== "__main__":
 #                model.train()
 #
 #                # if gradient of validation goes positive, stop training
-#                if ((epoch > 5) and np.sign(valLearningCurve[-1].detach().numpy() - valLearningCurve[-2].detach().numpy())):
+#                if ((epoch > 20) and np.sign(valLearningCurve[-1].detach().numpy() - valLearningCurve[-2].detach().numpy())):
 #                    break
 #
 #            if not(epoch % 1):
@@ -549,6 +591,23 @@ if __name__== "__main__":
 #                best_model["valLearningCurve"] = valLearningCurve
 #                best_model["numEpochs"] = epoch
 #                best_model["validationLoss"] = valLearningCurve[-1]
+#
+########################## Learning Curve ##########################
+##
+#    # retrieve optimal parameters
+#    learningCurve = best_model["learningCurve"]
+#    valLearningCurve = best_model["valLearningCurve"]
+#
+#    # plot the learning curve
+#    plt.figure()
+#    plt.plot(parameters["updateIter"]*np.arange(0,len(learningCurve),1),learningCurve, c='blue')
+#    plt.plot(parameters["updateIter"]*np.arange(0,len(valLearningCurve),1),valLearningCurve, c='orange')
+#    plt.title("Learing Curve", fontsize=18)
+#    plt.xlabel('Iteration', fontsize=12)
+#    plt.ylabel('MSE', fontsize=12)
+#    plt.legend(['Training', 'Validation'])
+##    plt.savefig('C:\\Users\\Conma\\Desktop\\HW01\\Report\\Images\\Q2_learning_curve_exact.jpg')
+##    plt.close()
 
 
     print('================ DONE ================')
