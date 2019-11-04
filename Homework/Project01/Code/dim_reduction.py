@@ -134,7 +134,7 @@ def plot_dist_distributions(X,y, parameters):
 
 
         # save figure
-        plot_title = 'hist_auto_100_' + str(idx) + '.png'
+        plot_title = 'hist_before_' + str(idx) + '.png'
         plt.savefig(plot_title)
 
 

@@ -306,7 +306,7 @@ if __name__== "__main__":
     X_train_all, X_test = scale_pixels(X_train_all, X_test)
 
 
-    # Plot a sample from every class
+#    # Plot a sample from every class
 #    plot_classes(X_train_all, y_train_all)
 
 
@@ -334,7 +334,7 @@ if __name__== "__main__":
 #    np.save('data_umap_400.npy', dataSet)
 #
     ######################## Load Data ###############################
-    dataSet = np.load('reduced_dim_data/data_umap_100.npy').item()
+    dataSet = np.load('reduced_dim_data/data_pca_100.npy').item()
 
     X_train = dataSet["X_train"]
     y_train = dataSet["y_train"]
@@ -342,17 +342,17 @@ if __name__== "__main__":
     y_val = dataSet["y_val"]
     X_test = dataSet["X_test"]
     y_test = dataSet["y_test"]
-#
+
     plot_dist_distributions(X_train,y_train, parameters)
-#
-#    ######################## Visualize Reduction ######################
-    fig, ax = plt.subplots(1, figsize=(14, 10))
-    plt.scatter(X_train[:,0],X_train[:,1], s=1, c=y_train, cmap='Spectral', alpha=1.0)
-    plt.setp(ax, xticks=[], yticks=[])
-    cbar = plt.colorbar(boundaries=np.arange(11)-0.5)
-    cbar.set_ticks(np.arange(10))
-    cbar.set_ticklabels(parameters["classes"])
-    plt.title('Fashion MNIST Embedded via UMAP')
+##
+##    ######################## Visualize Reduction ######################
+#    fig, ax = plt.subplots(1, figsize=(14, 10))
+#    plt.scatter(X_train[:,0],X_train[:,1], s=1, c=y_train, cmap='Spectral', alpha=1.0)
+#    plt.setp(ax, xticks=[], yticks=[])
+#    cbar = plt.colorbar(boundaries=np.arange(11)-0.5)
+#    cbar.set_ticks(np.arange(10))
+#    cbar.set_ticklabels(parameters["classes"])
+#    plt.title('Fashion MNIST Embedded via UMAP')
 
 #    ###################### Convert data into torch format ############
 #    X_train = torch.FloatTensor(X_train)
