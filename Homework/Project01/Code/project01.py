@@ -334,7 +334,7 @@ if __name__== "__main__":
 #    np.save('data_umap_400.npy', dataSet)
 #
     ######################## Load Data ###############################
-    dataSet = np.load('data_umap_2.npy').item()
+    dataSet = np.load('reduced_dim_data/data_umap_100.npy').item()
 
     X_train = dataSet["X_train"]
     y_train = dataSet["y_train"]
@@ -343,7 +343,7 @@ if __name__== "__main__":
     X_test = dataSet["X_test"]
     y_test = dataSet["y_test"]
 #
-#    plot_dist_distributions(X_train,y_train, parameters)
+    plot_dist_distributions(X_train,y_train, parameters)
 #
 #    ######################## Visualize Reduction ######################
     fig, ax = plt.subplots(1, figsize=(14, 10))
