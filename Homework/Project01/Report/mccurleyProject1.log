@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000) (preloaded format=pdflatex 2019.9.15)  3 NOV 2019 22:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000) (preloaded format=pdflatex 2019.9.15)  3 NOV 2019 23:54
 entering extended mode
 **./mccurleyProject1.tex
 (mccurleyProject1.tex
@@ -826,7 +826,7 @@ Underfull \hbox (badness 2547) in paragraph at lines 64--65
  []
 
 <"/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images
-/""samples/samples".png, id=78, 664.4825pt x 272.01625pt>
+/""samples/samples".png, id=74, 664.4825pt x 272.01625pt>
 File: "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/I
 mages/""samples/samples".png Graphic file (type png)
 <use "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Im
@@ -913,7 +913,7 @@ c taxonomy
  []
 
 <"/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images
-/""dist_before".png, id=160, 570.13pt x 421.575pt>
+/""dist_before".png, id=156, 570.13pt x 421.575pt>
 File: "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/I
 mages/""dist_before".png Graphic file (type png)
 <use "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Im
@@ -922,7 +922,7 @@ Package pdftex.def Info: "/media/edrive/2019_08_Principe_Deep_Learning/Homework
 /Project01/Report/Images/""dist_before".png  used on input line 90.
 (pdftex.def)             Requested size: 206.39685pt x 152.616pt.
 <"/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images
-/""autoencoder".png, id=161, 1310.8975pt x 681.54625pt>
+/""autoencoder".png, id=157, 1310.8975pt x 681.54625pt>
 File: "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/I
 mages/""autoencoder".png Graphic file (type png)
 <use "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Im
@@ -978,7 +978,7 @@ Overfull \hbox (6.0pt too wide) in paragraph at lines 160--161
  []
 
 <"/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images
-/""models/base_model_confusion_mat".png, id=187, 462.528pt x 346.896pt>
+/""models/base_model_confusion_mat".png, id=183, 462.528pt x 346.896pt>
 File: "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/I
 mages/""models/base_model_confusion_mat".png Graphic file (type png)
 <use "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Im
@@ -991,7 +991,7 @@ line 167.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 <"/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images
-/""models/pca_100_model_confusion_mat".png, id=189, 462.528pt x 346.896pt>
+/""models/pca_100_model_confusion_mat".png, id=185, 462.528pt x 346.896pt>
 File: "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/I
 mages/""models/pca_100_model_confusion_mat".png Graphic file (type png)
 <use "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Im
@@ -1004,7 +1004,7 @@ ut line 175.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 <"/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images
-/""models/pca_400_model_confusion_mat".png, id=190, 462.528pt x 346.896pt>
+/""models/pca_400_model_confusion_mat".png, id=186, 462.528pt x 346.896pt>
 File: "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/I
 mages/""models/pca_400_model_confusion_mat".png Graphic file (type png)
 <use "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Im
@@ -1017,7 +1017,7 @@ ut line 183.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 <"/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images
-/""models/umap_100_model_confusion_mat".png, id=191, 462.528pt x 346.896pt>
+/""models/umap_100_model_confusion_mat".png, id=187, 462.528pt x 346.896pt>
 File: "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/I
 mages/""models/umap_100_model_confusion_mat".png Graphic file (type png)
 <use "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Im
@@ -1030,7 +1030,7 @@ put line 191.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 <"/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images
-/""models/umap_400_model_confusion_mat".png, id=192, 462.528pt x 346.896pt>
+/""models/umap_400_model_confusion_mat".png, id=188, 462.528pt x 346.896pt>
 File: "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/I
 mages/""models/umap_400_model_confusion_mat".png Graphic file (type png)
 <use "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Im
@@ -1043,7 +1043,7 @@ put line 198.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 <"/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images
-/""models/auto_100_model_confusion_mat".png, id=193, 462.528pt x 346.896pt>
+/""models/auto_100_model_confusion_mat".png, id=189, 462.528pt x 346.896pt>
 File: "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/I
 mages/""models/auto_100_model_confusion_mat".png Graphic file (type png)
 <use "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Im
@@ -1056,7 +1056,7 @@ put line 206.
 LaTeX Warning: `h' float specifier changed to `ht'.
 
 <"/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images
-/""models/auto_400_model_confusion_mat".png, id=194, 462.528pt x 346.896pt>
+/""models/auto_400_model_confusion_mat".png, id=190, 462.528pt x 346.896pt>
 File: "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/I
 mages/""models/auto_400_model_confusion_mat".png Graphic file (type png)
 <use "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Im
@@ -1068,32 +1068,9 @@ put line 214.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<"/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images
-/""models/embedding_pca".png, id=195, 1011.78pt x 709.6914pt>
-File: "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/I
-mages/""models/embedding_pca".png Graphic file (type png)
-<use "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Im
-ages/""models/embedding_pca".png>
-Package pdftex.def Info: "/media/edrive/2019_08_Principe_Deep_Learning/Homework
-/Project01/Report/Images/""models/embedding_pca".png  used on input line 236.
-(pdftex.def)             Requested size: 258.0pt x 180.9635pt.
 
-Overfull \hbox (6.0pt too wide) in paragraph at lines 236--237
- [][] 
- []
-
-<"/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images
-/""models/embedding_umap".png, id=196, 1011.78pt x 709.6914pt>
-File: "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/I
-mages/""models/embedding_umap".png Graphic file (type png)
-<use "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Im
-ages/""models/embedding_umap".png>
-Package pdftex.def Info: "/media/edrive/2019_08_Principe_Deep_Learning/Homework
-/Project01/Report/Images/""models/embedding_umap".png  used on input line 245.
-(pdftex.def)             Requested size: 258.0pt x 180.9635pt.
-
-Overfull \hbox (6.0pt too wide) in paragraph at lines 245--246
- [][] 
+Underfull \hbox (badness 2781) in paragraph at lines 230--231
+\OT1/ptm/m/n/10 representations they demonstrate) could be sub-optimal.
  []
 
 [4 </media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Imag
@@ -1101,25 +1078,85 @@ es/models/base_model_confusion_mat.png> </media/edrive/2019_08_Principe_Deep_Le
 arning/Homework/Project01/Report/Images/models/pca_100_model_confusion_mat.png>
 ]
 <"/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images
-/""Signature".JPG, id=212, 2664.95625pt x 935.495pt>
+/""models/embedding_pca".png, id=209, 1011.78pt x 709.6914pt>
+File: "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/I
+mages/""models/embedding_pca".png Graphic file (type png)
+<use "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Im
+ages/""models/embedding_pca".png>
+Package pdftex.def Info: "/media/edrive/2019_08_Principe_Deep_Learning/Homework
+/Project01/Report/Images/""models/embedding_pca".png  used on input line 235.
+(pdftex.def)             Requested size: 258.0pt x 180.9635pt.
+
+Overfull \hbox (6.0pt too wide) in paragraph at lines 235--236
+ [][] 
+ []
+
+<"/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images
+/""models/embedding_umap".png, id=210, 1011.78pt x 709.6914pt>
+File: "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/I
+mages/""models/embedding_umap".png Graphic file (type png)
+<use "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Im
+ages/""models/embedding_umap".png>
+Package pdftex.def Info: "/media/edrive/2019_08_Principe_Deep_Learning/Homework
+/Project01/Report/Images/""models/embedding_umap".png  used on input line 244.
+(pdftex.def)             Requested size: 258.0pt x 180.9635pt.
+
+Overfull \hbox (6.0pt too wide) in paragraph at lines 244--245
+ [][] 
+ []
+
+<"/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images
+/""hist_after_umap_100".png, id=211, 621.32124pt x 447.6725pt>
+File: "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/I
+mages/""hist_after_umap_100".png Graphic file (type png)
+<use "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Im
+ages/""hist_after_umap_100".png>
+Package pdftex.def Info: "/media/edrive/2019_08_Principe_Deep_Learning/Homework
+/Project01/Report/Images/""hist_after_umap_100".png  used on input line 253.
+(pdftex.def)             Requested size: 258.0pt x 185.88991pt.
+
+Overfull \hbox (6.0pt too wide) in paragraph at lines 253--254
+ [][] 
+ []
+
+
+Underfull \hbox (badness 5231) in paragraph at lines 260--261
+[]\OT1/ptm/m/n/10 In addition to the methods mentioned above, two
+ []
+
+
+Underfull \hbox (badness 2922) in paragraph at lines 260--261
+\OT1/ptm/m/n/10 tasks. Moreover, even though the MLPs are universal
+ []
+
+[5 </media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Imag
+es/models/pca_400_model_confusion_mat.png> </media/edrive/2019_08_Principe_Deep
+_Learning/Homework/Project01/Report/Images/models/umap_100_model_confusion_mat.
+png> </media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Im
+ages/models/umap_400_model_confusion_mat.png> </media/edrive/2019_08_Principe_D
+eep_Learning/Homework/Project01/Report/Images/models/auto_100_model_confusion_m
+at.png>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+<"/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images
+/""Signature".JPG, id=223, 2664.95625pt x 935.495pt>
 File: "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/I
 mages/""Signature".JPG Graphic file (type jpg)
 <use "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Im
 ages/""Signature".JPG>
 Package pdftex.def Info: "/media/edrive/2019_08_Principe_Deep_Learning/Homework
-/Project01/Report/Images/""Signature".JPG  used on input line 271.
+/Project01/Report/Images/""Signature".JPG  used on input line 278.
 (pdftex.def)             Requested size: 103.19843pt x 36.21436pt.
 
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-(mccurleyProject1.bbl [5 </media/edrive/2019_08_Principe_Deep_Learning/Homework
-/Project01/Report/Images/models/pca_400_model_confusion_mat.png> </media/edrive
-/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images/models/umap_10
-0_model_confusion_mat.png> </media/edrive/2019_08_Principe_Deep_Learning/Homewo
-rk/Project01/Report/Images/models/umap_400_model_confusion_mat.png> </media/edr
-ive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images/models/auto
-_100_model_confusion_mat.png>]
+(mccurleyProject1.bbl [6 </media/edrive/2019_08_Principe_Deep_Learning/Homework
+/Project01/Report/Images/models/auto_400_model_confusion_mat.png> </media/edriv
+e/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images/models/embedd
+ing_pca.png> </media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/R
+eport/Images/models/embedding_umap.png> </media/edrive/2019_08_Principe_Deep_Le
+arning/Homework/Project01/Report/Images/hist_after_umap_100.png>]
 Underfull \hbox (badness 1817) in paragraph at lines 121--125
 []\OT1/ptm/m/n/8 M. Sugiyama, ``Local fisher discriminant analysis for supervis
 ed
@@ -1137,29 +1174,25 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 278.
-[6 </media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Imag
-es/models/auto_400_model_confusion_mat.png> </media/edrive/2019_08_Principe_Dee
-p_Learning/Homework/Project01/Report/Images/models/embedding_pca.png> </media/e
-drive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images/models/em
-bedding_umap.png> </media/edrive/2019_08_Principe_Deep_Learning/Homework/Projec
-t01/Report/Images/Signature.JPG>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 278.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 285.
+[7 </media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Imag
+es/Signature.JPG>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 285.
  (mccurleyProject1.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 278.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 278.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 285.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 285.
 Package rerunfilecheck Info: File `mccurleyProject1.out' has not changed.
-(rerunfilecheck)             Checksum: 45EFC6CC12C0387F345AB93BE32D9DB6;839.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 278.
+(rerunfilecheck)             Checksum: 30734231FBE5594863C03A7BF45EA71B;735.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 285.
  ) 
 Here is how much of TeX's memory you used:
- 11341 strings out of 494857
- 182638 string characters out of 3177992
- 284191 words of memory out of 3000000
- 14742 multiletter control sequences out of 15000+200000
+ 11347 strings out of 494857
+ 183118 string characters out of 3177992
+ 287586 words of memory out of 3000000
+ 14746 multiletter control sequences out of 15000+200000
  42141 words of font info for 87 fonts, out of 3000000 for 9000
  0 hyphenation exceptions out of 8191
- 61i,9n,96p,2859b,465s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 61i,9n,96p,2862b,458s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/home/cmccurley/.miktex/texmfs/install/fonts/enc/dvips/base/8r.enc}</home/cm
 ccurley/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi10.pfb></home
 /cmccurley/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr10.pfb></ho
@@ -1167,9 +1200,9 @@ me/cmccurley/.miktex/texmfs/install/fonts/type1/urw/times/utmb8a.pfb></home/cmc
 curley/.miktex/texmfs/install/fonts/type1/urw/times/utmbi8a.pfb></home/cmccurle
 y/.miktex/texmfs/install/fonts/type1/urw/times/utmr8a.pfb></home/cmccurley/.mik
 tex/texmfs/install/fonts/type1/urw/times/utmri8a.pfb>
-Output written on mccurleyProject1.pdf (6 pages, 1664556 bytes).
+Output written on mccurleyProject1.pdf (7 pages, 1687500 bytes).
 PDF statistics:
- 280 PDF objects out of 1000 (max. 8388607)
- 77 named destinations out of 1000 (max. 500000)
- 178 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 287 PDF objects out of 1000 (max. 8388607)
+ 78 named destinations out of 1000 (max. 500000)
+ 175 words of extra memory for PDF output out of 10000 (max. 10000000)
 
