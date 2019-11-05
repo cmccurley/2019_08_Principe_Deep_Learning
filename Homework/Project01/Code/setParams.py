@@ -38,15 +38,13 @@ def setParams():
     ################### Data Parameters #############################
     data_parameters = dict()
     data_parameters["validationSize"] = 0.15
-
     parameters["data_parameters"] = data_parameters
 
     ################### Network Parameters ##########################
-    parameters["hiddenSize"] = 14
     parameters["outputSize"] = 10
     parameters["learningRate"] = 0.01
-    parameters["numEpochs"] = 100
-    parameters["numTrials"] = 1
-    parameters["updateIter"] = 200
+    parameters["numEpochs"] = 800
+    parameters["numTrials"] = 5
+    parameters["updateIter"] = 10
 
     return parameters

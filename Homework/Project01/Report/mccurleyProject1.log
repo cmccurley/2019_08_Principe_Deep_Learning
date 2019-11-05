@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000) (preloaded format=pdflatex 2019.9.15)  2 NOV 2019 20:16
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7000) (preloaded format=pdflatex 2019.9.15)  4 NOV 2019 00:26
 entering extended mode
 **./mccurleyProject1.tex
 (mccurleyProject1.tex
@@ -825,97 +825,358 @@ Underfull \hbox (badness 2547) in paragraph at lines 64--65
 \OT1/ptm/m/n/10 architectures under analysis are elaborated on and the
  []
 
+<"/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images
+/""samples/samples".png, id=74, 664.4825pt x 272.01625pt>
+File: "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/I
+mages/""samples/samples".png Graphic file (type png)
+<use "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Im
+ages/""samples/samples".png>
+Package pdftex.def Info: "/media/edrive/2019_08_Principe_Deep_Learning/Homework
+/Project01/Report/Images/""samples/samples".png  used on input line 72.
+(pdftex.def)             Requested size: 412.80157pt x 168.98868pt.
 
-Underfull \hbox (badness 8094) in paragraph at lines 70--71
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Underfull \hbox (badness 8094) in paragraph at lines 80--81
 []\OT1/ptm/m/n/10 Manifold learning, feature extraction, dimensionality
  []
 
 
-Underfull \hbox (badness 1365) in paragraph at lines 70--71
+Underfull \hbox (badness 1365) in paragraph at lines 80--81
 \OT1/ptm/m/n/10 dimensionality. There is an expansive taxonomy of DR
  []
 
 
-Underfull \hbox (badness 3417) in paragraph at lines 70--71
+Underfull \hbox (badness 3417) in paragraph at lines 80--81
 \OT1/ptm/m/n/10 techniques, ranging from linear to non-linear, globally
  []
 
 
-Underfull \hbox (badness 4543) in paragraph at lines 70--71
+Underfull \hbox (badness 4543) in paragraph at lines 80--81
 \OT1/ptm/m/n/10 preserving to locally preserving, variance retaining to
  []
 
 
-Underfull \hbox (badness 2735) in paragraph at lines 70--71
-\OT1/ptm/m/n/10 discriminability enforcing, among others [[]12[]]. A small
+Underfull \hbox (badness 2134) in paragraph at lines 80--81
+\OT1/ptm/m/n/10 considered for this work, constituting a mix of linear
  []
 
 
-Underfull \hbox (badness 1571) in paragraph at lines 70--71
-\OT1/ptm/m/n/10 taxonomy of DR techniques is shown in Figure \OT1/ptm/b/n/10 RE
-F\OT1/ptm/m/n/10 .
+Underfull \hbox (badness 2735) in paragraph at lines 80--81
+\OT1/ptm/m/n/10 Component Analysis (PCA) [[]18[]], [[]19[]], Fisher's Linear
  []
 
 
-Underfull \hbox (badness 4954) in paragraph at lines 70--71
-\OT1/ptm/m/n/10 processing, object recognition, computer vision, multi-
+Underfull \hbox (badness 1776) in paragraph at lines 80--81
+\OT1/ptm/m/n/10 Discriminant (FLDA) [[]19[]], [[]20[]], t-Distributed Stochasti
+c
  []
 
 
-Underfull \hbox (badness 2818) in paragraph at lines 70--71
-\OT1/ptm/m/n/10 task learning and domain adaptation [[]11[]], multi-modal
- []
-
-
-Underfull \hbox (badness 3895) in paragraph at lines 70--71
-\OT1/ptm/m/n/10 use classification [[]16[]], medical diagnosis, meteorology,
+Underfull \hbox (badness 5274) in paragraph at lines 80--81
+\OT1/ptm/m/n/10 Neighbor Embedding (t-SNE) [[]21[]], Uniform Manifold
  []
 
 [1{/home/cmccurley/.miktex/texmfs/data/pdftex/config/pdftex.map}
 
 
 ]
-Underfull \hbox (badness 2111) in paragraph at lines 72--73
-\OT1/ptm/m/n/10 in each orthogonal dimension of the latent space, the
+Underfull \hbox (badness 10000) in paragraph at lines 84--85
+ []\OT1/ptm/m/it/10 Uniform Manifold Approximation and Projection
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 74--75
-\OT1/ptm/m/n/10 reduction and data visualization. Stochastic Neighbor
+Underfull \hbox (badness 2418) in paragraph at lines 84--85
+\OT1/ptm/m/it/10 (UMAP): [] \OT1/ptm/m/n/10 UMAP is currently a state-of-the-ar
+t method
  []
 
 
-Underfull \hbox (badness 2237) in paragraph at lines 74--75
+Underfull \hbox (badness 2173) in paragraph at lines 84--85
+\OT1/ptm/m/n/10 is a generalization of t-Distributed Stochastic Neighbor
+ []
+
+
+Underfull \hbox (badness 2237) in paragraph at lines 84--85
 \OT1/ptm/m/n/10 high-dimensional Euclidean distances between datapoints
  []
 
 
-Underfull \hbox (badness 1527) in paragraph at lines 76--77
+Underfull \vbox (badness 1603) has occurred while \output is active []
+
+ [2 </media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Ima
+ges/samples/samples.png>]
+Underfull \hbox (badness 1527) in paragraph at lines 85--86
  []\OT1/ptm/m/it/10 Autoencoder: [] \OT1/ptm/m/n/10 An autoencoder is a specifi
 c taxonomy
  []
 
-[2]
 <"/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images
-/""Signature".JPG, id=151, 2664.95625pt x 935.495pt>
+/""dist_before".png, id=156, 570.13pt x 421.575pt>
+File: "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/I
+mages/""dist_before".png Graphic file (type png)
+<use "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Im
+ages/""dist_before".png>
+Package pdftex.def Info: "/media/edrive/2019_08_Principe_Deep_Learning/Homework
+/Project01/Report/Images/""dist_before".png  used on input line 90.
+(pdftex.def)             Requested size: 206.39685pt x 152.616pt.
+<"/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images
+/""autoencoder".png, id=157, 1310.8975pt x 681.54625pt>
+File: "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/I
+mages/""autoencoder".png Graphic file (type png)
+<use "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Im
+ages/""autoencoder".png>
+Package pdftex.def Info: "/media/edrive/2019_08_Principe_Deep_Learning/Homework
+/Project01/Report/Images/""autoencoder".png  used on input line 105.
+(pdftex.def)             Requested size: 206.39685pt x 107.3025pt.
+LaTeX Font Info:    Try loading font information for U+msa on input line 113.
+(/home/cmccurley/.miktex/texmfs/install/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 113.
+
+(/home/cmccurley/.miktex/texmfs/install/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+Underfull \hbox (badness 2245) in paragraph at lines 117--118
+\OT1/ptm/m/n/10 set were used to project the data down to 100
+ []
+
+
+Underfull \hbox (badness 3302) in paragraph at lines 117--118
+\OT1/ptm/m/n/10 dimensions, thus retaining 91.1$\OT1/cmr/m/n/10 %$ \OT1/ptm/m/n
+/10 of the original
+ []
+
+
+Underfull \hbox (badness 2245) in paragraph at lines 118--119
+\OT1/ptm/m/n/10 set were used to project the data down to 400
+ []
+
+
+Underfull \hbox (badness 3302) in paragraph at lines 118--119
+\OT1/ptm/m/n/10 dimensions, thus retaining 98.5$\OT1/cmr/m/n/10 %$ \OT1/ptm/m/n
+/10 of the original
+ []
+
+[3 </media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Imag
+es/dist_before.png> </media/edrive/2019_08_Principe_Deep_Learning/Homework/Proj
+ect01/Report/Images/autoencoder.png>]
+Underfull \hbox (badness 2269) in paragraph at lines 125--126
+[]\OT1/ptm/m/n/10 Classification results were quantified in the form of
+ []
+
+
+Underfull \hbox (badness 1577) in paragraph at lines 132--133
+\OT1/ptm/m/n/10 predicted and true class values for groups of samples.
+ []
+
+
+Overfull \hbox (6.0pt too wide) in paragraph at lines 160--161
+ [] 
+ []
+
+
+Underfull \hbox (badness 1577) in paragraph at lines 170--171
+\OT1/ptm/m/n/10 were pushed apart from the base data. However, PCA
+ []
+
+
+Underfull \hbox (badness 1742) in paragraph at lines 170--171
+\OT1/ptm/m/n/10 100 still greatly out-performed the other methods. The
+ []
+
+
+Underfull \hbox (badness 2680) in paragraph at lines 170--171
+\OT1/ptm/m/n/10 Finally, the parameters of the dimensionality reduction
+ []
+
+
+Underfull \hbox (badness 2310) in paragraph at lines 170--171
+\OT1/ptm/m/n/10 techniques (as well as the feature representations they
+ []
+
+<"/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images
+/""models/embedding_pca".png, id=186, 1011.78pt x 709.6914pt>
+File: "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/I
+mages/""models/embedding_pca".png Graphic file (type png)
+<use "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Im
+ages/""models/embedding_pca".png>
+Package pdftex.def Info: "/media/edrive/2019_08_Principe_Deep_Learning/Homework
+/Project01/Report/Images/""models/embedding_pca".png  used on input line 175.
+(pdftex.def)             Requested size: 258.0pt x 180.9635pt.
+
+Overfull \hbox (6.0pt too wide) in paragraph at lines 175--176
+ [][] 
+ []
+
+<"/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images
+/""models/embedding_umap".png, id=188, 1011.78pt x 709.6914pt>
+File: "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/I
+mages/""models/embedding_umap".png Graphic file (type png)
+<use "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Im
+ages/""models/embedding_umap".png>
+Package pdftex.def Info: "/media/edrive/2019_08_Principe_Deep_Learning/Homework
+/Project01/Report/Images/""models/embedding_umap".png  used on input line 184.
+(pdftex.def)             Requested size: 258.0pt x 180.9635pt.
+
+Overfull \hbox (6.0pt too wide) in paragraph at lines 184--185
+ [][] 
+ []
+
+<"/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images
+/""hist_after_umap_100".png, id=189, 621.32124pt x 447.6725pt>
+File: "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/I
+mages/""hist_after_umap_100".png Graphic file (type png)
+<use "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Im
+ages/""hist_after_umap_100".png>
+Package pdftex.def Info: "/media/edrive/2019_08_Principe_Deep_Learning/Homework
+/Project01/Report/Images/""hist_after_umap_100".png  used on input line 193.
+(pdftex.def)             Requested size: 258.0pt x 185.88991pt.
+
+Overfull \hbox (6.0pt too wide) in paragraph at lines 193--194
+ [][] 
+ []
+
+
+Underfull \hbox (badness 5231) in paragraph at lines 200--201
+[]\OT1/ptm/m/n/10 In addition to the methods mentioned above, two
+ []
+
+
+Underfull \hbox (badness 1968) in paragraph at lines 200--201
+\OT1/ptm/m/n/10 qualities, and the results were (visually) promising for
+ []
+
+
+Underfull \hbox (badness 3758) in paragraph at lines 200--201
+\OT1/ptm/m/n/10 methods for feature extraction in images. Specifically,
+ []
+
+[4]
+Underfull \hbox (badness 1478) in paragraph at lines 207--210
+[]\OT1/ptm/m/n/10 Three dimensionality reduction techniques were tested
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 207--210
+\OT1/ptm/m/n/10 multi-layer perceptrons. Reduced-dimensional feature
+ []
+
+
+Underfull \hbox (badness 5022) in paragraph at lines 207--210
+\OT1/ptm/m/n/10 representations for 10 classes of fashion items were
+ []
+
+<"/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images
+/""models/base_model_confusion_mat".png, id=206, 462.528pt x 346.896pt>
+File: "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/I
+mages/""models/base_model_confusion_mat".png Graphic file (type png)
+<use "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Im
+ages/""models/base_model_confusion_mat".png>
+Package pdftex.def Info: "/media/edrive/2019_08_Principe_Deep_Learning/Homework
+/Project01/Report/Images/""models/base_model_confusion_mat".png  used on input 
+line 214.
+(pdftex.def)             Requested size: 206.39685pt x 154.79962pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<"/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images
+/""models/pca_100_model_confusion_mat".png, id=207, 462.528pt x 346.896pt>
+File: "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/I
+mages/""models/pca_100_model_confusion_mat".png Graphic file (type png)
+<use "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Im
+ages/""models/pca_100_model_confusion_mat".png>
+Package pdftex.def Info: "/media/edrive/2019_08_Principe_Deep_Learning/Homework
+/Project01/Report/Images/""models/pca_100_model_confusion_mat".png  used on inp
+ut line 222.
+(pdftex.def)             Requested size: 206.39685pt x 154.79962pt.
+[5 </media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Imag
+es/models/embedding_pca.png> </media/edrive/2019_08_Principe_Deep_Learning/Home
+work/Project01/Report/Images/models/embedding_umap.png> </media/edrive/2019_08_
+Principe_Deep_Learning/Homework/Project01/Report/Images/hist_after_umap_100.png
+>]
+<"/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images
+/""models/pca_400_model_confusion_mat".png, id=214, 462.528pt x 346.896pt>
+File: "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/I
+mages/""models/pca_400_model_confusion_mat".png Graphic file (type png)
+<use "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Im
+ages/""models/pca_400_model_confusion_mat".png>
+Package pdftex.def Info: "/media/edrive/2019_08_Principe_Deep_Learning/Homework
+/Project01/Report/Images/""models/pca_400_model_confusion_mat".png  used on inp
+ut line 230.
+(pdftex.def)             Requested size: 206.39685pt x 154.79962pt.
+<"/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images
+/""models/umap_100_model_confusion_mat".png, id=215, 462.528pt x 346.896pt>
+File: "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/I
+mages/""models/umap_100_model_confusion_mat".png Graphic file (type png)
+<use "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Im
+ages/""models/umap_100_model_confusion_mat".png>
+Package pdftex.def Info: "/media/edrive/2019_08_Principe_Deep_Learning/Homework
+/Project01/Report/Images/""models/umap_100_model_confusion_mat".png  used on in
+put line 238.
+(pdftex.def)             Requested size: 206.39685pt x 154.79962pt.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<"/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images
+/""models/umap_400_model_confusion_mat".png, id=216, 462.528pt x 346.896pt>
+File: "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/I
+mages/""models/umap_400_model_confusion_mat".png Graphic file (type png)
+<use "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Im
+ages/""models/umap_400_model_confusion_mat".png>
+Package pdftex.def Info: "/media/edrive/2019_08_Principe_Deep_Learning/Homework
+/Project01/Report/Images/""models/umap_400_model_confusion_mat".png  used on in
+put line 245.
+(pdftex.def)             Requested size: 206.39685pt x 154.79962pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+<"/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images
+/""models/auto_100_model_confusion_mat".png, id=217, 462.528pt x 346.896pt>
+File: "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/I
+mages/""models/auto_100_model_confusion_mat".png Graphic file (type png)
+<use "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Im
+ages/""models/auto_100_model_confusion_mat".png>
+Package pdftex.def Info: "/media/edrive/2019_08_Principe_Deep_Learning/Homework
+/Project01/Report/Images/""models/auto_100_model_confusion_mat".png  used on in
+put line 253.
+(pdftex.def)             Requested size: 206.39685pt x 154.79962pt.
+<"/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images
+/""models/auto_400_model_confusion_mat".png, id=218, 462.528pt x 346.896pt>
+File: "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/I
+mages/""models/auto_400_model_confusion_mat".png Graphic file (type png)
+<use "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Im
+ages/""models/auto_400_model_confusion_mat".png>
+Package pdftex.def Info: "/media/edrive/2019_08_Principe_Deep_Learning/Homework
+/Project01/Report/Images/""models/auto_400_model_confusion_mat".png  used on in
+put line 261.
+(pdftex.def)             Requested size: 206.39685pt x 154.79962pt.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[6 </media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Imag
+es/models/base_model_confusion_mat.png> </media/edrive/2019_08_Principe_Deep_Le
+arning/Homework/Project01/Report/Images/models/pca_100_model_confusion_mat.png>
+ </media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images
+/models/pca_400_model_confusion_mat.png> </media/edrive/2019_08_Principe_Deep_L
+earning/Homework/Project01/Report/Images/models/umap_100_model_confusion_mat.pn
+g> </media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Imag
+es/models/umap_400_model_confusion_mat.png> </media/edrive/2019_08_Principe_Dee
+p_Learning/Homework/Project01/Report/Images/models/auto_100_model_confusion_mat
+.png>]
+<"/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Images
+/""Signature".JPG, id=229, 2664.95625pt x 935.495pt>
 File: "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/I
 mages/""Signature".JPG Graphic file (type jpg)
 <use "/media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Im
 ages/""Signature".JPG>
 Package pdftex.def Info: "/media/edrive/2019_08_Principe_Deep_Learning/Homework
-/Project01/Report/Images/""Signature".JPG  used on input line 160.
+/Project01/Report/Images/""Signature".JPG  used on input line 276.
 (pdftex.def)             Requested size: 103.19843pt x 36.21436pt.
  (mccurleyProject1.bbl
-LaTeX Font Info:    Try loading font information for U+msa on input line 76.
-
-(/home/cmccurley/.miktex/texmfs/install/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Try loading font information for U+msb on input line 76.
-
-(/home/cmccurley/.miktex/texmfs/install/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
 Underfull \hbox (badness 1817) in paragraph at lines 121--125
 []\OT1/ptm/m/n/8 M. Sugiyama, ``Local fisher discriminant analysis for supervis
 ed
@@ -933,33 +1194,37 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 167.
-[3 </media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Imag
-es/Signature.JPG>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 167.
- (mccurleyProject1.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 167.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 167.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 283.
+[7 </media/edrive/2019_08_Principe_Deep_Learning/Homework/Project01/Report/Imag
+es/models/auto_400_model_confusion_mat.png> </media/edrive/2019_08_Principe_Dee
+p_Learning/Homework/Project01/Report/Images/Signature.JPG>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 283.
+
+(mccurleyProject1.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 283.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 283.
 Package rerunfilecheck Info: File `mccurleyProject1.out' has not changed.
-(rerunfilecheck)             Checksum: BBE3F4997DE6365D51C86BF4AC2B66A9;770.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 167.
+(rerunfilecheck)             Checksum: 30734231FBE5594863C03A7BF45EA71B;735.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 283.
  ) 
 Here is how much of TeX's memory you used:
- 11231 strings out of 494857
- 175600 string characters out of 3177992
- 283460 words of memory out of 3000000
- 14673 multiletter control sequences out of 15000+200000
- 41087 words of font info for 82 fonts, out of 3000000 for 9000
+ 11347 strings out of 494857
+ 183118 string characters out of 3177992
+ 283586 words of memory out of 3000000
+ 14746 multiletter control sequences out of 15000+200000
+ 42141 words of font info for 87 fonts, out of 3000000 for 9000
  0 hyphenation exceptions out of 8191
- 61i,7n,96p,2886b,389s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 61i,9n,96p,2862b,426s stack positions out of 5000i,500n,10000p,200000b,50000s
 {/home/cmccurley/.miktex/texmfs/install/fonts/enc/dvips/base/8r.enc}</home/cm
-ccurley/.miktex/texmfs/install/fonts/type1/urw/times/utmb8a.pfb></home/cmccurle
-y/.miktex/texmfs/install/fonts/type1/urw/times/utmbi8a.pfb></home/cmccurley/.mi
-ktex/texmfs/install/fonts/type1/urw/times/utmr8a.pfb></home/cmccurley/.miktex/t
-exmfs/install/fonts/type1/urw/times/utmri8a.pfb>
-Output written on mccurleyProject1.pdf (3 pages, 466129 bytes).
+ccurley/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmmi10.pfb></home
+/cmccurley/.miktex/texmfs/install/fonts/type1/public/amsfonts/cm/cmr10.pfb></ho
+me/cmccurley/.miktex/texmfs/install/fonts/type1/urw/times/utmb8a.pfb></home/cmc
+curley/.miktex/texmfs/install/fonts/type1/urw/times/utmbi8a.pfb></home/cmccurle
+y/.miktex/texmfs/install/fonts/type1/urw/times/utmr8a.pfb></home/cmccurley/.mik
+tex/texmfs/install/fonts/type1/urw/times/utmri8a.pfb>
+Output written on mccurleyProject1.pdf (7 pages, 1688130 bytes).
 PDF statistics:
- 195 PDF objects out of 1000 (max. 8388607)
- 54 named destinations out of 1000 (max. 500000)
- 110 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 287 PDF objects out of 1000 (max. 8388607)
+ 78 named destinations out of 1000 (max. 500000)
+ 175 words of extra memory for PDF output out of 10000 (max. 10000000)
 

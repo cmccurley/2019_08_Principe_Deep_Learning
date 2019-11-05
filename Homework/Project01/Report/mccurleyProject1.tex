@@ -29,7 +29,7 @@
 
 \begin{document}
 
-\title{Project 1: Manifold Learning for Fashion-MNIST Classification}
+\title{Project 1: Manifold Learning for Fashion-MNIST Classification with Multi-Layer Perceptrons}
 \author{\IEEEauthorblockN{Connor McCurley}
 \IEEEauthorblockA{\textit{Deep Learning, Fall 2019} \\
 \textit{University of Florida}\\
@@ -42,7 +42,7 @@ Email: cmccurley@ufl.edu}
 
 
 \begin{abstract}
-	This paper investigates the use of manifold learning as a preprocessing procedure for object classification in grayscale imagery.  Four manifold learning methods exhibited in the literature were compared in terms of their contributions to enforcing class discriminability.  Two individual multi-layer perceptron classifier architectures were trained for each dimensionality reduction technique and compared to a baseline model. Experiments were conducted on the Fashion-MNIST dataset and results were presented in the form of confusion matrices.  The optimal detector demonstrated performance of ... this was an increase of ... over the baseline.  More experimentation could be performed to optimize the parameters of each manifold learning method and to potentially discover the true intrinsic dimensionality of the Fashion-MNIST dataset.
+	This paper investigates the use of manifold learning as a preprocessing procedure for object classification in grayscale imagery.  Three manifold learning methods exhibited in the literature were compared in terms of their contributions to enforcing class discriminability.  Two individual multi-layer perceptron classifier architectures were trained for each dimensionality reduction technique and compared to a baseline model. Experiments were conducted on the Fashion-MNIST dataset and results were presented in the form of confusion matrices.  The optimal detector demonstrated performance of 0.66 accuracy, which was an increase of 0.27 over the baseline.  More experimentation could be performed to optimize the parameters of each manifold learning method and to potentially discover the true intrinsic dimensionality of the Fashion-MNIST dataset.  Additionally, it is believed that performance could be improved with better feature extraction and more careful training.
 \end{abstract} 
 
 \begin{IEEEkeywords}
@@ -55,7 +55,7 @@ Neural Network, Dimensionality Reduction, Manifold Learning, Multi-Layer Percept
 
 \lettrine{A}{utonomous} image classification is a challenging problem which offers potential for significant advancement in the areas of biometrics, biology, medical diagnosis, security, and more \cite{Prasad2015Review,Lu2007Review}.  This paper focuses on the use of dimensionality reduction/ manifold learning in conjunction with multi-layer perceptron artificial neural networks to automatically classify clothing items from the well-known Fashion MNIST dataset \cite{Xiao2017FashionMNIST}.  \\
 \indent A wide variety of approaches have been taken in attempt to solve detection and classification problems in imagery.  \cite{Mensink2013KNN} used dissimilarity-based classifiers along with metric learning to dually drive samples toward their respective class representatives while also enforcing separation between classes.  \cite{Sanchez2011svm,Lin2011svm} utilized vector embeddings with linear support vector machines to discriminate between low-dimensional image representations.  The work in \cite{Shao2019DictionaryLearning} found sparse weighted combinations of dictionary atoms to accurately reconstruct images where specific bases equated to the various  classes.  The authors of \cite{Timofte2013NaiveBayes} utilized statistical properties to match samples to generating distributions.  The work in \cite{Swaroop2016TemplateMatching} employed traditional template matching to locate objects or compositions in imagery.  The review in \cite{Driss2017MLPandCNN} demonstrated that expansive uses of artificial neural networks in image classification.  This, of course, is just a small sample of image classification techniques.  The reviews in \cite{Prasad2015Review,Lu2007Review} elaborate extensively on the myriad of methods.  A commonality among all of the discussed methods is that they suffer from high-dimensionality.  Because of this fact, this work explores the use of dimensionality reduction as a preprocessing procedure for classification with fully-connect multi-layer perceptrons. \\
-\indent The remainder of this paper is organized as follows.  Section \ref{Methodology} describes the methodology used to perform dimensionality reduction and classification with multilayer perceptrons.  Classification results are presented in Section \ref*{Results}.  Practical insights to results are given in Section \ref{Discussion}.  Finally, Section \ref{Conclusions} reveals concluding remarks and discusses future lines of research.
+\indent The remainder of this paper is organized as follows.  Section \ref{Methodology} describes the methodology used to perform dimensionality reduction and classification with multilayer perceptrons.  Classification results are presented in Section \ref{Results}.  Practical insights to results are given in Section \ref{Discussion}.  Finally, Section \ref{Conclusions} reveals concluding remarks and discusses future lines of research.
 
 
 %===============================================================================================================================================================================================
@@ -64,91 +64,207 @@ Neural Network, Dimensionality Reduction, Manifold Learning, Multi-Layer Percept
 	This section describes the methodology used throughout this work.  Analysis of the data is performed, dimensionality reduction techniques are described, various network architectures under analysis are elaborated on and the experimental procedure is outlined.
 
 	\subsection{Data Analysis}
-	The data was first plotted as shown in Figure \textbf{REF} to gain an understanding of the format.  Each sample in the Fashion-MNIST dataset is a 28x28, gray-scale image of a clothing item belonging to one of ten classes \cite{Xiao2017FashionMNIST}. This translates to 784 length feature vectors with values ranging between 0-255. There were exactly 60000 training images included in the  training dataset and 10000 which were held-out for test.  The 60000 samples were later sub-divided in the experimentation for cross-validation. Histograms of one-versus-all Euclidean distances to each of the classes are shown in Figure \textbf{REF} to gain a sense of class separability using the raw images, solely.  Given that the classifier would be a multi-layer perceptron artificial neural network, it was determined that dimensionality reduction should be utilized to combat the Curse of Dimensionality, while potentially improving class discriminability.
+	The data was first plotted as shown in Figure \ref{fig:samples} to gain an understanding of the format.  Each sample in the Fashion-MNIST dataset is a 28x28, gray-scale image of a clothing item belonging to one of ten classes \cite{Xiao2017FashionMNIST}. This translates to 784 length feature vectors with values ranging between 0-255. There were exactly 60000 training images included in the  training dataset and 10000 which were held-out for test.  The 60000 samples were later sub-divided in the experimentation for cross-validation. Histograms of one-versus-all Euclidean distances to each of the classes are shown in Figure \ref{fig:dist_before} to gain a sense of class separability using the raw images, solely.  Given that the classifier would be a multi-layer perceptron artificial neural network, it was determined that dimensionality reduction should be utilized to combat the Curse of Dimensionality, while potentially improving class discriminability.
+	
+	\begin{center}
+		\begin{figure*}[h]
+			\centering
+			\includegraphics[width=0.8\textwidth]{"samples/samples"}
+			\caption{Samples from the Fashion-MNIST dataset. One sample from each class was randomly chosen for visualization.  The gray-scale images are size 28x28, each representing an article of clothing.}
+			\label{fig:samples}
+		\end{figure*}
+	\end{center}
+
 	
 	\subsection{Dimensionality Reduction}
-	Manifold learning, feature extraction, dimensionality reduction (DR) and representation learning are all synonymous for methods that learn representations of data that make it easier to extract useful information when building classifiers or other predictors \cite{Bengio2014RepLearningReview}. Traditionally, DR transforms high-dimensional data into meaningful representations of reduced dimensionality.  There is an expansive taxonomy of DR techniques, ranging from linear to non-linear, globally preserving to locally preserving, variance retaining to discriminability enforcing, among others \cite{VanDerMaaten2009DRReview}.  A small taxonomy of DR techniques is shown in Figure \textbf{REF}.   Dimensionality reduction has been used in a wide variety  of applications, including: speech recognition and signal processing, object recognition, computer vision, multi-task learning and domain adaptation \cite{Bengio2014RepLearningReview}, multi-modal sensor alignment \cite{zhang2010multisourceremotingsensingfusion,Davenport2010JointManifoldsDataFusion}, pose estimation \cite{Navaratnam2007JointManifoldSemiSupRegression}, land-use classification \cite{Hong2019LearnableManifoldAlignment}, medical diagnosis, meteorology, environmental monitoring, economic forecasting and more \cite{Zitova2003SurveyImageRegistrationMethods}.  Nine methods were originally considered for this work, constituting a mix of linear and non-linear techniques.  These methods include: Principal Component Analysis (PCA) \cite{Tipping1999PPCA,Murphy2012Textbook}, Fisher's Linear Discriminant (FLDA) \cite{Murphy2012Textbook,Sugiyama2006FDASupDimRed}, t-Distributed Stochastic Neighbor Embedding (t-SNE) \cite{vanDerMaaten2008tSNE}, Uniform Manifold Approximation and Projection (UMAP) \cite{McInnes2018UMAP}, Auto-encoders \cite{Haykin2009NeuralNetworks,Goodfellow2016DeepLearning}, Self-Organizing Feature Maps (SOM) \cite{Haykin2009NeuralNetworks,Kohonen1990SOM,Fritzke1995GrowingNeuralGas}, Isometric Feature  Mapping (Isomap) \cite{Tenenbaum2000Isomap,Thorstensen2009ManifoldThesis,VanDerMaaten2009DRReview}, Locally Linear Embedding (LLE) \cite{Roweis2000LLE,Saul2001LLEIntro}, and Laplacian Eigenmaps \cite{Belkin2003LaplacianEigenmaps,VanDerMaaten2009DRReview}.  While each of these methods have shown efficacy in various arenas, only four methods were selected for further review in this work. Fisher's Linear Discriminant, t-SNE, and UMAP each consider label information to ensure within-class compactness and/or between-class separation.  Autoencoder networks were also used to provide an ``unsupervised" approach.  They are only referred to as unsupervised in this work because they do not consider class information when defining latent feature representations. These techniques are further described in the following:
+	Manifold learning, feature extraction, dimensionality reduction (DR) and representation learning are all synonymous for methods that learn representations of data that make it easier to extract useful information when building classifiers or other predictors \cite{Bengio2014RepLearningReview}. Traditionally, DR transforms high-dimensional data into meaningful representations of reduced dimensionality.  There is an expansive taxonomy of DR techniques, ranging from linear to non-linear, globally preserving to locally preserving, variance retaining to discriminability enforcing, among others \cite{VanDerMaaten2009DRReview}.  Dimensionality reduction has been used in a wide variety  of applications, including: speech recognition and signal processing, object recognition, computer vision, multi-task learning and domain adaptation \cite{Bengio2014RepLearningReview}, multi-modal sensor alignment \cite{zhang2010multisourceremotingsensingfusion,Davenport2010JointManifoldsDataFusion}, pose estimation \cite{Navaratnam2007JointManifoldSemiSupRegression}, land-use classification \cite{Hong2019LearnableManifoldAlignment}, medical diagnosis, meteorology, environmental monitoring, economic forecasting and more \cite{Zitova2003SurveyImageRegistrationMethods}.  Nine methods were originally considered for this work, constituting a mix of linear and non-linear techniques.  These methods include: Principal Component Analysis (PCA) \cite{Tipping1999PPCA,Murphy2012Textbook}, Fisher's Linear Discriminant (FLDA) \cite{Murphy2012Textbook,Sugiyama2006FDASupDimRed}, t-Distributed Stochastic Neighbor Embedding (t-SNE) \cite{vanDerMaaten2008tSNE}, Uniform Manifold Approximation and Projection (UMAP) \cite{McInnes2018UMAP}, Auto-encoders \cite{Haykin2009NeuralNetworks,Goodfellow2016DeepLearning}, Self-Organizing Feature Maps (SOM) \cite{Haykin2009NeuralNetworks,Kohonen1990SOM,Fritzke1995GrowingNeuralGas}, Isometric Feature  Mapping (Isomap) \cite{Tenenbaum2000Isomap,Thorstensen2009ManifoldThesis,VanDerMaaten2009DRReview}, Locally Linear Embedding (LLE) \cite{Roweis2000LLE,Saul2001LLEIntro}, and Laplacian Eigenmaps \cite{Belkin2003LaplacianEigenmaps,VanDerMaaten2009DRReview}.  While each of these methods have shown efficacy in various arenas, only three methods were selected for further review in this work. Principal Component Analysis is a well-known method for dimensionality reduction which is unsupervised. UMAP considers label information to ensure within-class compactness and between-class separation.  Autoencoder networks were also used to provide a neural approach.  They are referred to as ``unsupervised" in this work because they do not consider class information when defining latent feature representations. These techniques are further described in the following:
 	
-	\subsubsection*{Fisher's Linear Discriminant Analysis (FLDA)}  Compared to PCA, whose ultimate goal is to maximize the variance in each orthogonal dimension of the latent space, the objective of FLDA is to maximize discriminability through a supervised linear projection of data.  This is realized by solving a generalized eigenvalue problem, thus minimizing intra-class variability and maximizing inter-class variability \cite{Murphy2012Textbook,Sugiyama2006FDASupDimRed}.  Given that FLDA is a linear dimensionality reduction technique, it is unreasonable to assume that it will be able to approximate highly nonlinear manifolds well.   However, linear methods are applicable to out-of-sample datapoints, meaning the transformation can easily be applied to new data during test.
+	\subsubsection*{Principal Component Analysis (PCA)}  PCA is arguably the most widely known, and commonly used, dimensionality reduction technique.  The goal of PCA is to transform data along its principle axes so that maximum variance is retained in the new coordinate space \cite{Tipping1999PPCA,Murphy2012Textbook}.  A key assumption when using PCA as a preprocessing step for classification is that the most discriminative features are also the most highly varying. Given that PCA is a linear dimensionality reduction technique, it was unreasonable to assume that it would be able to approximate highly nonlinear manifolds well.   However, linear methods are applicable to out-of-sample datapoints, meaning the transformation can easily be applied to new data during test. While it might have made more sense to employ Fisher's Linear Discriminant for the linear dimensionality reduction technique (because its goal is to enforce discriminability), FLDA limits the dimensionality of the latent representation to one less than the number of classes.  For this reason PCA was used to project the data into varying low-dimensional spaces.
 	
-	\subsubsection*{t-Distributed Stochastic Neighbor Embedding (t-SNE)} t-SNE is currently a state-of-the-art method for dimensionality reduction and data visualization. Stochastic Neighbor Embedding (SNE) uses radial basis functions  to convert high-dimensional Euclidean distances between datapoints into conditional probabilities representing similarities.  SNE then uses a cost based on KL divergence to match pairwise distributions between data representations in the high and low-dimensional spaces.  Since KL divergence is asymmetric, different types of errors are not weighted equally in the cost.  For example, there is a larger penalty for using very dissimilar points to represent nearby datapoints.  t-SNE is a modification of SNE in which the RBF kernels are replaced by the heavy-tailed student-t distribution \cite{vanDerMaaten2008tSNE} to alleviate crowding and optimization problems present in SNE.  By placing emphasis on the pairwise distances of datapoints, t-SNE captures both local manifold information and global structure such as the presence of clusters at several scales. However, t-SNE only guarantees that within-cluster distances are meaningful, so clustering is not necessarily optimal.
-	\subsubsection*{Uniform Manifold Approximation and Projection (UMAP)} UMAP is another SOA manifold learning algorithm which, at first sight, is very similar to t-SNE.  While outwardly equivalent to t-SNE, UMAP addresses some of the pitfalls of t-SNE.  UMAP substitutes a binary cross-entropy cost function for KL-divergence which makes it capable of capturing global structure, and by ignoring probability normalization, the time for high-dimensional graph computation is drastically reduced \cite{McInnes2018UMAP}.
-	\subsubsection*{Autoencoder} An autoencoder is a specific taxonomy of artificial neural networks whose output has the same dimensionality as the input and whose desired is actually the input sample \cite{Haykin2009NeuralNetworks,Goodfellow2016DeepLearning}. Typically, autoencoders enforce dimensionality reduction operations up to their middle layers.  This portion of the network is known as the `encoder', since it projects data into a lower dimensional space.  The second half of the network projects the data back into its original dimensionality in attempt to reconstruct the original sample.  This section of the network is known as the `decoder'. (See Figure \textbf{REF}.)  In practice, samples can be passed through the encoder to perform dimensionality reduction. 
+	\subsubsection*{Uniform Manifold Approximation and Projection (UMAP)} UMAP is currently a state-of-the-art method for dimensionality reduction and data visualization which is a generalization of t-Distributed Stochastic Neighbor Embedding (t-SNE).  To explain the workings of UMAP it is first beneficial to review SNE. Stochastic Neighbor Embedding (SNE) uses radial basis functions  to convert high-dimensional Euclidean distances between datapoints into conditional probabilities representing similarities.  SNE then uses a cost based on KL divergence to match pairwise distributions between data representations in the high and low-dimensional spaces.  Since KL divergence is asymmetric, different types of errors are not weighted equally in the cost.  For example, there is a larger penalty for using very dissimilar points to represent nearby datapoints.  t-SNE is a modification of SNE in which the RBF kernels are replaced by the heavy-tailed student-t distribution \cite{vanDerMaaten2008tSNE} to alleviate crowding and optimization problems present in SNE.   While outwardly equivalent to t-SNE, UMAP addresses some of the pitfalls of t-SNE.  UMAP substitutes a binary cross-entropy cost function for KL-divergence which makes it capable of capturing global structure, and by ignoring probability normalization, the time for high-dimensional graph computation is drastically reduced \cite{McInnes2018UMAP}.
+	\subsubsection*{Autoencoder} An autoencoder is a specific taxonomy of artificial neural networks whose output has the same dimensionality as the input and whose desired is actually the input sample \cite{Haykin2009NeuralNetworks,Goodfellow2016DeepLearning}. Typically, autoencoders enforce dimensionality reduction operations up to their middle layers.  This portion of the network is known as the `encoder', since it projects data into a lower dimensional space.  The second half of the network projects the data back into its original dimensionality in attempt to reconstruct the original sample.  This section of the network is known as the `decoder'. (See Figure \ref{fig:autoencoder}.)  In practice, samples can be passed through the encoder to perform dimensionality reduction. 
+	 
+	 \begin{center}
+	 	\begin{figure}[t]
+	 		\centering
+	 		\includegraphics[width=0.4\textwidth]{"dist_before"}
+	 		\caption{Histograms of one versus all Euclidean distances for top left): Pullover, top right): Dress, bottom left): Sandal, and bottom right): Trouser classes.  The red bars represent Euclidean distances for samples of the given class to their mean.  Blue represents the distance of every other training sample to the same mean.}
+	 		\label{fig:dist_before}
+	 	\end{figure}
+	 \end{center}
+	 
 	 
 	\subsection{Network Architecture}
-	Three individual multi-layer perceptron architectures were implemented in this work.  Each of the architectures maintained similar structure with the exception of the input layer, which was varied to test the effects of dimensionality reduction.  After the input, the networks consisted of layers (input-256-128-100-10) Figure \textbf{REF} shows a block diagram of the implemented networks.   The input sizes were varied from the original dimensionality (784), to reduced dimensionality of 400, 100 and 9.  ReLU activation functions were used in all layers of the network, excluding the output.  Cross-entropy was the utilized cost function and the Adamax implementation in Pytorch was used to update the weights.	
-	
-%	\begin{center}
-%		\begin{figure*}[h]
-%			\centering
-%			\includegraphics[width=\textwidth]{"Raw"}
-%			\caption{Raw audio signals. Top: Training segments of 10 unique manatee categories.  Middle: Raw training data for background noise.  Bottom: Raw test signal colored by hand-created labels.  Red portions signify segments from 16 unique manatee observations, while blue represents background noise.}
-%			\label{fig:Raw}
-%		\end{figure*}
-%	\end{center}
+	Three individual multi-layer perceptron architectures were implemented in this work.  Each of the architectures maintained similar structure with the exception of the input layer, which was varied to test the effects of dimensionality reduction.  After the input, the networks consisted of layers (input-256-128-100-10). The input sizes were varied from the original dimensionality (784), to reduced dimensionality of 400 and 100.  ReLU activation functions were used in all layers of the network, excluding the output.  Cross-entropy was the utilized cost function and the Adamax optimizer implementation in Pytorch was used to update the weights.	
 	
 
 
-
-
-
-	
+\begin{center}
+	\begin{figure}[t]
+		\centering
+		\includegraphics[width=0.4\textwidth]{"autoencoder"}
+		\caption{Block diagram of an autoencoder neural network.  The layers consecutively reduce dimensionality before increasing back to the input size.  The desired value of the network is the original image.}
+		\label{fig:autoencoder}
+	\end{figure}
+\end{center}
 
 
 \subsection{Experiments} \label{Experiments}
+Experiments were conducted to test the effects of various dimensionality reduction approaches on image classification with multi-layer perceptron artificial neural networks.  The baseline architecture described in Section \ref{Methodology} was first trained with the original dimensionality of the data.  Each of the networks trained in this work were updated on 51000 training images and validated on 9000 (evenly distributed) samples.  Each model was trained in batch 5 times with a learning rate of $\eta=0.01$. The best-performing classifiers on the held-out validation set were then applied to the blind test set to obtain final accuracies.  Early stopping was applied when the validation loss began to increase.  Since cross-entropy was used as the loss function, a lower score implied more accurate results.  Networks were trained for the following situations:
+
+\begin{enumerate}
+	\item \textit{Baseline:} Model trained on the original data (described in section \ref{Methodology}).
+	\item \textit{PCA 100:} Principal vectors estimated from the training set were used to project the data down to 100 dimensions, thus retaining 91.1$\%$ of the original variance.  The model was the same as the baseline excluding the input layer.
+	\item \textit{PCA 400:} Principal vectors estimated from the training set were used to project the data down to 400 dimensions, thus retaining 98.5$\%$ of the original variance.  The model was the same as the baseline excluding the input layer.
+	\item \textit{UMAP 100:} UMAP was used to project the data down to 100 dimensions.  15 neighbors were used in the local neighborhood and the minimum distance of points in the latent space was constrained to 0.1, which was measured by Euclidean distance.  The model was the same as the baseline excluding the input layer.
+	\item \textit{UMAP 400:} UMAP was used to project the data down to 400 dimensions.  15 neighbors were used in the local neighborhood and the minimum distance of points in the latent space was constrained to 0.1, which was measured by Euclidean distance.  The model was the same as the baseline excluding the input layer.
+	\item \textit{AE 100:} An additional multi-layer perceptron was first trained in the form of an autoencoder.  This MLP demonstrated layers as (784-500-400-150-100) in the encoder with the reverse in the decoder.  A hyperbolic tangent activation was applied at the output layer.  The network was trained with mean-square error loss and updated with Adamax. The original dataset was passed through the encoder to reduce dimensionality. The model was the same as the baseline excluding the input layer.
+	\item \textit{AE 400:}  An additional multi-layer perceptron was first trained in the form of an autoencoder.  This MLP demonstrated layers as (784-500-400) in the encoder with the reverse in the decoder.  A hyperbolic tangent activation was applied at the output layer.  The network was trained with mean-square error loss and updated with Adamax. The original dataset was passed through the encoder to reduce dimensionality. The model was the same as the baseline excluding the input layer.
+\end{enumerate}
+
+Classification results were quantified in the form of Confusion Matrices.  Classifier performance is provided in section \ref{Results}.
 
 
 
 %===============================================================================================================================================================================================
 \section{Results} \label{Results}
 
+In this section, classification results for each experimental method tested are presented in the form of confusion matrices.  A confusion matrix demonstrates the discrepancies between predicted and true class values for groups of samples.  Essentially, it is a way to measure how accurate a classifier is, while providing insight into how the network confuses samples.  A diagonal matrix signifies zero mis-classifications among all categories.
 
+\subsection{Confusion Matrices}
+Figures \ref{fig:base_model_confusion_mat},\ref{fig:pca_100_model_confusion_mat},\ref{fig:pca_400_model_confusion_mat}, \ref{fig:umap_100_model_confusion_mat}, \ref{fig:umap_400_model_confusion_mat}, \ref{fig:auto_100_model_confusion_mat}, and \ref{fig:auto_400_model_confusion_mat} demonstrate confusion matrices for all 7 trained MLPs.  Table \ref{tab:cross_entropy_loss_table} shows the cross-entropy loss on a blind test set for each dimensionality reduction/ MLP pair.  It can be observed that preprocessing with Principal Component Analysis to project the data to 100 dimensions resulted in the lowest cross-entropy loss.  Alternatively, the worst performance was exhibited by the PCA projection into 400 dimensions, with cross-entropy loss of 2.23.
 
-
-
-%\begin{table}[h!]
-%	\caption{AUC for Various Signature Generation Methods}
-%	\label{tab:AUC}
-%	\normalsize
-%	\begin{center}
-%		\begin{tabularx}{0.5\textwidth}{ |X|X| } 
-%			\hline
-%			\textbf{Signature Creation}  & \textbf{AUC} \\
-%			\hline
-%			Average & 0.8406 \\
-%			\hline
-%			\textbf{Median} & \textbf{0.8414} \\
-%			\hline
-%			Combined Manatee Bag & 0.4472 \\
-%			\hline
-%			Individual Manatee Bags & 0.7379 \\
-%			\hline
-%			Six Bags per Manatee & 0.8133 \\
-%			\hline
-%			10 Bags per Manatee & 0.8085 \\
-%			\hline
-%		\end{tabularx}
-%	\end{center}
-%\end{table} 
-
+\begin{table}[h!]
+	\caption{Cross Entropy Loss on 10000 Blind Test Samples}
+	\label{tab:cross_entropy_loss_table}
+	\normalsize
+	\begin{center}
+		\begin{tabularx}{0.5\textwidth}{ |X|X| } 
+			\hline
+			\textbf{Dimensionality Reduction}  & \textbf{Cross-Entropy Loss} \\
+			\hline
+			Baseline & 0.61 \\
+			\hline
+			\textbf{PCA 100} & \textbf{0.34} \\
+			\hline
+			PCA 400 & 2.23 \\
+			\hline
+			UMAP 100 & 0.86 \\
+			\hline
+			UMAP 400 & 0.87 \\
+			\hline
+			AE 100 & 1.30 \\
+			\hline
+			AE 400 & 0.99 \\
+			\hline
+		\end{tabularx}
+	\end{center}
+\end{table} 
 
 %===============================================================================================================================================================================================
-
+\vspace{5cm}
 \section{Discussion} \label{Discussion}
 In this sections, observations are made on results and insight is given to potential influences.
 
 \subsection{Results}
+The best classifier exhibited in this paper obtained a cross-entropy loss of 0.34.  This is below state-of-the-art object detectors and classifiers in imagery.  As can be observed from the confusion matrices, there were consistent errors among each of the models.  Specifically, the ``Shirt" class had the most mis-classifications between each classifier.  This makes sense when looking at the confusion matrices, however.  It can be seen that the Shirt class was most commonly mis-classified as Coat, Pullover, or T-shirt/Top, each of which could arguably full under the hierarchy of Shirt.  This signifies that methods addressing label uncertainty or class hierarchy are possibly needed to improve results.  Moreover, there was a fair amount of inconsistency between expected and actually performance.  Given that PCA only retains variance through its projections, it is intuitive that UMAP (which enforces class discriminability) should have made it easier for the network to distinguish the individual classes.  This idea is further enforced by Figures \ref{fig:pca_embedding} and \ref{fig:umap_embedding} which show PCA and UMAP embeddings of the training data in 2D.  It is clear that UMAP better preserves intra-class compactness while enforcing between-class dissimilarity.  The one versus all Euclidean distances after UMAP projection into 100 dimensions (Figure \ref{fig:hist_after_umap_100}) clearly show that the classes were pushed apart from the base data.  However, PCA 100 still greatly out-performed the other methods.  The author can attribute this to a few points.  First, PCA in 100 dimensions might just be a good space for this data (although it is impossible to know, and the 2D visualizations may not be accurate depictions of what is happening in higher dimensions).  Secondly, error likely came from the stochastic nature of training.  While each network was trained 5 times with random initialization to explore the weight-space, some models might have stumbled into better optima than others.  The autoencoder methods were at an even greater disadvantage since the encoders had to be stochastically trained before the classifier.  While this method of training continually demonstrates good results in the literature, more work could be done in these experiments to find improved models and offer better comparisons between approaches. Finally, the parameters of the dimensionality reduction techniques (as well as the feature representations they demonstrate) could be sub-optimal.  This suggests that more-suited dimensionality reduction and feature representation techniques could potentially improve classification results on this dataset.
 
-\subsection{Effects of Manifold Learning/ Dimensionality Reduction}
+\begin{center}
+	\begin{figure}[t]
+		\centering
+		\includegraphics[width=0.5\textwidth]{"models/embedding_pca"}
+		\caption{Fashion MNIST emmbedding of the training set via PCA}
+		\label{fig:pca_embedding}
+	\end{figure}
+\end{center}
 
+\begin{center}
+	\begin{figure}[t]
+		\centering
+		\includegraphics[width=0.5\textwidth]{"models/embedding_umap"}
+		\caption{Fashion MNIST embedding of the training set via UMAP}
+		\label{fig:umap_embedding}
+	\end{figure}
+\end{center}
+
+ \begin{center}
+	\begin{figure}[t]
+		\centering
+		\includegraphics[width=0.5\textwidth]{"hist_after_umap_100"}
+		\caption{Histograms of one versus all Euclidean distances after projecting to 100 dimensions with UMAP for top left): Pullover, top right): Dress, bottom left): Sandal, and bottom right): Trouser classes.  The red bars represent Euclidean distances for samples of the given class to their mean.  Blue represents the distance of every other training sample to the same mean.}
+		\label{fig:hist_after_umap_100}
+	\end{figure}
+\end{center}
 
 \subsection{Potential Improvements}
+In addition to the methods mentioned above, two mechanisms which could aid with image classification include discriminative manifold learning/ feature representation and improved training procedures with data augmentation.  While finding a lower dimensional representation for a datapoint, it is intuitive that if the final goal is classification, that the DR method should enforce between-class discriminability while ensuring within-class compactness.  UMAP was the only method of the three compared which exhibited these qualities, and the results were (visually) promising for the discrimination task.  Moreover, even though the MLPs are universal function approximators, there are better-suited methods for feature extraction in images.  Specifically, convolutional neural networks and related methods consider spatial information which provides another level of context for the classier. Finally, for networks with this staggering numbers of features, 51000 training samples is simply not enough to generalize.  Data augmentation (along with a more detailed training regimen) would likely improve classification performance on the unseen test set.
+
 
 
 
 %===============================================================================================================================================================================================
 \section{Conclusions} \label{Conclusions}
-A
+Three dimensionality reduction techniques were tested as preprocessing procedures for image classification with multi-layer perceptrons.  Reduced-dimensional feature representations for 10 classes of fashion items were developed through Principal Component Analysis, Uniform Manifold Approximation and Projection and Autoencoder Neural Networks.  MLPs were trained for each set of data and classification results were presented.  To the author's surprise, the network trained on the data projected to 100 dimensions through PCA provided the best classification performance with a test loss of 0.34.  The author believes that classification performance could be improved through the employment of several methods.  First, discrimination should be considered in the dimensionality reduction to enforce class separation.  Next, more extensive training procedures should be conducted for each experimental setup to find the optimal models in each scenario.  This would allow more insight to be gleaned from the results.  Finally, adding more data or augmenting the current collection would likely aid in model generalization. \\
+\indent
+Future research endeavors toward this topic include, among those listed previously, comparison of the dimensionality reduction with the MLP to common alternative classification methodologies such as: Vector Quantization, Support Vector Machines, and Convolutional Neural Networks. 
+
+\begin{center}
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.4\textwidth]{"models/base_model_confusion_mat"}
+		\caption{Confusion matrix for the base MLP on 10000 blind test images.}
+		\label{fig:base_model_confusion_mat}
+	\end{figure}
+\end{center}
+\begin{center}
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.4\textwidth]{"models/pca_100_model_confusion_mat"}
+		\caption{Confusion matrix for the PCA 100 model on 10000 blind test images.}
+		\label{fig:pca_100_model_confusion_mat}
+	\end{figure}
+\end{center}
+\begin{center}
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.4\textwidth]{"models/pca_400_model_confusion_mat"}
+		\caption{Confusion matrix for the PCA 400 model on 10000 blind test images.}
+		\label{fig:pca_400_model_confusion_mat}
+	\end{figure}
+\end{center}
+\begin{center}
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.4\textwidth]{"models/umap_100_model_confusion_mat"}
+		\caption{Confusion matrix for the UMAP 100 model on 10000 blind test images.}
+		\label{fig:umap_100_model_confusion_mat}
+	\end{figure}
+\end{center}\begin{center}
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.4\textwidth]{"models/umap_400_model_confusion_mat"}
+		\caption{Confusion matrix for the UMAP 400 model on 10000 blind test images.}
+		\label{fig:umap_400_model_confusion_mat}
+	\end{figure}
+\end{center}
+\begin{center}
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.4\textwidth]{"models/auto_100_model_confusion_mat"}
+		\caption{Confusion matrix for the autoencoder 100 model on 10000 blind test images.}
+		\label{fig:auto_100_model_confusion_mat}
+	\end{figure}
+\end{center}
+\begin{center}
+	\begin{figure}[h!]
+		\centering
+		\includegraphics[width=0.4\textwidth]{"models/auto_400_model_confusion_mat"}
+		\caption{Confusion matrix for the autoencoder 400 model on 10000 blind test images.}
+		\label{fig:auto_400_model_confusion_mat}
+	\end{figure}
+\end{center} 
+
+
 %===============================================================================================================================================================================================
 
 \section*{Honor Statement}

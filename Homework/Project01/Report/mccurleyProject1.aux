@@ -47,18 +47,50 @@
 \@writefile{toc}{\contentsline {section}{\numberline {II}Methodology}{1}{section.2}\protected@file@percent }
 \newlabel{Methodology}{{II}{1}{Methodology}{section.2}{}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {II-A}}Data Analysis}{1}{subsection.2.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {II-B}}Dimensionality Reduction}{1}{subsection.2.2}\protected@file@percent }
-\citation{Murphy2012Textbook,Sugiyama2006FDASupDimRed}
+\citation{Tipping1999PPCA,Murphy2012Textbook}
 \citation{vanDerMaaten2008tSNE}
 \citation{McInnes2018UMAP}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Samples from the Fashion-MNIST dataset. One sample from each class was randomly chosen for visualization. The gray-scale images are size 28x28, each representing an article of clothing.\relax }}{2}{figure.caption.1}\protected@file@percent }
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{fig:samples}{{1}{2}{Samples from the Fashion-MNIST dataset. One sample from each class was randomly chosen for visualization. The gray-scale images are size 28x28, each representing an article of clothing.\relax }{figure.caption.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {II-B}}Dimensionality Reduction}{2}{subsection.2.2}\protected@file@percent }
 \citation{Haykin2009NeuralNetworks,Goodfellow2016DeepLearning}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {II-C}}Network Architecture}{2}{subsection.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {II-D}}Experiments}{2}{subsection.2.4}\protected@file@percent }
-\newlabel{Experiments}{{\unhbox \voidb@x \hbox {II-D}}{2}{Experiments}{subsection.2.4}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {III}Results}{2}{section.3}\protected@file@percent }
-\newlabel{Results}{{III}{2}{Results}{section.3}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {IV}Discussion}{2}{section.4}\protected@file@percent }
-\newlabel{Discussion}{{IV}{2}{Discussion}{section.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Histograms of one versus all Euclidean distances for top left): Pullover, top right): Dress, bottom left): Sandal, and bottom right): Trouser classes. The red bars represent Euclidean distances for samples of the given class to their mean. Blue represents the distance of every other training sample to the same mean.\relax }}{3}{figure.caption.5}\protected@file@percent }
+\newlabel{fig:dist_before}{{2}{3}{Histograms of one versus all Euclidean distances for top left): Pullover, top right): Dress, bottom left): Sandal, and bottom right): Trouser classes. The red bars represent Euclidean distances for samples of the given class to their mean. Blue represents the distance of every other training sample to the same mean.\relax }{figure.caption.5}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {II-C}}Network Architecture}{3}{subsection.2.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces Block diagram of an autoencoder neural network. The layers consecutively reduce dimensionality before increasing back to the input size. The desired value of the network is the original image.\relax }}{3}{figure.caption.6}\protected@file@percent }
+\newlabel{fig:autoencoder}{{3}{3}{Block diagram of an autoencoder neural network. The layers consecutively reduce dimensionality before increasing back to the input size. The desired value of the network is the original image.\relax }{figure.caption.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {II-D}}Experiments}{3}{subsection.2.4}\protected@file@percent }
+\newlabel{Experiments}{{\unhbox \voidb@x \hbox {II-D}}{3}{Experiments}{subsection.2.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {III}Results}{4}{section.3}\protected@file@percent }
+\newlabel{Results}{{III}{4}{Results}{section.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {III-A}}Confusion Matrices}{4}{subsection.3.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {I}{\ignorespaces Cross Entropy Loss on 10000 Blind Test Samples\relax }}{4}{table.caption.7}\protected@file@percent }
+\newlabel{tab:cross_entropy_loss_table}{{I}{4}{Cross Entropy Loss on 10000 Blind Test Samples\relax }{table.caption.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {IV}Discussion}{4}{section.4}\protected@file@percent }
+\newlabel{Discussion}{{IV}{4}{Discussion}{section.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {IV-A}}Results}{4}{subsection.4.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Fashion MNIST emmbedding of the training set via PCA\relax }}{5}{figure.caption.8}\protected@file@percent }
+\newlabel{fig:pca_embedding}{{4}{5}{Fashion MNIST emmbedding of the training set via PCA\relax }{figure.caption.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces Fashion MNIST embedding of the training set via UMAP\relax }}{5}{figure.caption.9}\protected@file@percent }
+\newlabel{fig:umap_embedding}{{5}{5}{Fashion MNIST embedding of the training set via UMAP\relax }{figure.caption.9}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {IV-B}}Potential Improvements}{5}{subsection.4.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Histograms of one versus all Euclidean distances after projecting to 100 dimensions with UMAP for top left): Pullover, top right): Dress, bottom left): Sandal, and bottom right): Trouser classes. The red bars represent Euclidean distances for samples of the given class to their mean. Blue represents the distance of every other training sample to the same mean.\relax }}{5}{figure.caption.10}\protected@file@percent }
+\newlabel{fig:hist_after_umap_100}{{6}{5}{Histograms of one versus all Euclidean distances after projecting to 100 dimensions with UMAP for top left): Pullover, top right): Dress, bottom left): Sandal, and bottom right): Trouser classes. The red bars represent Euclidean distances for samples of the given class to their mean. Blue represents the distance of every other training sample to the same mean.\relax }{figure.caption.10}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {V}Conclusions}{5}{section.5}\protected@file@percent }
+\newlabel{Conclusions}{{V}{5}{Conclusions}{section.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Confusion matrix for the base MLP on 10000 blind test images.\relax }}{6}{figure.caption.11}\protected@file@percent }
+\newlabel{fig:base_model_confusion_mat}{{7}{6}{Confusion matrix for the base MLP on 10000 blind test images.\relax }{figure.caption.11}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Confusion matrix for the PCA 100 model on 10000 blind test images.\relax }}{6}{figure.caption.12}\protected@file@percent }
+\newlabel{fig:pca_100_model_confusion_mat}{{8}{6}{Confusion matrix for the PCA 100 model on 10000 blind test images.\relax }{figure.caption.12}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces Confusion matrix for the PCA 400 model on 10000 blind test images.\relax }}{6}{figure.caption.13}\protected@file@percent }
+\newlabel{fig:pca_400_model_confusion_mat}{{9}{6}{Confusion matrix for the PCA 400 model on 10000 blind test images.\relax }{figure.caption.13}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces Confusion matrix for the UMAP 100 model on 10000 blind test images.\relax }}{6}{figure.caption.14}\protected@file@percent }
+\newlabel{fig:umap_100_model_confusion_mat}{{10}{6}{Confusion matrix for the UMAP 100 model on 10000 blind test images.\relax }{figure.caption.14}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces Confusion matrix for the UMAP 400 model on 10000 blind test images.\relax }}{6}{figure.caption.15}\protected@file@percent }
+\newlabel{fig:umap_400_model_confusion_mat}{{11}{6}{Confusion matrix for the UMAP 400 model on 10000 blind test images.\relax }{figure.caption.15}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {12}{\ignorespaces Confusion matrix for the autoencoder 100 model on 10000 blind test images.\relax }}{6}{figure.caption.16}\protected@file@percent }
+\newlabel{fig:auto_100_model_confusion_mat}{{12}{6}{Confusion matrix for the autoencoder 100 model on 10000 blind test images.\relax }{figure.caption.16}{}}
 \bibdata{Project1}
 \bibcite{Prasad2015Review}{1}
 \bibcite{Lu2007Review}{2}
@@ -92,9 +124,6 @@
 \bibcite{Saul2001LLEIntro}{30}
 \bibcite{Belkin2003LaplacianEigenmaps}{31}
 \bibstyle{IEEEtran}
-\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {IV-A}}Results}{3}{subsection.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {IV-B}}Effects of Manifold Learning/ Dimensionality Reduction}{3}{subsection.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {\unhbox \voidb@x \hbox {IV-C}}Potential Improvements}{3}{subsection.4.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {V}Conclusions}{3}{section.5}\protected@file@percent }
-\newlabel{Conclusions}{{V}{3}{Conclusions}{section.5}{}}
-\@writefile{toc}{\contentsline {section}{References}{3}{section*.7}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {13}{\ignorespaces Confusion matrix for the autoencoder 400 model on 10000 blind test images.\relax }}{7}{figure.caption.17}\protected@file@percent }
+\newlabel{fig:auto_400_model_confusion_mat}{{13}{7}{Confusion matrix for the autoencoder 400 model on 10000 blind test images.\relax }{figure.caption.17}{}}
+\@writefile{toc}{\contentsline {section}{References}{7}{section*.20}\protected@file@percent }
