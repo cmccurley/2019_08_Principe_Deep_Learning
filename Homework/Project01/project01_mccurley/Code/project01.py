@@ -354,12 +354,12 @@ if __name__== "__main__":
 #    plt.title('Fashion MNIST Embedded via UMAP')
 
     ###################### Convert data into torch format ############
-#    X_train = torch.FloatTensor(X_train)
-#    y_train = torch.LongTensor(y_train)
-#    X_val = torch.FloatTensor(X_val)
-#    y_val = torch.LongTensor(y_val)
-#    X_test = torch.FloatTensor(X_test)
-#    y_test = torch.LongTensor(y_test)
+    X_train = torch.FloatTensor(X_train)
+    y_train = torch.LongTensor(y_train)
+    X_val = torch.FloatTensor(X_val)
+    y_val = torch.LongTensor(y_val)
+    X_test = torch.FloatTensor(X_test)
+    y_test = torch.LongTensor(y_test)
 
 #    ########################### Apply Autoencoder ######################
 #
