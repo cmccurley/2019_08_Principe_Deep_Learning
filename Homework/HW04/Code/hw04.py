@@ -37,7 +37,8 @@ from torch.autograd import Variable
 import seaborn as sns
 from sklearn.decomposition import PCA
 from  PIL import Image
-
+from mpca import mpca, mpca_with_fft
+from confusion_mat import plot_confusion_matrix
 
 
 ######################################################################
@@ -79,80 +80,6 @@ def scale_pixels(X_train, X_test):
 
     # return normalized images
     return train_norm, test_norm
-
-
-def plot_confusion_matrix(y_true, y_pred, classes, totalLoss, normalize=False, title=None, cmap=plt.cm.Blues):
-
-    """
-    ******************************************************************
-        *  Func:      plot_confusion_matrix()
-        *  Desc:      This function was borrowed from scikit-learn.org
-        *  Inputs:
-        *  Outputs:
-    ******************************************************************
-    """
-
-    if not(title):
-        if normalize:
-            title = 'Normalized confusion matrix'
-        else:
-            title = 'Confusion matrix, without normalization'
-
-    # Compute confusion matrix
-    cm = confusion_matrix(y_true, y_pred)
-    # Only use the labels that appear in the data
-#    classes = classes[unique_labels(y_true, y_pred)]
-    if normalize:
-        cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
-        print("Normalized confusion matrix")
-    else:
-        print(f'Confusion matrix \n Test Loss: {testLoss}')
-
-    print(cm)
-
-    accuracy = 1 - testLoss
-
-    fig, ax = plt.subplots()
-    im = ax.imshow(cm, interpolation='nearest', cmap=cmap)
-    ax.figure.colorbar(im, ax=ax)
-    # We want to show all ticks...
-    ax.set(xticks=np.arange(cm.shape[1]),
-           yticks=np.arange(cm.shape[0]),
-           # ... and label them with the respective list entries
-           xticklabels=classes, yticklabels=classes,
-           title=f'Confusion matrix \n Test Loss: %.2f' % testLoss,
-           ylabel='True label',
-           xlabel='Predicted label')
-
-    # Rotate the tick labels and set their alignment.
-    plt.setp(ax.get_xticklabels(), rotation=45, ha="right",
-             rotation_mode="anchor")
-
-    # Loop over data dimensions and create text annotations.
-    fmt = '.2f' if normalize else 'd'
-    thresh = cm.max() / 2.
-    for i in range(cm.shape[0]):
-        for j in range(cm.shape[1]):
-            ax.text(j, i, format(cm[i, j], fmt),
-                    ha="center", va="center",
-                    color="white" if cm[i, j] > thresh else "black")
-    fig.tight_layout()
-
-    return ax
-
-def mpca(X_train, X_val, X_test):
-    """
-    ******************************************************************
-        *  Func:      mpca()
-        *  Desc:
-        *  Inputs:
-        *  Outputs:
-    ******************************************************************
-    """
-    mu = np.mean(X_train,axis=0)
-    X_train = X_train - np.mean(X_train,axis=0)
-
-    return X_train, X_val, X_test
 
 ###################### Define Neural Net Class #######################
 class Feedforward(torch.nn.Module):
@@ -198,230 +125,17 @@ if __name__== "__main__":
     # Normalize images between 0-1
     X_train_all, X_test = scale_pixels(X_train_all, X_test)
 
-
-#    # Plot a sample from every class
-#    plot_classes(X_train_all, y_train_all)
-
-
     ####################### Define Validation Set ####################
 
     # partition data into training and validation
     X_train, X_val, y_train, y_val = ms.train_test_split(X_train_all, y_train_all, test_size=parameters["data_parameters"]["validationSize"], random_state=42)
 
 
-    ###################### Apply Multiscale PCA #######################
-#    X_train, X_val, X_test = mpca(X_train, X_val, X_test)
-    
-    
-    ####################### Training Set ##############################
-    
-    ## Create multiple resolutions of the images
-    nSamp = X_train.shape[0] # number of samples
-    
-    print('Creating multiple resolutions of the training data...')
-    
-    ## Level 1: scale in half
-    print('Creating level 1 resolution...')
-    X1 = np.empty((nSamp,14*14))
-    for idx in range(0,nSamp):
-        X1[idx,:] = np.array(Image.fromarray(X_train[idx,:].reshape(28,28)).resize((14,14))).reshape(14*14)
-        
-    ## Level 2: scale level 1 in half
-    print('Creating level 2 resolution...')
-    X2 = np.empty((nSamp,7*7))
-    for idx in range(0,nSamp):
-        X2[idx,:] = np.array(Image.fromarray(X1[idx,:].reshape(14,14)).resize((7,7))).reshape(7*7)
-        
-    ## Level 3: scale level 2 in half
-    print('Creating level 3 resolution...')
-    X3 = np.empty((nSamp,3*3))
-    for idx in range(0,nSamp):
-        X3[idx,:] = np.array(Image.fromarray(X2[idx,:].reshape(7,7)).resize((3,3))).reshape(3*3)
-    
-    ## Apply PCA to training data
-    print('Applying PCA to training data...')
-    
-    ## Subtract means
-    level_1_mean = np.mean(X1,axis=0)
-    level_2_mean = np.mean(X2,axis=0)
-    level_3_mean = np.mean(X3,axis=0)
-    
-    X1 = X1 - level_1_mean
-    X2 = X2 - level_2_mean
-    X3 = X3 - level_3_mean
-    
-    pca1 = PCA()
-    pca1.fit(X1)
-    eigVec1 = pca1.components_
-    eigVal1 = pca1.explained_variance_
-    
-    X1_trans = np.dot(X1, eigVec1.T)
-    
-    pca2 = PCA()
-    pca2.fit(X2)
-    eigVec2 = pca2.components_
-    eigVal2 = pca2.explained_variance_
-    
-    X2_trans = np.dot(X2, eigVec2.T)
-    
-    pca3 = PCA()
-    pca3.fit(X3)
-    eigVec3 = pca3.components_
-    eigVal3 = pca3.explained_variance_
-    
-    X3_trans = np.dot(X3, eigVec3.T)
-    
-    
-    print('Creating new feature vectors for training set...')
-    nFeatures = (3*(14*14))+(3*(7*7))+(3*(3*3))
-    X_train_new = np.zeros((nSamp,nFeatures))
-    for idx in range(0,nSamp):
-#    for idx in range(0,1):
-        
-        ## level 1
-        x20 = X1[idx,:]
-        x21 = X1_trans[idx,0]*eigVec1[0,:] + X1_trans[idx,1]*eigVec1[1,:] + X1_trans[idx,2]*eigVec1[2,:]
-        x22 = X1_trans[idx,0]*eigVec1[0,:] + X1_trans[idx,1]*eigVec1[1,:]
-        x23 = X1_trans[idx,0]*eigVec1[0,:]
-        
-        x20 = x20.reshape((14*14))
-        x21 = x21.reshape((14*14))
-        x22 = x22.reshape((14*14))
-        x23 = x23.reshape((14*14))    
-        
-        currentSamp1 = np.concatenate((x21,x22,x23))
-        
-        ## level 2
-        x20 = X2[idx,:]
-        x21 = X2_trans[idx,0]*eigVec2[0,:] + X2_trans[idx,1]*eigVec2[1,:] + X2_trans[idx,2]*eigVec2[2,:]
-        x22 = X2_trans[idx,0]*eigVec2[0,:] + X2_trans[idx,1]*eigVec2[1,:]
-        x23 = X2_trans[idx,0]*eigVec2[0,:]
-        
-        x20 = x20.reshape((7*7))
-        x21 = x21.reshape((7*7))
-        x22 = x22.reshape((7*7))
-        x23 = x23.reshape((7*7))
+#    ###################### Apply Multiscale PCA #######################
+    X_train, X_val, X_test = mpca(X_train, X_val, X_test)
 #    
-        currentSamp2 = np.concatenate((x21,x22,x23))
-        
-        ## level 3
-        x20 = X3[idx,:]
-        x21 = X3_trans[idx,0]*eigVec3[0,:] + X3_trans[idx,1]*eigVec3[1,:] + X3_trans[idx,2]*eigVec3[2,:]
-        x22 = X3_trans[idx,0]*eigVec3[0,:] + X3_trans[idx,1]*eigVec3[1,:]
-        x23 = X3_trans[idx,0]*eigVec3[0,:]
-        
-        x20 = x20.reshape((3*3))
-        x21 = x21.reshape((3*3))
-        x22 = x22.reshape((3*3))
-        x23 = x23.reshape((3*3))
+#    X_train, X_val, X_test = mpca_with_fft(X_train, X_val, X_test)
 #    
-        currentSamp3 = np.concatenate((x21,x22,x23))
-        
-        ## concatenate all features
-        samp = np.concatenate((currentSamp1,currentSamp2,currentSamp3))
-        
-        X_train_new[idx,:] = samp
-        
-        
-    ####################### Validation Set ##############################
-    
-    
-    nSamp = X_val.shape[0] # number of samples
-    
-    print('Creating multiple resolutions of the validation data...')
-    
-    ## Level 1: scale in half
-    print('Creating level 1 resolution...')
-    X1 = np.empty((nSamp,14*14))
-    for idx in range(0,nSamp):
-        X1[idx,:] = np.array(Image.fromarray(X_val[idx,:].reshape(28,28)).resize((14,14))).reshape(14*14)
-        
-    ## Level 2: scale level 1 in half
-    print('Creating level 2 resolution...')
-    X2 = np.empty((nSamp,7*7))
-    for idx in range(0,nSamp):
-        X2[idx,:] = np.array(Image.fromarray(X1[idx,:].reshape(14,14)).resize((7,7))).reshape(7*7)
-        
-    ## Level 3: scale level 2 in half
-    print('Creating level 3 resolution...')
-    X3 = np.empty((nSamp,3*3))
-    for idx in range(0,nSamp):
-        X3[idx,:] = np.array(Image.fromarray(X2[idx,:].reshape(7,7)).resize((3,3))).reshape(3*3)
-        
-        
-    X1 = X1 - level_1_mean
-    X2 = X2 - level_2_mean
-    X3 = X3 - level_3_mean
-    
-    X1_trans = np.dot(X1, eigVec1.T)
-    X2_trans = np.dot(X2, eigVec1.T)
-    X3_trans = np.dot(X3, eigVec1.T)
-    
-    print('Creating new feature vectors for validation set...')
-    nFeatures = (3*(14*14))+(3*(7*7))+(3*(3*3))
-    X_train_new = np.zeros((nSamp,nFeatures))
-    for idx in range(0,nSamp):
-#    for idx in range(0,1):
-        
-        ## level 1
-        x20 = X1[idx,:]
-        x21 = X1_trans[idx,0]*eigVec1[0,:] + X1_trans[idx,1]*eigVec1[1,:] + X1_trans[idx,2]*eigVec1[2,:]
-        x22 = X1_trans[idx,0]*eigVec1[0,:] + X1_trans[idx,1]*eigVec1[1,:]
-        x23 = X1_trans[idx,0]*eigVec1[0,:]
-        
-        x20 = x20.reshape((14*14))
-        x21 = x21.reshape((14*14))
-        x22 = x22.reshape((14*14))
-        x23 = x23.reshape((14*14))    
-        
-        currentSamp1 = np.concatenate((x21,x22,x23))
-        
-        ## level 2
-        x20 = X2[idx,:]
-        x21 = X2_trans[idx,0]*eigVec2[0,:] + X2_trans[idx,1]*eigVec2[1,:] + X2_trans[idx,2]*eigVec2[2,:]
-        x22 = X2_trans[idx,0]*eigVec2[0,:] + X2_trans[idx,1]*eigVec2[1,:]
-        x23 = X2_trans[idx,0]*eigVec2[0,:]
-        
-        x20 = x20.reshape((7*7))
-        x21 = x21.reshape((7*7))
-        x22 = x22.reshape((7*7))
-        x23 = x23.reshape((7*7))
-#    
-        currentSamp2 = np.concatenate((x21,x22,x23))
-        
-        ## level 3
-        x20 = X3[idx,:]
-        x21 = X3_trans[idx,0]*eigVec3[0,:] + X3_trans[idx,1]*eigVec3[1,:] + X3_trans[idx,2]*eigVec3[2,:]
-        x22 = X3_trans[idx,0]*eigVec3[0,:] + X3_trans[idx,1]*eigVec3[1,:]
-        x23 = X3_trans[idx,0]*eigVec3[0,:]
-        
-        x20 = x20.reshape((3*3))
-        x21 = x21.reshape((3*3))
-        x22 = x22.reshape((3*3))
-        x23 = x23.reshape((3*3))
-#    
-        currentSamp3 = np.concatenate((x21,x22,x23))
-        
-        ## concatenate all features
-        samp = np.concatenate((currentSamp1,currentSamp2,currentSamp3))
-        
-        X_train_new[idx,:] = samp
-        
-        
-#    fig, ax = plt.subplots(2,2)
-#    ax[0,0].imshow(x20.reshape((14,14)))
-#    ax[0,1].imshow(x21.reshape((14,14)))
-#    ax[1,0].imshow(x22.reshape((14,14)))
-#    ax[1,1].imshow(x23.reshape((14,14)))
-    
-    
-    
-    
-     
-
-         
-         
-    
 #
 #    ######################## Save Data ###############################
 #    dataSet = dict()
@@ -432,9 +146,20 @@ if __name__== "__main__":
 #    dataSet["X_test"] = X_test
 #    dataSet["y_test"] = y_test
 #
-#    np.save('MPCA_data.npy', dataSet)
-#
-    ###################### Convert data into torch format ############
+#    np.save('MPCA_fft_data.npy', dataSet)
+#    
+    ######################## Load Data ###############################
+#    dataSet = np.load('MPCA_fft_data.npy',allow_pickle=True).item()    
+#    
+#    X_train = dataSet["X_train"]
+#    y_train = dataSet["y_train"]
+#    X_val = dataSet["X_val"]
+#    y_val = dataSet["y_val"]
+#    X_test = dataSet["X_test"]
+#    y_test = dataSet["y_test"]
+    
+
+#    ###################### Convert data into torch format ############
 #    X_train = torch.FloatTensor(X_train)
 #    y_train = torch.LongTensor(y_train)
 #    X_val = torch.FloatTensor(X_val)
@@ -443,10 +168,10 @@ if __name__== "__main__":
 #    y_test = torch.LongTensor(y_test)
 
 
-############################### Train Network ############################
-
-
-
+################################ Train Network ############################
+#
+#    print('Training Network...')
+#
 #    ############# run a number of trials, save best model ############
 #    for trial in range(parameters["numTrials"]):
 #
@@ -496,7 +221,7 @@ if __name__== "__main__":
 #                model.train()
 #
 #                # if gradient of validation goes positive, stop training
-#                if ((epoch > 600) and np.sign(valLearningCurve[-1].detach().numpy() - valLearningCurve[-2].detach().numpy())):
+#                if ((epoch > 200) and np.sign(valLearningCurve[-1].detach().numpy() - valLearningCurve[-2].detach().numpy())):
 #                    break
 #
 #            if not(epoch % 10):
@@ -557,7 +282,6 @@ if __name__== "__main__":
 #
 #    # plot the confusion matrix
 #    plot_confusion_matrix(y_test.detach().numpy(), y_test_pred_index.detach().numpy(), parameters["classes"], testLoss, normalize=False, title='Normalized Confusion Matrix for Fashion-MNIST')
-
 
 
     print('================ DONE ================')

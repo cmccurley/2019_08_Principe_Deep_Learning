@@ -44,7 +44,7 @@ def setParams():
     parameters["outputSize"] = 10
     parameters["learningRate"] = 0.01
     parameters["numEpochs"] = 800
-    parameters["numTrials"] = 5
+    parameters["numTrials"] = 1
     parameters["updateIter"] = 10
 
     return parameters
