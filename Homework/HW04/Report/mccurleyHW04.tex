@@ -24,7 +24,7 @@
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
 		T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 
-\graphicspath{{"E:/University of Florida/Classes/2019_08_Principe_Deep_Learning/Homework/HW03/Report/Images/"}{"C:/Users/Conma/Desktop/HW03/Report/Images/"}{"/media/cmccurley/0000-0001/University of Florida/Classes/2019_08_Principe_Deep_Learning/Homework/HW03/Report/Images/"}}
+\graphicspath{{"E:/University of Florida/Classes/2019_08_Principe_Deep_Learning/Homework/HW04/Report/Images/"}{"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Report/Images/"}{"/media/cmccurley/0000-0001/University of Florida/Classes/2019_08_Principe_Deep_Learning/Homework/HW04/Report/Images/"}}
 \geometry{margin=1 in}
 
 \newcommand{\smallvskip}{\vspace{5 pt}}
@@ -39,104 +39,73 @@
 	
 \begin{center}
 	\textbf{\Large Connor McCurley} \\
-	EEE 6814 \qquad \textbf{\large Homework 3} \qquad Fall 2019 
+	EEE 6814 \qquad \textbf{\large Homework 4} \qquad Fall 2019 
 \end{center}
 
 
 
 
 \section*{Problem Description}
-The goal of this assignment was to train two taxonomies of neural networks to process temporal data.  The idea is that we had grammar sequences of variable length and we wanted the networks to learn to identify whether a new sequence followed the grammar structure.  In our case, the in-grammar hypothesis followed the structure of \{0*,1\}.  This means that a sequence could contain any number of zeros, as long as it was followed by a single one.  Any other binary pattern was considered to fall outside of the grammar.  
 
-\section*{Time Delay Neural Network (TDNN)}
-The first network taxonomy that was implemented was a time delay neural network.  While I would have liked  to test a multitude of network topologies, I just did not have time for this assignment.  Because of that, I simply fixed the networks to have a single hidden layer (with ReLU activations) and a single output neuron (with sigmoid to provide 0/1 labels).  Window sizes of 7 and 20 were compared.  Simple block diagrams for the two architectures are shown in Figures \ref{fig:tdnn7_architecture} and \ref{fig:tdnn20_architecture}. 
 
-\begin{center}
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.50\textwidth]{"tdnn7_architecture"}
-		\caption{Architecture of a TDNN with a window size of 7.  A 1D convolutional layer creates a feature vector for the input sequence before passing it along to a hidden layer and a subsequent output layer.  A single label is predicted for the entire sequence.}
-		\label{fig:tdnn7_architecture}
-	\end{figure}
-\end{center}
+\begin{figure}[!ht]
+	\centering
+	\subfloat[][]{\includegraphics[width=.3\textwidth]{"Example_0_full_res"}}\quad
+	\subfloat[][]{\includegraphics[width=.3\textwidth]{"Example_0_multi_res"}}\\
+	\subfloat[][]{\includegraphics[width=.3\textwidth]{"Example_10000_full_res"}}\quad
+	\subfloat[][]{\includegraphics[width=.3\textwidth]{"Example_10000_multi_res"}}
+	\caption{Full resolution images (left) and corresponding multi-resolution PCA features (right) for two training examples.}
+	\label{fig:sub1}
+\end{figure}
 
-\begin{center}
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.5\textwidth]{"tdnn20_architecture"}
-		\caption{Architecture of a TDNN with a window size of 20.  A 1D convolutional layer creates a feature vector for the input sequence before passing it along to a hidden layer and a subsequent output layer.  A single label is predicted for the entire sequence.}
-		\label{fig:tdnn20_architecture}
-	\end{figure}
-\end{center}
+\begin{figure}[!ht]
+	\centering
+	\subfloat[][]{\includegraphics[width=.3\textwidth]{"Example_20000_full_res"}}\quad
+	\subfloat[][]{\includegraphics[width=.3\textwidth]{"Example_20000_multi_res"}}\\
+	\subfloat[][]{\includegraphics[width=.3\textwidth]{"Example_30000_full_res"}}\quad
+	\subfloat[][]{\includegraphics[width=.3\textwidth]{"Example_30000_multi_res"}}
+	\caption{Full resolution images (left) and multi-resolution PCA features (right) for two training examples.}
+	\label{fig:sub2}
+\end{figure}
+
+\begin{figure}[!ht]
+	\centering
+	\subfloat[][]{\includegraphics[width=.3\textwidth]{"Example_40000_full_res"}}\quad
+	\subfloat[][]{\includegraphics[width=.3\textwidth]{"Example_40000_multi_res"}}\\
+	\subfloat[][]{\includegraphics[width=.3\textwidth]{"Example_50000_full_res"}}\quad
+	\subfloat[][]{\includegraphics[width=.3\textwidth]{"Example_50000_multi_res"}}
+	\caption{Full resolution images (left) and multi-resolution PCA features (right) for two training examples.}
+	\label{fig:sub3}
+\end{figure}
+
+
+\begin{figure}[!ht]
+	\centering
+	\subfloat[][]{\includegraphics[width=.4\textwidth]{"pcam_no_fft_learning_curve"}}\quad
+	\subfloat[][]{\includegraphics[width=.4\textwidth]{"pcam_no_fft_confusion_mat"}}\\
+	\subfloat[][]{\includegraphics[width=.4\textwidth]{"pcam_fft_learning_curve"}}\quad
+	\subfloat[][]{\includegraphics[width=.4\textwidth]{"pcam_fft_confusion_mat"}}
+	\caption{Top: Learning curve and confusion matrix from the network training with Multi-resolution PCA features.  Bottom: Learning curve and confusion matrix from the network training with frequency-domain Multi-resolution PCA features.}
+	\label{fig:pcam_confusion_mats}
+\end{figure}
+
+\begin{figure}[!ht]
+	\centering
+	\subfloat[][]{\includegraphics[width=.4\textwidth]{"base_confusion_mat"}}\quad
+	\subfloat[][]{\includegraphics[width=.4\textwidth]{"pca_100_confusion_mat"}}\\
+	\caption{Left: Confusion matrix for the base model trained on raw images. Right: Confusion matrix for model trained with images projected onto the first 100 principal components of the training set.}
+	\label{fig:base_confusion_mats}
+\end{figure}
+
 
 \noindent
-While the homework specified that we generate data sequences of variable length, the network needed to take in a fixed feature map.  To resolve this issue, the zeros in the sequence were changed to -1 (which is also just good practice as to actually utilize the full network), and the sequences were zero-padded (if needed).  A 1D convolution was applied on the entire input sequence to simulate a sliding window.  Both networks were then trained in batch 10 times each (with random initialization).  Each network (TDNN and RNN) used the Adam optimizer with binary cross-entropy loss.  The learning rate was fixed at $\eta=0.001$.  The best-performing model was then saved and used on the posted test set.  Learning curves demonstrating the binary cross-entropy loss for training and validation sets are shown in Figures \ref{fig:tdnn7_learning_curve_lr_point001} and \ref{fig:tdnn20_learning_curve_lr_point001}.  The confusion matrices in Figures \ref{fig:tdnn7_confusion_matrix_lr_point001} and \ref{fig:tdnn20_confusion_matrix_lr_point001} demonstrate classification performance for each model on the held-out test set.  As can be seen from the figures, performance from the network with a window size of 20 slightly outperformed that of window-size 7.  My intuition is that, for these simple binary sequences, the network can capture relevant features more easily from a global perspective.  However, this is highly data dependent.  These results demonstrates the importance of properly selecting the window hyper-parameter.  Additionally, I presume the zero-padding had a detrimental affect on performance (since the longer test sequences did not have padding).  This likely caused both networks to under-perform. 
-   
-\begin{center}
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.45\textwidth]{"tdnn7_learning_curve_lr_point001"}
-		\caption{Learning curves for the TDNN with a window size of 7.  The validation loss begins to increase at approximately training epoch 1200.}
-		\label{fig:tdnn7_learning_curve_lr_point001}
-	\end{figure}
-\end{center}
 
-\begin{center}
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.45\textwidth]{"tdnn20_learning_curve_lr_point001"}
-		\caption{Learning curves for the TDNN with a window size of 20.  The validation loss begins to increase at approximately training epoch 900.}
-		\label{fig:tdnn20_learning_curve_lr_point001}
-	\end{figure}
-\end{center}
-
-\begin{center}
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.65\textwidth]{"tdnn7_confusion_matrix_lr_point001"}
-		\caption{Confusion matrix for the TDNN with a window size of 7.  Out of the 500 test sequences, this particular network mis-classified 130.  26 in-grammar sequences were predicted as out of grammar, while 104 out of grammar sequences were predicted in-grammar.}
-		\label{fig:tdnn7_confusion_matrix_lr_point001}
-	\end{figure}
-\end{center}
-
-\begin{center}
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.65\textwidth]{"tdnn20_confusion_matrix_lr_point001"}
-		\caption{Confusion matrix for the TDNN with a window size of 20.  Out of the 500 test sequences, this particular network mis-classified 110.  1 in-grammar sequence was predicted as out of grammar, while 109 out of grammar sequences were predicted as in-grammar.}
-		\label{fig:tdnn20_confusion_matrix_lr_point001}
-	\end{figure}
-\end{center}
-
-
-\section*{Recurrent Neural Network (RNN)}
-
-The second taxonomy implemented was a simple recurrent network.  Again, while I would have liked to try many configurations/ hyper-parameters, I simply did not have time.  For this experimentation, I chose a RNN with two hidden-state units and a single output-state unit.  Learning curves and the test confusion matrix for the best model are shown in Figures \ref{fig:rnn_learning_curve_lr_point001} and \ref{fig:rnn_confusion_matrix_lr_point001}, respectively.  As can be seen from the figures, this network implementation greatly outperformed the TDNN architectures.  In this case, only 41 test samples were mis-classified (however all of the true in-grammar samples were correctly classified).  Additionally, we were not required to select a window size.  This greatly facilitated implementation and network tuning.
-
-\begin{center}
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.5\textwidth]{"rnn_learning_curve_lr_point001"}
-		\caption{Learning curves for the RNN.  The validation loss begins to increase at approximately training epoch 1200.}
-		\label{fig:rnn_learning_curve_lr_point001}
-	\end{figure}
-\end{center}
-
-\begin{center}
-	\begin{figure}[H]
-		\centering
-		\includegraphics[width=0.65\textwidth]{"rnn_confusion_matrix_lr_point001"}
-		\caption{Confusion matrix for the RNN.  Out of the 500 test sequences, this particular network mis-classified 41.  0 in-grammar sequences were predicted as out of grammar, while 41 out of grammar sequences were predicted in-grammar.}
-		\label{fig:rnn_confusion_matrix_lr_point001}
-	\end{figure}
-\end{center}
+ 
 
 
 
 
-\begin{thebibliography}{00}
-	\bibitem{Principe}Principe, Jose C., Euliano, Niel R., Lefebvre, W. Curt. "Chapter X- Temporal Processing with Neural Networks," in Neural and Adaptive Systems: Fundamentals Through Simulation, 1997.
-	\bibitem{Principe}Principe, Jose C., Euliano, Niel R., Lefebvre, W. Curt. "Chapter XI- Training and Using Recurrent Networks," in Neural and Adaptive Systems: Fundamentals Through Simulation, 1997.
-\end{thebibliography}
+
+
 
 \end{document}
