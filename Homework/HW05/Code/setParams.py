@@ -10,12 +10,13 @@ Created on Tue Oct 29 17:33:10 2019
 ***********************************************************************
     *  File:  setParams.py
     *  Name:  Connor H. McCurley
-    *  Date:  2019-10-29
-    *  Desc:  Sets parameters for project01.py
+    *  Date:  2019-11-23
+    *  Desc:  Sets parameters for hw05.py
 **********************************************************************
 """
 
 import os
+import numpy as np
 
 def setParams():
     """
@@ -28,12 +29,12 @@ def setParams():
     """
     parameters = dict()
 
-    ################### General Parameters ###########################
-    parameters["dataPath"] = os.getcwd() + '/fashion_mnist_master/data/fashion'
-    parameters["classes"] = ["T-shirt/Top","Trouser", "Pullover", "Dress", "Coat", "Sandal", "Shirt", "Sneaker", "Bag", "Ankle Boot"]
-    parameters["class_num"] = [0,1,2,3,4,5,6,7,8,9]
-    parameters["width"] = 28
-    parameters["image_size"] = 784
+    ################### Data Generation Parameters ###########################
+    parameters["dataPath"] = 'MGdata.txt'
+    parameters["window_size"] = 6
+    parameters["plot_raw"] = True
+    parameters["plot_range"] = np.array([[200],[400]])
+    parameters["add_noise"] = False
 
     ################### Data Parameters #############################
     data_parameters = dict()
