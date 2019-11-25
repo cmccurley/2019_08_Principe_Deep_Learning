@@ -35,16 +35,16 @@ def setParams():
     parameters["window_size"] = 20
     parameters["plot_raw"] = False
     parameters["plot_range"] = np.array([[200],[400]])
-    parameters["add_noise"] = False
+    parameters["add_noise"] = True
     parameters["saved_data_name"] = 'MGdata_split.npy'
 
     ################### Data Parameters #############################
     data_parameters = dict()
-    data_parameters["validationSize"] = 0.15
+    data_parameters["validationSize"] = 0.1
     parameters["data_parameters"] = data_parameters
 
     ################### Network Parameters ##########################
-    parameters["loss_type"] = 'mse'
+    parameters["loss_type"] = 'mee'
     parameters["outputSize"] = 1
     parameters["learningRate"] = 0.01
     parameters["numEpochs"] = 10
@@ -52,7 +52,7 @@ def setParams():
     parameters["updateIter"] = 10
     
     ####################### MEE Parameters ##########################
-    parameters["mee_kernel_width"] = 0.001
+    parameters["mee_kernel_width"] = 0.1
     parameters["batch_size"] = 200
 
     return parameters
