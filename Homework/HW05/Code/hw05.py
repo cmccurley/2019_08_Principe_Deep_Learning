@@ -24,6 +24,7 @@ import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from torch.utils.data import Dataset, DataLoader
 import matplotlib.pyplot as plt
 import matplotlib.colors
 import sklearn.model_selection as ms
@@ -36,6 +37,8 @@ from torch.autograd import Variable
 from confusion_mat import plot_confusion_matrix
 import numpy.random
 import math
+from torch.utils.data.sampler import SubsetRandomSampler
+from sklearn.model_selection import train_test_split
 
 
 ######################################################################
@@ -84,72 +87,145 @@ def readData(dataFilePath, window_size, plot_raw, plot_range, add_noise):
     
     return X,y
 
-#def MEELoss(y_pred, y_true, parameters):
-#    """
-#    ******************************************************************
-#        *  Func:      MEELoss()
-#        *  Desc:      Computes empirical estimate  of minimum error entropy.
-#        *  Inputs:    
-#        *             y_pred - vector of predicted labels
-#        *             y_true - vector of true labels
-#        *             parameters - dictionary of script parameters
-#        *                          must include mee kernel bandwidth
-#        *  Outputs:   
-#        *             mee_loss_val: scalar of estimated mee loss
-#    ******************************************************************
-#    """
-#    
-#    gauss_norm_const = torch.empty(1, dtype=torch.float)
-#    gauss_norm_const.fill_((1/(np.sqrt(2*3.14159)*parameters["mee_kernel_width"])))
-#    
-#    error = torch.zeros(1)
-#    
-#    norm_const = torch.empty(1, dtype=torch.float)
-#    norm_const.fill_((1/((y_true.size()[0])**2)))
-#    
-#    ## get vector of instantaneous errors
-#    error_vect = torch.abs(y_true.clone() - y_pred.clone())
-#    
-#    ## Update mee 
-#    for ii in range(len(y_true)):
-#        for jj in range(len(y_true)):
-#            error = error + gauss_norm_const*torch.exp((-1)*(error_vect[ii].clone() - error_vect[jj].clone())/(2*(parameters["mee_kernel_width"]**2)))
-#            
-#    ## normalize error by number of samples squared
-#    mee_loss_val = error*norm_const  
-#    
-#    return mee_loss_val
 
 
-class MEELoss(torch.nn.Module):
+class MGdata(Dataset):
+    """
+    ******************************************************************
+        *  Func:      MGdata()
+        *  Desc:      Reads data from a .txt file
+        *  Inputs:    
+        *             dataFilePath - path to .txt data file
+        *             window_size - length of FIR filter
+        *  Outputs:   
+        *             X: matrix of input data, split into windows
+        *             y: vector of values one-step ahead of filter
+    ******************************************************************
+    """
+    def __init__(self, directory, window = 20, Noise = False):
+        
+        ## Labels
+        self.targets = []
+        
+        ## Load the data
+        input_data = np.loadtxt(directory)
+        input_data = input_data - np.mean(input_data)
+        
+        #Compute dataset using windows
+        # Source for windowing code: 
+        # https://stackabuse.com/time-series-prediction-using-lstm-with-pytorch-in-python/
+        self.inout_seq = []
+        L = len(input_data)
+        for i in range(L-window):
+            train_seq = input_data[i:i+window]
+            train_label = input_data[i+window:i+window+1]
+            #Add noise using Middleton model if desired
+            if (Noise):
+                train_label += (.95*np.random.normal(loc=0,scale=np.sqrt(.5)) +
+                                .05*np.random.normal(loc=1,scale=np.sqrt(.5)))
+            self.inout_seq.append({  # sequence and desired
+                    "sequence": train_seq,
+                    "label": train_label
+                })
+            self.targets.append(train_label)
+
+
+    def __len__(self):
+        return len(self.inout_seq)
+
+    def __getitem__(self, index):
+
+        datafiles = self.inout_seq[index]
+
+        sequence = torch.tensor(datafiles["sequence"])
+
+        label_file = datafiles["label"]
+        label = torch.tensor(label_file)
+
+        return sequence, label, index
+
+def MEELoss(y_pred, y_true, parameters):
+    """
+    ******************************************************************
+        *  Func:      MEELoss()
+        *  Desc:      Computes empirical estimate  of minimum error entropy.
+        *  Inputs:    
+        *             y_pred - vector of predicted labels
+        *             y_true - vector of true labels
+        *             parameters - dictionary of script parameters
+        *                          must include mee kernel bandwidth
+        *  Outputs:   
+        *             mee_loss_val: scalar of estimated mee loss
+    ******************************************************************
+    """
     
-    def __init__(self):
-        super(MEELoss,self).__init__()
-        
-    def forward(self,y_pred, y_true, parameters):
-        ## compute normalization constant for Gaussian kernel
-#        gauss_norm_const = (1/(np.sqrt(2*3.14159)*parameters["mee_kernel_width"]))
-        
-        self.gauss_norm_const = torch.empty(1, dtype=torch.float)
-        self.gauss_norm_const.fill_((1/(np.sqrt(2*3.14159)*parameters["mee_kernel_width"])))
-        
-        self.error = torch.zeros(1)
-        
-        self.norm_const = torch.empty(1, dtype=torch.float)
-        self.norm_const.fill_((1/((y_true.size()[0])**2)))
-        
-        ## get vector of instantaneous errors
-        self.error_vect = torch.abs(y_true.clone() - y_pred.clone())
-        
-        ## Update mee 
-        for ii in range(len(y_true)):
-            for jj in range(len(y_true)):
-                self.error = self.error + self.gauss_norm_const*torch.exp((-1)*(self.error_vect[ii].clone() - self.error_vect[jj].clone())/(2*(parameters["mee_kernel_width"]**2)))
-                
-        ## normalize error by number of samples squared
-        self.mee_loss_val = self.error*self.norm_const  
-        
-        return self.mee_loss_val
+    y_true = y_true.unsqueeze(dim=1)
+    
+    gauss_norm_const = torch.empty(1, dtype=torch.float)
+    gauss_norm_const.fill_((1/(np.sqrt(2*3.14159)*parameters["mee_kernel_width"])))
+    
+    error = torch.zeros(1)
+    
+    norm_const = torch.empty(1, dtype=torch.float)
+    norm_const.fill_((1/((y_true.size()[0])**2)))
+    
+    ## get vector of instantaneous errors
+    error_vect = torch.abs(y_true.clone() - y_pred.clone())
+    
+    ## Update mee 
+    for ii in range(len(y_true)):
+        for jj in range(len(y_true)):
+            error = error + gauss_norm_const*torch.exp((-1)*(error_vect[ii].clone() - error_vect[jj].clone())/(2*(parameters["mee_kernel_width"]**2)))
+            
+    ## normalize error by number of samples squared
+    mee_loss_val = error*norm_const  
+    
+    return mee_loss_val
+
+
+#class MEELoss(torch.nn.Module):
+#    
+#    def __init__(self):
+#        super(MEELoss,self).__init__()
+#        
+#    def forward(self, y_pred, y_true, parameters):
+#        
+#        y_true = y_true.unsqueeze(dim=1)
+#        
+#        n_samples = y_true.size()[0]
+#        
+#        ## compute normalizing constant for Gaussian kernel
+#        self.gauss_norm_const = torch.empty(1, dtype=torch.float)
+#        self.gauss_norm_const.fill_((1/(np.sqrt(2*np.pi)*parameters["mee_kernel_width"])))
+#        
+#        ## Compute normalizing constnant on error
+#        self.norm_const = torch.empty(1, dtype=torch.float)
+#        self.norm_const.fill_((1/((y_true.size()[0])**2)))
+#        
+#        ## get vector of instantaneous errors
+#        self.error_vect = torch.abs(y_true.clone() - y_pred.clone())
+#        
+#        ## Update mee 
+#        self.error = torch.pow(self.error_vect,2).sum(dim=1,keepdim=True).expand(n_samples,n_samples)
+#        self.error = self.error + self.error.t()
+#        self.error.addmm_(1,-2,self.error_vect,self.error_vect.t())
+#        self.error = self.error.clamp(min=1e-12).sqrt()
+#        
+#        ## Apply kernel
+#        self.mee_loss = torch.sum(self.gauss_norm_const*torch.exp(-((self.error)**2)/((2*(parameters["mee_kernel_width"]**2)))))
+#        
+#        ## Normalize by number of samples squared
+#        self.mee_loss_val = torch.sum(self.mee_loss)*self.norm_const*(1/parameters["mee_kernel_width"])
+#
+#
+##        for ii in range(len(y_true)):
+##            for jj in range(len(y_true)):
+##                self.error = self.error + self.gauss_norm_const*torch.exp((-1)*(self.error_vect[ii].clone() - self.error_vect[jj].clone())/(2*(parameters["mee_kernel_width"]**2)))
+#                
+#        ## normalize error by number of samples squared
+##        self.mee_loss_val = self.error*self.norm_const  
+#        
+#        return self.mee_loss_val
 
 
 ###################### Define Neural Net Class #######################
@@ -365,7 +441,40 @@ elif(parameters["loss_type"] == 'mee'):
 ######################### Train Network with MSE ############################
 
     print('Training Network with MEE Loss...')
+    
+    ## Create dataset
+    dataset = MGdata(parameters["dataPath"], parameters["window_size"], parameters["add_noise"])
+    
+       
+    #Do stratified 90/10 split
+    #Create "features" with labels instead of using data (only depends on class labels)
+    indices = np.arange(len(dataset))
+    y = dataset.targets
+        
+    #Use stratified split to balance training validation splits, set random state to be same for each encoding method
+    y_train,y_val,train_indices,val_indices = train_test_split(y,indices,test_size = .2,random_state=24)
+    y_val,y_test,val_indices,test_indices = train_test_split(y_val,val_indices,test_size =.5,random_state=24)
+    
+    # Creating PT data samplers and loaders:
+    train_sampler = SubsetRandomSampler(train_indices)
+    valid_sampler = SubsetRandomSampler(val_indices)
+    test_sampler = SubsetRandomSampler(test_indices)
+    mg_datasets = {'train': dataset, 'val': dataset, 'test': dataset}
+    
+#    # Create training and validation dataloaders
+#    dataloaders_dict = {x: torch.utils.data.DataLoader(mg_datasets[x], batch_size=parameters["batch_size"],shuffle=True, 
+#                                                       num_workers=0) for x in ['train', 'val', 'test']}
+    
+        
+    # Create training and validation dataloaders
+    dataloaders_dict = {'train': torch.utils.data.DataLoader(mg_datasets['train'], batch_size=parameters["batch_size"],
+                                               sampler=train_sampler, shuffle=False,num_workers=0),
+                        'val': torch.utils.data.DataLoader(mg_datasets['val'],batch_size=parameters["batch_size"],
+                                               sampler=valid_sampler, shuffle=False,num_workers=0),
+                        'test': torch.utils.data.DataLoader(mg_datasets['test'], batch_size=parameters["batch_size"],
+                                               sampler=test_sampler, shuffle=False,num_workers=0) }
 
+    
     ############# run a number of trials, save best model ############
     for trial in range(parameters["numTrials"]):
 
@@ -383,59 +492,63 @@ elif(parameters["loss_type"] == 'mee'):
         
         criterion = MEELoss()
 
-        ##################### Train the Network ##########################
+        ##################### Train the Network ##########################    
         
-#        plt.figure()
-#        y_val = y_val.detach().numpy()
-#        n_samp_y = len(y_val)
-#        plt.plot(np.arange(n_samp_y),y_val, color='blue')
-#        
-#        y_pred = model(X_val)
-#        plt.plot(np.arange(n_samp_y),y_pred.detach().numpy(), color='orange')
-#        plt.legend(['GT','MEE Pred'])
-#        plt.title('Validation Data', fontsize=14)
-        
-
         model.train()
 
         ################# Train a single network #####################
         for epoch in range(parameters["numEpochs"]):
-
-            y_pred = torch.empty(parameters["batch_size"], requires_grad=True)
-            y_true = torch.empty(parameters["batch_size"])
-            batch_idx = 0
-            batch_num = 0
             
-            for idx in range(X_train.shape[0]):
-    
-                # forward pass (mini-batch of 20 samples)
-                y_pred[batch_idx] = model(X_train[idx,:].clone()) # predict output 
-                y_true[batch_idx] = y_train[idx].clone()
-                batch_idx = batch_idx + 1
-    
-                ## update network and append loss to learning curve
-                if (batch_idx == parameters["batch_size"]):
-                    batch_idx = 0
-                    batch_num = batch_num + 1
+#            for sample in 
 
-                    ## Compute MEE loss
-#                    loss  = MEELoss(y_pred, y_true, parameters)
-#                    loss  = criterion(y_pred, y_true, parameters)
-                    loss  = criterion.forward(y_pred, y_true, parameters)
-                    
-                    # backward pass
-#                    optimizer.zero_grad()
-#                    loss.retain_grad()
-                    loss.backward() # computes the gradients
-                    optimizer.step() # updates the 
-                    
-                    
-                    print(f'Batch: {batch_num}')
-                    
-                    learningCurve.append(loss)
-#                    model.eval()
-#                    valLearningCurve.append(criterion(model(X_val),y_val))
-                    model.train()
+            y_pred = model(X_val)
+#            loss = criterion(y_pred, y_train, parameters)
+            loss =  MEELoss(y_pred, y_val, parameters)
+            
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+            
+            learningCurve.append(loss)
+##                    model.eval()
+##                    valLearningCurve.append(criterion(model(X_val),y_val))
+#                    model.train()
+            
+#            y_pred = torch.empty(parameters["batch_size"], requires_grad=True)
+#            y_true = torch.empty(parameters["batch_size"])
+#            batch_idx = 0
+#            batch_num = 0
+            
+#            for idx in range(X_train.shape[0]):
+#    
+#                # forward pass (mini-batch of 20 samples)
+#                y_pred[batch_idx] = model(X_train[idx,:].clone()) # predict output 
+#                y_true[batch_idx] = y_train[idx].clone()
+#                batch_idx = batch_idx + 1
+#    
+#                ## update network and append loss to learning curve
+#                if (batch_idx == parameters["batch_size"]):
+#                    batch_idx = 0
+#                    batch_num = batch_num + 1
+#
+#                    ## Compute MEE loss
+##                    loss  = MEELoss(y_pred, y_true, parameters)
+##                    loss  = criterion(y_pred, y_true, parameters)
+#                    loss  = criterion.forward(y_pred, y_true, parameters)
+#                    
+#                    # backward pass
+##                    optimizer.zero_grad()
+##                    loss.retain_grad()
+#                    loss.backward() # computes the gradients
+#                    optimizer.step() # updates the 
+#                    
+#                    
+#                    print(f'Batch: {batch_num}')
+#                    
+#                    learningCurve.append(loss)
+##                    model.eval()
+##                    valLearningCurve.append(criterion(model(X_val),y_val))
+#                    model.train()
                     
             print(f'epoch {epoch}')
 

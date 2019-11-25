@@ -44,15 +44,15 @@ def setParams():
     parameters["data_parameters"] = data_parameters
 
     ################### Network Parameters ##########################
-    parameters["loss_type"] = 'mee'
+    parameters["loss_type"] = 'mse'
     parameters["outputSize"] = 1
-    parameters["learningRate"] = 0.1
-    parameters["numEpochs"] = 2
+    parameters["learningRate"] = 0.01
+    parameters["numEpochs"] = 10
     parameters["numTrials"] = 1
     parameters["updateIter"] = 10
     
     ####################### MEE Parameters ##########################
-    parameters["mee_kernel_width"] = 1
+    parameters["mee_kernel_width"] = 0.001
     parameters["batch_size"] = 200
 
     return parameters
