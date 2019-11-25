@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2019.4.9)  23 NOV 2019 16:57
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2019.4.9)  25 NOV 2019 18:21
 entering extended mode
 **./mccurleyHW05.tex
 (mccurleyHW05.tex
@@ -548,69 +548,263 @@ LaTeX Info: Redefining \nameref on input line 38.
 \@outlinefile=\write3
 \openout3 = `mccurleyHW05.out'.
 
+LaTeX Font Info:    Try loading font information for U+msa on input line 49.
 
-
-LaTeX Warning: Reference `fig:sub1' on page 1 undefined on input line 57.
-
-
-LaTeX Warning: Reference `fig:sub2' on page 1 undefined on input line 57.
-
-
-LaTeX Warning: Reference `fig:sub3' on page 1 undefined on input line 57.
-
-LaTeX Font Info:    Try loading font information for U+msa on input line 90.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 90.
+LaTeX Font Info:    Try loading font information for U+msb on input line 49.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
+<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Report/
+Images/""MGdata".png, id=20, 462.528pt x 344.0052pt>
+File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Re
+port/Images/""MGdata".png Graphic file (type png)
 
-LaTeX Warning: Reference `fig:pcam_confusion_mats' on page 1 undefined on input
- line 90.
+<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Rep
+ort/Images/""MGdata".png>
+Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
+ng/Homework/HW05/Report/Images/""MGdata".png used on input line 57.
+(pdftex.def)             Requested size: 375.80544pt x 279.51927pt.
+ [1
+
+{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map} <C:/Users/Conma/Documents/
+2019_08_Principe_Deep_Learning/Homework/HW05/Report/Images/MGdata.png>]
+<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Report/
+Images/""mse_valid_no_noise".png, id=34, 462.528pt x 344.0052pt>
+File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Re
+port/Images/""mse_valid_no_noise".png Graphic file (type png)
+
+<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Rep
+ort/Images/""mse_valid_no_noise".png>
+Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
+ng/Homework/HW05/Report/Images/""mse_valid_no_noise".png used on input line 67.
+
+(pdftex.def)             Requested size: 211.38832pt x 157.22073pt.
+
+<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Report/
+Images/""mee_valid_no_noise".png, id=35, 462.528pt x 344.0052pt>
+File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Re
+port/Images/""mee_valid_no_noise".png Graphic file (type png)
+
+<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Rep
+ort/Images/""mee_valid_no_noise".png>
+Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
+ng/Homework/HW05/Report/Images/""mee_valid_no_noise".png used on input line 68.
+
+(pdftex.def)             Requested size: 211.38832pt x 157.22073pt.
+
+<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Report/
+Images/""mse_test_no_noise".png, id=36, 462.528pt x 344.0052pt>
+File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Re
+port/Images/""mse_test_no_noise".png Graphic file (type png)
+
+<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Rep
+ort/Images/""mse_test_no_noise".png>
+Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
+ng/Homework/HW05/Report/Images/""mse_test_no_noise".png used on input line 75.
+(pdftex.def)             Requested size: 211.38832pt x 157.22073pt.
+
+<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Report/
+Images/""mee_test_no_noise".png, id=37, 462.528pt x 344.0052pt>
+File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Re
+port/Images/""mee_test_no_noise".png Graphic file (type png)
+
+<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Rep
+ort/Images/""mee_test_no_noise".png>
+Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
+ng/Homework/HW05/Report/Images/""mee_test_no_noise".png used on input line 76.
+(pdftex.def)             Requested size: 211.38832pt x 157.22073pt.
+
+<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Report/
+Images/""mse_valid_with_noise".png, id=40, 462.528pt x 344.0052pt>
+File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Re
+port/Images/""mse_valid_with_noise".png Graphic file (type png)
+
+<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Rep
+ort/Images/""mse_valid_with_noise".png>
+Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
+ng/Homework/HW05/Report/Images/""mse_valid_with_noise".png used on input line 8
+6.
+(pdftex.def)             Requested size: 211.38832pt x 157.22073pt.
+
+<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Report/
+Images/""mee_valid_with_noise_bw1".png, id=41, 462.528pt x 344.0052pt>
+File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Re
+port/Images/""mee_valid_with_noise_bw1".png Graphic file (type png)
+
+<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Rep
+ort/Images/""mee_valid_with_noise_bw1".png>
+Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
+ng/Homework/HW05/Report/Images/""mee_valid_with_noise_bw1".png used on input li
+ne 87.
+(pdftex.def)             Requested size: 211.38832pt x 157.22073pt.
+ [2 <C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Repo
+rt/Images/mse_valid_no_noise.png> <C:/Users/Conma/Documents/2019_08_Principe_De
+ep_Learning/Homework/HW05/Report/Images/mee_valid_no_noise.png> <C:/Users/Conma
+/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Report/Images/mse_test_
+no_noise.png> <C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework
+/HW05/Report/Images/mee_test_no_noise.png>]
+<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Report/
+Images/""mse_test_with_noise".png, id=59, 462.528pt x 344.0052pt>
+File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Re
+port/Images/""mse_test_with_noise".png Graphic file (type png)
+
+<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Rep
+ort/Images/""mse_test_with_noise".png>
+Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
+ng/Homework/HW05/Report/Images/""mse_test_with_noise".png used on input line 94
+.
+(pdftex.def)             Requested size: 211.38832pt x 157.22073pt.
+
+<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Report/
+Images/""mee_test_with_noise_bw1".png, id=60, 462.528pt x 344.0052pt>
+File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Re
+port/Images/""mee_test_with_noise_bw1".png Graphic file (type png)
+
+<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Rep
+ort/Images/""mee_test_with_noise_bw1".png>
+Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
+ng/Homework/HW05/Report/Images/""mee_test_with_noise_bw1".png used on input lin
+e 95.
+(pdftex.def)             Requested size: 211.38832pt x 157.22073pt.
+
+<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Report/
+Images/""mee_valid_with_noise_bw_point01".png, id=62, 462.528pt x 344.0052pt>
+File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Re
+port/Images/""mee_valid_with_noise_bw_point01".png Graphic file (type png)
+
+<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Rep
+ort/Images/""mee_valid_with_noise_bw_point01".png>
+Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
+ng/Homework/HW05/Report/Images/""mee_valid_with_noise_bw_point01".png used on i
+nput line 104.
+(pdftex.def)             Requested size: 187.89914pt x 139.75175pt.
+
+<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Report/
+Images/""mee_test_with_noise_bw_point01".png, id=63, 462.528pt x 344.0052pt>
+File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Re
+port/Images/""mee_test_with_noise_bw_point01".png Graphic file (type png)
+
+<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Rep
+ort/Images/""mee_test_with_noise_bw_point01".png>
+Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
+ng/Homework/HW05/Report/Images/""mee_test_with_noise_bw_point01".png used on in
+put line 105.
+(pdftex.def)             Requested size: 187.89914pt x 139.75175pt.
+
+<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Report/
+Images/""mee_valid_with_noise_bw_point1".png, id=64, 462.528pt x 344.0052pt>
+File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Re
+port/Images/""mee_valid_with_noise_bw_point1".png Graphic file (type png)
+
+<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Rep
+ort/Images/""mee_valid_with_noise_bw_point1".png>
+Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
+ng/Homework/HW05/Report/Images/""mee_valid_with_noise_bw_point1".png used on in
+put line 106.
+(pdftex.def)             Requested size: 187.89914pt x 139.75175pt.
+
+<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Report/
+Images/""mee_test_with_noise_bw_point1".png, id=65, 462.528pt x 344.0052pt>
+File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Re
+port/Images/""mee_test_with_noise_bw_point1".png Graphic file (type png)
+
+<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Rep
+ort/Images/""mee_test_with_noise_bw_point1".png>
+Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
+ng/Homework/HW05/Report/Images/""mee_test_with_noise_bw_point1".png used on inp
+ut line 107.
+(pdftex.def)             Requested size: 187.89914pt x 139.75175pt.
+File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Re
+port/Images/""mee_valid_with_noise_bw1".png Graphic file (type png)
+
+<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Rep
+ort/Images/""mee_valid_with_noise_bw1".png>
+Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
+ng/Homework/HW05/Report/Images/""mee_valid_with_noise_bw1".png used on input li
+ne 108.
+(pdftex.def)             Requested size: 187.89914pt x 139.75175pt.
+File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Re
+port/Images/""mee_test_with_noise_bw1".png Graphic file (type png)
+
+<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Rep
+ort/Images/""mee_test_with_noise_bw1".png>
+Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
+ng/Homework/HW05/Report/Images/""mee_test_with_noise_bw1".png used on input lin
+e 109.
+(pdftex.def)             Requested size: 187.89914pt x 139.75175pt.
+
+<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Report/
+Images/""mee_valid_with_noise_bw10".png, id=66, 462.528pt x 344.0052pt>
+File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Re
+port/Images/""mee_valid_with_noise_bw10".png Graphic file (type png)
+
+<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Rep
+ort/Images/""mee_valid_with_noise_bw10".png>
+Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
+ng/Homework/HW05/Report/Images/""mee_valid_with_noise_bw10".png used on input l
+ine 110.
+(pdftex.def)             Requested size: 187.89914pt x 139.75175pt.
+
+<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Report/
+Images/""mee_test_with_noise_bw10".png, id=67, 462.528pt x 344.0052pt>
+File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Re
+port/Images/""mee_test_with_noise_bw10".png Graphic file (type png)
+
+<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Rep
+ort/Images/""mee_test_with_noise_bw10".png>
+Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
+ng/Homework/HW05/Report/Images/""mee_test_with_noise_bw10".png used on input li
+ne 111.
+(pdftex.def)             Requested size: 187.89914pt x 139.75175pt.
+ [3 <C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Repo
+rt/Images/mse_valid_with_noise.png> <C:/Users/Conma/Documents/2019_08_Principe_
+Deep_Learning/Homework/HW05/Report/Images/mee_valid_with_noise_bw1.png> <C:/Use
+rs/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Report/Images/m
+se_test_with_noise.png> <C:/Users/Conma/Documents/2019_08_Principe_Deep_Learnin
+g/Homework/HW05/Report/Images/mee_test_with_noise_bw1.png>]
+Overfull \vbox (51.57695pt too high) has occurred while \output is active []
 
 
-LaTeX Warning: Reference `fig:base_confusion_mats' on page 1 undefined on input
- line 90.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 111--113
-
- []
-
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 127.
-[1
-
-{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 127.
+[4 <C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Repor
+t/Images/mee_valid_with_noise_bw_point01.png> <C:/Users/Conma/Documents/2019_08
+_Principe_Deep_Learning/Homework/HW05/Report/Images/mee_test_with_noise_bw_poin
+t01.png> <C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05
+/Report/Images/mee_valid_with_noise_bw_point1.png> <C:/Users/Conma/Documents/20
+19_08_Principe_Deep_Learning/Homework/HW05/Report/Images/mee_test_with_noise_bw
+_point1.png> <C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/
+HW05/Report/Images/mee_valid_with_noise_bw10.png> <C:/Users/Conma/Documents/201
+9_08_Principe_Deep_Learning/Homework/HW05/Report/Images/mee_test_with_noise_bw1
+0.png>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 125.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 125.
  (mccurleyHW05.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 127.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 127.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 125.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 125.
 Package rerunfilecheck Info: File `mccurleyHW05.out' has not changed.
-(rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-
-
-LaTeX Warning: There were undefined references.
-
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 127.
+(rerunfilecheck)             Checksum: 7812C0D2F0486396CE526A3912F94F6F;211.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 125.
  ) 
 Here is how much of TeX's memory you used:
- 10035 strings out of 493323
- 150441 string characters out of 3139067
- 264797 words of memory out of 3000000
- 13422 multiletter control sequences out of 15000+200000
- 8710 words of font info for 33 fonts, out of 3000000 for 9000
+ 10184 strings out of 493323
+ 159002 string characters out of 3139067
+ 266749 words of memory out of 3000000
+ 13515 multiletter control sequences out of 15000+200000
+ 13957 words of font info for 52 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 44i,6n,42p,1460b,329s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Pr
-ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Fi
-les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKT
-eX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb>
-Output written on mccurleyHW05.pdf (1 page, 56137 bytes).
+ 44i,10n,49p,908b,463s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Pr
+ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Fi
+les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:/Program Files/MiKTe
+X 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fon
+ts/type1/public/amsfonts/cm/cmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/p
+ublic/amsfonts/cm/cmsy10.pfb>
+Output written on mccurleyHW05.pdf (4 pages, 1677645 bytes).
 PDF statistics:
- 34 PDF objects out of 1000 (max. 8388607)
- 7 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 128 PDF objects out of 1000 (max. 8388607)
+ 31 named destinations out of 1000 (max. 500000)
+ 108 words of extra memory for PDF output out of 10000 (max. 10000000)
 

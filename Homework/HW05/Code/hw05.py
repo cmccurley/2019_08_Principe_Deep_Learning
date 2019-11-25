@@ -107,6 +107,7 @@ class MGdata(Dataset):
     def __init__(self, dataFilePath, window = 20, Noise = False):
         
         self.targets = []
+        self.targets_no_noise =[]
         
         ## Load the data
         input_data = np.loadtxt(dataFilePath)
@@ -117,10 +118,10 @@ class MGdata(Dataset):
         L = len(input_data)
         for i in range(L-window):
             train_seq = input_data[i:i+window]
-            train_label = input_data[i+window:i+window+1]
+            train_label = input_data[i+window:i+window+1].copy()
+            train_label_no_noise = input_data[i+window:i+window+1].copy()
             #Add noise using Middleton model if desired
             if (Noise):
-                train_label_no_noise = train_label
                 train_label += (.95*np.random.normal(loc=0,scale=np.sqrt(.5)) +
                                 .05*np.random.normal(loc=1,scale=np.sqrt(.5)))
             self.inout_seq.append({  # sequence and desired
@@ -129,6 +130,7 @@ class MGdata(Dataset):
                     "label_no_noise": train_label_no_noise
                 })
             self.targets.append(train_label)
+            self.targets_no_noise.append(train_label_no_noise)
             
             self.Noise = Noise
 
@@ -144,19 +146,36 @@ class MGdata(Dataset):
 
         label_file = datafiles["label"]
         label = torch.FloatTensor(label_file)
+        
+        label_no_noise = torch.FloatTensor(datafiles["label_no_noise"])
     
 
         if self.Noise:  
             label_no_noise = torch.FloatTensor(datafiles["label_no_noise"])
             return sequence, label, index, label_no_noise
         else:
-            return sequence, label, index 
+            return sequence, label, index, label_no_noise
         
     
 def predict(dataloader,model):
+    """
+    ******************************************************************
+        *  Func:      predict()
+        *  Desc:      Passes dataset through a model and returns model outputs.
+        *  Inputs:    
+        *             dataloader: Pytorch data loader for a dataset
+        *             window_size:  Trained model which will compute output.
+        *  Outputs:   
+        *             GT: list of desired values for a dataset
+        *             Predictions: list of model outputs for a dataset
+        *             GT_no_noise: list of desired values without added noise  
+    ******************************************************************
+    """    
+
     #Initialize and accumalate ground truth and predictions
     GT = np.array(0)
     Predictions = np.array(0)
+    GT_no_noise =  np.array(0)
     model.eval()
         
     ## Iterate over data.
@@ -167,7 +186,7 @@ def predict(dataloader,model):
             
             #If validation, accumulate labels for confusion matrix
             GT = np.concatenate((GT,labels.detach().cpu().numpy()),axis=None)
-            GT_no_noise = np.concatenate((GT,labels_no_noise.detach().cpu().numpy()),axis=None)
+            GT_no_noise = np.concatenate((GT_no_noise,labels_no_noise.detach().cpu().numpy()),axis=None)
             Predictions = np.concatenate((Predictions,outputs.detach().cpu().numpy()),axis=None)
             
     return GT[1:],Predictions[1:], GT_no_noise[1:]
@@ -192,8 +211,6 @@ class MEELoss(torch.nn.Module):
             *             mee_loss_val: scalar of estimated mee loss
         ******************************************************************
         """
-        
-        y_true = y_true
         
         n_samples = y_true.size()[0]
         
@@ -246,15 +263,6 @@ class Feedforward(torch.nn.Module):
             relu = self.relu(hidden)
             hidden = self.fc4(relu)
             output = self.tanh(hidden)
-            
-#            hidden = self.fc1(x)
-#            tanh = self.tanh(hidden)
-#            hidden = self.fc2(tanh)
-#            tanh = self.tanh(hidden)
-#            hidden = self.fc3(tanh)
-#            tanh = self.tanh(hidden)
-#            hidden = self.fc4(tanh)
-#            output = self.tanh(hidden)
             return output
 
 
@@ -330,7 +338,7 @@ if (parameters["loss_type"] == 'mse'):
         ################# Train a single network #####################
         for epoch in range(parameters["numEpochs"]):
             
-            for inputs, labels, index in dataloaders_dict["train"]:
+            for inputs, labels, index, _ in dataloaders_dict["train"]:
 
                 #set gradients to zero
                 optimizer.zero_grad()
@@ -351,7 +359,7 @@ if (parameters["loss_type"] == 'mse'):
                 ## Compute total training loss
                 model.eval()
                 loss_train = 0
-                for inputs, labels, index in dataloaders_dict["train"]:
+                for inputs, labels, index, _ in dataloaders_dict["train"]:
                     y_pred = model(inputs)
                     loss_train = loss_train + criterion(y_pred, labels)
                 loss_train =  loss_train/len(dataloaders_dict["train"].dataset)
@@ -359,7 +367,7 @@ if (parameters["loss_type"] == 'mse'):
                 
                 ## Compute total validation loss
                 loss_valid = 0
-                for inputs, labels, index in dataloaders_dict["val"]:
+                for inputs, labels, index, _ in dataloaders_dict["val"]:
                     y_pred = model(inputs)
                     loss_valid = loss_valid + criterion(y_pred, labels)
                 loss_valid =  loss_valid/len(dataloaders_dict["val"].dataset)
@@ -372,14 +380,14 @@ if (parameters["loss_type"] == 'mse'):
                 
                 ## Compute total training loss
                 loss_train = 0
-                for inputs, labels, index in dataloaders_dict["train"]:
+                for inputs, labels, index, _ in dataloaders_dict["train"]:
                     y_pred = model(inputs)
                     loss_train = loss_train + criterion(y_pred, labels)
                 loss_train =  loss_train/len(dataloaders_dict["train"].dataset)
                 
                 ## Compute total validation loss
                 loss_valid = 0
-                for inputs, labels, index in dataloaders_dict["val"]:
+                for inputs, labels, index, _ in dataloaders_dict["val"]:
                     y_pred = model(inputs)
                     loss_valid = loss_valid + criterion(y_pred, labels)
                 loss_valid =  loss_valid/len(dataloaders_dict["val"].dataset)
@@ -395,10 +403,6 @@ if (parameters["loss_type"] == 'mse'):
 
     ######################### Learning Curve ##########################
 
-    # retrieve optimal parameters
-#    learningCurve = best_model["learningCurve"]
-#    valLearningCurve = best_model["valLearningCurve"]
-
     # plot the learning curve
     plt.figure()
     plt.plot(np.arange(0,len(learningCurve),1),learningCurve, c='blue')
@@ -407,21 +411,17 @@ if (parameters["loss_type"] == 'mse'):
     plt.xlabel('Iteration', fontsize=12)
     plt.ylabel('MSE Loss', fontsize=12)
 
-#    plt.legend(['Training', 'Validation'])
-#    plt.savefig('C:\\Users\\Conma\\Desktop\\HW01\\Report\\Images\\Q2_learning_curve_exact.jpg')
-#    plt.close()
-
 
 ########################### Compute Loss ################################
     
     ######################## Validation #################################
     ## Pass validation data throught the network
-    y_val, y_pred = predict(dataloaders_dict["val"], model)
+    y_val, y_pred, y_no_noise = predict(dataloaders_dict["val"], model)
     
     ## Plot prediction over groundtruth
     plt.figure()
     n_samp_y = len(y_val)
-    plt.plot(np.arange(n_samp_y),y_val, color='blue')
+    plt.plot(np.arange(n_samp_y),y_no_noise, color='blue')
     plt.plot(np.arange(n_samp_y),y_pred, color='orange')
     plt.legend(['GT','MSE Pred'])
     plt.title('Validation Data', fontsize=14)
@@ -429,12 +429,12 @@ if (parameters["loss_type"] == 'mse'):
     
     ############################### Test ################################
     ## Pass test data throught the network
-    y_test, y_pred = predict(dataloaders_dict["test"], model)
+    y_test, y_pred, y_no_noise = predict(dataloaders_dict["test"], model)
     
     ## Plot prediction over groundtruth
     plt.figure()
     n_samp_y = len(y_test)
-    plt.plot(np.arange(n_samp_y),y_test, color='blue')
+    plt.plot(np.arange(n_samp_y),y_no_noise, color='blue')
     plt.plot(np.arange(n_samp_y),y_pred, color='orange')
     plt.legend(['GT','MSE Pred'])
     plt.title('Test Data', fontsize=14)
@@ -538,11 +538,7 @@ elif(parameters["loss_type"] == 'mee'):
 
 
     ######################### Learning Curve ##########################
-
-    # retrieve optimal parameters
-#    learningCurve = best_model["learningCurve"]
-#    valLearningCurve = best_model["valLearningCurve"]
-
+    
     # plot the learning 
     for idx in range(len(learningCurve)):
         learningCurve[idx] = (-1)*torch.exp(learningCurve[idx])
@@ -554,11 +550,6 @@ elif(parameters["loss_type"] == 'mee'):
     plt.title("Learing Curve", fontsize=18)
     plt.xlabel('Iteration', fontsize=12)
     plt.ylabel('Information Potential', fontsize=12)
-
-#    plt.legend(['Training', 'Validation'])
-#    plt.savefig('C:\\Users\\Conma\\Desktop\\HW01\\Report\\Images\\Q2_learning_curve_exact.jpg')
-#    plt.close()
-
 
 ########################### Compute Loss ################################
     
@@ -586,10 +577,6 @@ elif(parameters["loss_type"] == 'mee'):
     plt.plot(np.arange(n_samp_y),y_pred, color='red')
     plt.legend(['GT','MEE Pred'])
     plt.title('Test Data', fontsize=14)
-    
-
-    
-
 
     print('================ DONE ================')
 

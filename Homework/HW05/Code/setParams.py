@@ -22,9 +22,7 @@ def setParams():
     """
     ******************************************************************
         *  Func:      setParams()
-        *  Desc:
-        *  Inputs:
-        *  Outputs:
+        *  Desc:      Sets the global parameters used in hw05.py.
     ******************************************************************
     """
     parameters = dict()
@@ -52,7 +50,7 @@ def setParams():
     parameters["updateIter"] = 10
     
     ####################### MEE Parameters ##########################
-    parameters["mee_kernel_width"] = 0.1
+    parameters["mee_kernel_width"] = 1.2
     parameters["batch_size"] = 200
 
     return parameters
