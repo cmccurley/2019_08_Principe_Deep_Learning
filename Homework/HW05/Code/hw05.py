@@ -35,6 +35,7 @@ from torch.utils import data
 from torch.autograd import Variable
 from confusion_mat import plot_confusion_matrix
 import numpy.random
+import math
 
 
 ######################################################################
@@ -83,27 +84,73 @@ def readData(dataFilePath, window_size, plot_raw, plot_range, add_noise):
     
     return X,y
 
-def scale_pixels(X_train, X_test):
-    """
-    ******************************************************************
-        *  Func:      scale_pixels()
-        *  Desc:      Scales pixel values between 0-1
-        *  Inputs:    X_train: uint8 matrix of nSamples by nFeatures
-        *             X_test: uint8 matrix of nSamples by nFeatures
-        *  Outputs:   X_train and X_test with values between 0-1 as floats
-    ******************************************************************
-    """
+#def MEELoss(y_pred, y_true, parameters):
+#    """
+#    ******************************************************************
+#        *  Func:      MEELoss()
+#        *  Desc:      Computes empirical estimate  of minimum error entropy.
+#        *  Inputs:    
+#        *             y_pred - vector of predicted labels
+#        *             y_true - vector of true labels
+#        *             parameters - dictionary of script parameters
+#        *                          must include mee kernel bandwidth
+#        *  Outputs:   
+#        *             mee_loss_val: scalar of estimated mee loss
+#    ******************************************************************
+#    """
+#    
+#    gauss_norm_const = torch.empty(1, dtype=torch.float)
+#    gauss_norm_const.fill_((1/(np.sqrt(2*3.14159)*parameters["mee_kernel_width"])))
+#    
+#    error = torch.zeros(1)
+#    
+#    norm_const = torch.empty(1, dtype=torch.float)
+#    norm_const.fill_((1/((y_true.size()[0])**2)))
+#    
+#    ## get vector of instantaneous errors
+#    error_vect = torch.abs(y_true.clone() - y_pred.clone())
+#    
+#    ## Update mee 
+#    for ii in range(len(y_true)):
+#        for jj in range(len(y_true)):
+#            error = error + gauss_norm_const*torch.exp((-1)*(error_vect[ii].clone() - error_vect[jj].clone())/(2*(parameters["mee_kernel_width"]**2)))
+#            
+#    ## normalize error by number of samples squared
+#    mee_loss_val = error*norm_const  
+#    
+#    return mee_loss_val
 
-    # convert from integers to floats
-    train_norm = X_train.astype('float32')
-    test_norm = X_test.astype('float32')
 
-    # normalize to range 0-1
-    train_norm = train_norm / 255.0
-    test_norm = test_norm / 255.0
+class MEELoss(torch.nn.Module):
+    
+    def __init__(self):
+        super(MEELoss,self).__init__()
+        
+    def forward(self,y_pred, y_true, parameters):
+        ## compute normalization constant for Gaussian kernel
+#        gauss_norm_const = (1/(np.sqrt(2*3.14159)*parameters["mee_kernel_width"]))
+        
+        self.gauss_norm_const = torch.empty(1, dtype=torch.float)
+        self.gauss_norm_const.fill_((1/(np.sqrt(2*3.14159)*parameters["mee_kernel_width"])))
+        
+        self.error = torch.zeros(1)
+        
+        self.norm_const = torch.empty(1, dtype=torch.float)
+        self.norm_const.fill_((1/((y_true.size()[0])**2)))
+        
+        ## get vector of instantaneous errors
+        self.error_vect = torch.abs(y_true.clone() - y_pred.clone())
+        
+        ## Update mee 
+        for ii in range(len(y_true)):
+            for jj in range(len(y_true)):
+                self.error = self.error + self.gauss_norm_const*torch.exp((-1)*(self.error_vect[ii].clone() - self.error_vect[jj].clone())/(2*(parameters["mee_kernel_width"]**2)))
+                
+        ## normalize error by number of samples squared
+        self.mee_loss_val = self.error*self.norm_const  
+        
+        return self.mee_loss_val
 
-    # return normalized images
-    return train_norm, test_norm
 
 ###################### Define Neural Net Class #######################
 class Feedforward(torch.nn.Module):
@@ -113,6 +160,7 @@ class Feedforward(torch.nn.Module):
             self.input_size = input_size
             self.output_size = output_size
             self.relu = torch.nn.ReLU()
+            self.tanh =  torch.nn.Tanh()
             self.fc1 = torch.nn.Linear(self.input_size, 256)
             self.fc2 = torch.nn.Linear(256,128)
             self.fc3 = torch.nn.Linear(128,100)
@@ -125,7 +173,8 @@ class Feedforward(torch.nn.Module):
             relu = self.relu(hidden)
             hidden = self.fc3(relu)
             relu = self.relu(hidden)
-            output = self.fc4(relu)
+            hidden = self.fc4(relu)
+            output = self.tanh(hidden)
             return output
 
 
@@ -143,169 +192,315 @@ if __name__== "__main__":
     print('Loading data...')
     cwd = os.getcwd()
 
-    ## Load data, subtratct mean and partition into windows
-    X_train, y_train = readData(parameters["dataPath"], parameters["window_size"], parameters["plot_raw"], parameters["plot_range"], parameters["add_noise"])
-
-    # Normalize images between 0-1
-    X_train_all, X_test = scale_pixels(X_train_all, X_test)
-
-    ####################### Define Validation Set ####################
-
-    # partition data into training and validation
-    X_train, X_val, y_train, y_val = ms.train_test_split(X_train_all, y_train_all, test_size=parameters["data_parameters"]["validationSize"], random_state=42)
-
-
-#    ###################### Apply Multiscale PCA #######################
-    X_train, X_val, X_test = mpca(X_train, X_val, X_test)
+    if parameters["gen_data"]:
+        ## Load data, subtratct mean and partition into windows
+        X, y = readData(parameters["dataPath"], parameters["window_size"], parameters["plot_raw"], parameters["plot_range"], parameters["add_noise"])
+    
+        ######################### Split data #############################
+    
+        ## Total number of samples in the dataset
+        n_samples = len(y)
+        
+        ## Get number in test/valid split
+        n_split = math.floor(n_samples/10)
+        
+        ## Separate train, valid and test sets
+        X_train = X[0:(n_samples - 1000),:]
+        y_train = y[0:(n_samples - 1000)]
+        
+        X_val = X[(n_samples - 1000):(n_samples - 1000)+500,:]
+        y_val = y[(n_samples - 1000):(n_samples - 1000)+500]
+        
+        X_test = X[((n_samples - 1000)+500):,:]
+        y_test = y[((n_samples - 1000)+500):]
+        
+        
+        
+        ######################## Save Data ###############################
+        dataSet = dict()
+        dataSet["X_train"] = X_train
+        dataSet["y_train"] = y_train
+        dataSet["X_val"] = X_val
+        dataSet["y_val"] = y_val
+        dataSet["X_test"] = X_test
+        dataSet["y_test"] = y_test
 #    
-#    X_train, X_val, X_test = mpca_with_fft(X_train, X_val, X_test)
-#    
-#
-#    ######################## Save Data ###############################
-#    dataSet = dict()
-#    dataSet["X_train"] = X_train
-#    dataSet["y_train"] = y_train
-#    dataSet["X_val"] = X_val
-#    dataSet["y_val"] = y_val
-#    dataSet["X_test"] = X_test
-#    dataSet["y_test"] = y_test
-#
-#    np.save('MPCA_fft_data.npy', dataSet)
-#    
-    ######################## Load Data ###############################
-#    dataSet = np.load('MPCA_fft_data.npy',allow_pickle=True).item()    
-#    
-#    X_train = dataSet["X_train"]
-#    y_train = dataSet["y_train"]
-#    X_val = dataSet["X_val"]
-#    y_val = dataSet["y_val"]
-#    X_test = dataSet["X_test"]
-#    y_test = dataSet["y_test"]
+        np.save(parameters["saved_data_name"], dataSet)
+
+    else:
+        
+        ######################## Load Data ###############################
+        dataSet = np.load(parameters["saved_data_name"],allow_pickle=True).item()    
+        
+        X_train = dataSet["X_train"]
+        y_train = dataSet["y_train"]
+        X_val = dataSet["X_val"]
+        y_val = dataSet["y_val"]
+        X_test = dataSet["X_test"]
+        y_test = dataSet["y_test"]
     
 
-#    ###################### Convert data into torch format ############
-#    X_train = torch.FloatTensor(X_train)
-#    y_train = torch.LongTensor(y_train)
-#    X_val = torch.FloatTensor(X_val)
-#    y_val = torch.LongTensor(y_val)
-#    X_test = torch.FloatTensor(X_test)
-#    y_test = torch.LongTensor(y_test)
+    ###################### Convert data into torch format ############
+    X_train = torch.FloatTensor(X_train)
+    y_train = torch.FloatTensor(y_train)
+    X_val = torch.FloatTensor(X_val)
+    y_val = torch.FloatTensor(y_val)
+    X_test = torch.FloatTensor(X_test)
+    y_test = torch.FloatTensor(y_test)
 
+if (parameters["loss_type"] == 'mse'):
+######################### Train Network with MSE ############################
 
-################################ Train Network ############################
-#
-#    print('Training Network...')
-#
-#    ############# run a number of trials, save best model ############
-#    for trial in range(parameters["numTrials"]):
-#
-#        learningCurve = []
-#        valLearningCurve = []
-#
-#        ####################### Define Network ###########################
-#        inputSize = X_train.shape[1]
-#
-#        # instantiate model
-#        model = Feedforward(inputSize,  parameters["outputSize"])
-#
-#        # define loss function
-#        criterion = torch.nn.CrossEntropyLoss()
-#
-#        # define optimizer (stochastic gradient descent)
-#        optimizer = torch.optim.Adamax(model.parameters(), parameters["learningRate"])
-#
-#        ##################### Train the Network ##########################
-#
-#        model.train()
-#
-#        ################# train a single network #####################
-#        for epoch in range(parameters["numEpochs"]):
-#
-#            #set gradients to zero
-#            optimizer.zero_grad()
-#
-##            for idx, batch in enumerate(training_generator):
-##                X_train = batch["image"]
-##                y_train = batch["label"]
-#
-#            # forward pass
-#            y_pred = model(X_train) # predict output vector
-#
-#            # compute loss
-#            loss = criterion(y_pred, y_train)
-#
-#            # backward pass
-#            loss.backward() # computes the gradients
-#            optimizer.step() # updates the weights
-#
-#            if not(epoch %  parameters["updateIter"]):
-#                learningCurve.append(loss)
-#                model.eval()
-#                valLearningCurve.append(criterion(model(X_val),y_val))
-#                model.train()
-#
+    print('Training Network with MSE Loss...')
+
+    ############# run a number of trials, save best model ############
+    for trial in range(parameters["numTrials"]):
+
+        learningCurve = []
+        valLearningCurve = []
+
+        ####################### Define Network ###########################
+        inputSize = X_train.shape[1]
+
+        # instantiate model
+        model = Feedforward(inputSize,  parameters["outputSize"])
+
+        # define loss function
+        criterion = torch.nn.MSELoss()
+
+        # define optimizer (stochastic gradient descent)
+        optimizer = torch.optim.Adamax(model.parameters(), parameters["learningRate"])
+
+        ##################### Train the Network ##########################
+
+        model.train()
+
+        ################# Train a single network #####################
+        for epoch in range(parameters["numEpochs"]):
+
+            for idx in range(X_train.shape[0]):
+                #set gradients to zero
+                optimizer.zero_grad()
+    
+                # forward pass
+                y_pred = model(X_train[idx,:]) # predict output vector
+    
+                # compute loss
+                loss = criterion(y_pred, y_train[idx])
+    
+                # backward pass
+                loss.backward() # computes the gradients
+                optimizer.step() # updates the weights
+    
+                if not(idx %  20):
+                    learningCurve.append(loss)
+#                    model.eval()
+#                    valLearningCurve.append(criterion(model(X_val),y_val))
+                    model.train()
+
 #                # if gradient of validation goes positive, stop training
 #                if ((epoch > 200) and np.sign(valLearningCurve[-1].detach().numpy() - valLearningCurve[-2].detach().numpy())):
 #                    break
-#
-#            if not(epoch % 10):
-#                print('Trial: {} Epoch {}: train loss: {}'.format(trial, epoch, loss.item()))
-#
-#
-#
-#            if (trial==0):
-#                best_model = dict()
-#                best_model["modelParameters"] = copy.deepcopy(model.state_dict())
-#                best_model["learningCurve"] = learningCurve
-#                best_model["valLearningCurve"] = valLearningCurve
-#                best_model["numEpochs"] = epoch
-#                best_model["validationLoss"] = valLearningCurve[-1]
-#            else:
-#                if (valLearningCurve[-1] > best_model["validationLoss"]):
-#                    best_model["modelParameters"] = copy.deepcopy(model.state_dict())
-#                    best_model["learningCurve"] = learningCurve
-#                    best_model["valLearningCurve"] = valLearningCurve
-#                    best_model["numEpochs"] = epoch
-#                    best_model["validationLoss"] = valLearningCurve[-1]
-#
-#
-#    ######################### Learning Curve ##########################
-#
-#    # retrieve optimal parameters
+
+            if not(epoch % 1):
+                y_pred = model(X_train)
+                loss_train = criterion(y_pred, y_train)
+                y_pred = model(X_val)
+                loss_valid = criterion(y_pred, y_val)
+                print('Trial: {} Epoch {}: train loss: {} valid loss: {}'.format(trial, epoch, loss_train.item(), loss_valid.item()))
+
+
+            best_model = dict()
+            best_model["modelParameters"] = copy.deepcopy(model.state_dict())
+            best_model["numEpochs"] = epoch
+
+
+    ######################### Learning Curve ##########################
+
+    # retrieve optimal parameters
 #    learningCurve = best_model["learningCurve"]
 #    valLearningCurve = best_model["valLearningCurve"]
-#
-#    # plot the learning curve
-#    plt.figure()
-#    plt.plot(parameters["updateIter"]*np.arange(0,len(learningCurve),1),learningCurve, c='blue')
-#    plt.plot(parameters["updateIter"]*np.arange(0,len(valLearningCurve),1),valLearningCurve, c='orange')
-#    plt.title("Learing Curve", fontsize=18)
-#    plt.xlabel('Iteration', fontsize=12)
-#    plt.ylabel('Cross-Entropy Loss', fontsize=12)
+
+    # plot the learning curve
+    plt.figure()
+    plt.plot(np.arange(0,len(learningCurve),1),learningCurve, c='blue')
+#    plt.plot(np.arange(0,len(valLearningCurve),1),valLearningCurve, c='orange')
+    plt.title("Learing Curve", fontsize=18)
+    plt.xlabel('Iteration', fontsize=12)
+    
+    if (parameters["loss_type"] == 'mse'):
+        plt.ylabel('MSE Loss', fontsize=12)
+    elif(parameters["loss_type"] == 'mee'):
+         plt.ylabel('MEE Loss', fontsize=12)   
+
 #    plt.legend(['Training', 'Validation'])
-##    plt.savefig('C:\\Users\\Conma\\Desktop\\HW01\\Report\\Images\\Q2_learning_curve_exact.jpg')
-##    plt.close()
-#
-##    ####################### Confusion Matrix #########################
-#
-##    np.save('model_auto_400.npy', best_model)
-#
-#    # revert model back to best performing
-#    model.load_state_dict(best_model["modelParameters"])
-#    model.eval()
-#
-#    # predict state labels
-#    y_test_pred = model(X_test)
-#    values, y_test_pred_index = y_test_pred.max(1)
-#
-#    # compute the loss
-#    testLoss = criterion(y_test_pred, y_test)
-#
-#    testLoss = testLoss.detach().numpy()
-#    testLoss = np.round(testLoss,2)
-#
-#    # plot the confusion matrix
-#    plot_confusion_matrix(y_test.detach().numpy(), y_test_pred_index.detach().numpy(), parameters["classes"], testLoss, normalize=False, title='Normalized Confusion Matrix for Fashion-MNIST')
+#    plt.savefig('C:\\Users\\Conma\\Desktop\\HW01\\Report\\Images\\Q2_learning_curve_exact.jpg')
+#    plt.close()
+
+
+########################### Compute Loss ################################
+    plt.figure()
+    y_val = y_val.detach().numpy()
+    n_samp_y = len(y_val)
+    plt.plot(np.arange(n_samp_y),y_val, color='blue')
+    
+    y_pred = model(X_val)
+    plt.plot(np.arange(n_samp_y),y_pred.detach().numpy(), color='orange')
+    plt.legend(['GT','MSE Pred'])
+    plt.title('Validation Data', fontsize=14)
+    
+    plt.figure()
+    y_test = y_test.detach().numpy()
+    n_samp_y = len(y_test)
+    plt.plot(np.arange(n_samp_y),y_test, color='blue')
+    
+    y_pred = model(X_test)
+    plt.plot(np.arange(n_samp_y),y_pred.detach().numpy(), color='orange')
+    plt.legend(['GT','MSE Pred'])
+    plt.title('Test Data', fontsize=14)
+    
+    
+elif(parameters["loss_type"] == 'mee'):
+    
+######################### Train Network with MSE ############################
+
+    print('Training Network with MEE Loss...')
+
+    ############# run a number of trials, save best model ############
+    for trial in range(parameters["numTrials"]):
+
+        learningCurve = []
+        valLearningCurve = []
+
+        ####################### Define Network ###########################
+        inputSize = X_train.shape[1]
+
+        # instantiate model
+        model = Feedforward(inputSize,  parameters["outputSize"])
+
+        # define optimizer (stochastic gradient descent)
+        optimizer = torch.optim.Adamax(model.parameters(), parameters["learningRate"])
+        
+        criterion = MEELoss()
+
+        ##################### Train the Network ##########################
+        
+#        plt.figure()
+#        y_val = y_val.detach().numpy()
+#        n_samp_y = len(y_val)
+#        plt.plot(np.arange(n_samp_y),y_val, color='blue')
+#        
+#        y_pred = model(X_val)
+#        plt.plot(np.arange(n_samp_y),y_pred.detach().numpy(), color='orange')
+#        plt.legend(['GT','MEE Pred'])
+#        plt.title('Validation Data', fontsize=14)
+        
+
+        model.train()
+
+        ################# Train a single network #####################
+        for epoch in range(parameters["numEpochs"]):
+
+            y_pred = torch.empty(parameters["batch_size"], requires_grad=True)
+            y_true = torch.empty(parameters["batch_size"])
+            batch_idx = 0
+            batch_num = 0
+            
+            for idx in range(X_train.shape[0]):
+    
+                # forward pass (mini-batch of 20 samples)
+                y_pred[batch_idx] = model(X_train[idx,:].clone()) # predict output 
+                y_true[batch_idx] = y_train[idx].clone()
+                batch_idx = batch_idx + 1
+    
+                ## update network and append loss to learning curve
+                if (batch_idx == parameters["batch_size"]):
+                    batch_idx = 0
+                    batch_num = batch_num + 1
+
+                    ## Compute MEE loss
+#                    loss  = MEELoss(y_pred, y_true, parameters)
+#                    loss  = criterion(y_pred, y_true, parameters)
+                    loss  = criterion.forward(y_pred, y_true, parameters)
+                    
+                    # backward pass
+#                    optimizer.zero_grad()
+#                    loss.retain_grad()
+                    loss.backward() # computes the gradients
+                    optimizer.step() # updates the 
+                    
+                    
+                    print(f'Batch: {batch_num}')
+                    
+                    learningCurve.append(loss)
+#                    model.eval()
+#                    valLearningCurve.append(criterion(model(X_val),y_val))
+                    model.train()
+                    
+            print(f'epoch {epoch}')
+
+            
+
+#                # if gradient of validation goes positive, stop training
+#                if ((epoch > 200) and np.sign(valLearningCurve[-1].detach().numpy() - valLearningCurve[-2].detach().numpy())):
+#                    break
+
+#            if not(epoch % 1):
+#                y_pred = model(X_train)
+#                loss_train = criterion(y_pred, y_train)
+#                y_pred = model(X_val)
+#                loss_valid = criterion(y_pred, y_val)
+##                print('Trial: {} Epoch {}: train loss: {} valid loss: {}'.format(trial, epoch, loss_train.item(), loss_valid.item()))
+
+
+            best_model = dict()
+            best_model["modelParameters"] = copy.deepcopy(model.state_dict())
+            best_model["numEpochs"] = epoch
+
+
+    ######################### Learning Curve ##########################
+
+    # retrieve optimal parameters
+#    learningCurve = best_model["learningCurve"]
+#    valLearningCurve = best_model["valLearningCurve"]
+
+    # plot the learning curve
+    plt.figure()
+    plt.plot(np.arange(0,len(learningCurve),1),learningCurve, c='blue')
+#    plt.plot(np.arange(0,len(valLearningCurve),1),valLearningCurve, c='orange')
+    plt.title("Learing Curve", fontsize=18)
+    plt.xlabel('Iteration', fontsize=12)
+    plt.ylabel('MEE Loss', fontsize=12) 
+
+        
+
+#    plt.legend(['Training', 'Validation'])
+#    plt.savefig('C:\\Users\\Conma\\Desktop\\HW01\\Report\\Images\\Q2_learning_curve_exact.jpg')
+#    plt.close()
+
+
+########################### Compute Loss ################################
+    plt.figure()
+    y_val = y_val.detach().numpy()
+    n_samp_y = len(y_val)
+    plt.plot(np.arange(n_samp_y),y_val, color='blue')
+    
+    y_pred = model(X_val)
+    plt.plot(np.arange(n_samp_y),y_pred.detach().numpy(), color='orange')
+    plt.legend(['GT','MEE Pred'])
+    plt.title('Validation Data', fontsize=14)
+    
+#    plt.figure()
+#    y_test = y_test.detach().numpy()
+#    n_samp_y = len(y_test)
+#    plt.plot(np.arange(n_samp_y),y_test, color='blue')
+#    
+#    y_pred = model(X_test)
+#    plt.plot(np.arange(n_samp_y),y_pred.detach().numpy(), color='orange')
+#    plt.legend(['GT','MSE Pred'])
+#    plt.title('Test Data', fontsize=14)
+            
+    
 
 
     print('================ DONE ================')

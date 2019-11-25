@@ -1,0 +1,105 @@
+\documentclass{article}[12 pt]
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{appendix}
+\usepackage{array}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{caption}
+\usepackage{url}
+\usepackage{float}
+\usepackage{pdfpages}
+\usepackage{shortvrb}
+\usepackage{mathtools}
+\usepackage{multirow}
+\usepackage{hyperref}
+\usepackage{commath}
+\usepackage{tabularx}
+\usepackage{bm}
+
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+		T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\graphicspath{{"E:/University of Florida/Classes/2019_08_Principe_Deep_Learning/Homework/HW05/Report/Images/"}{"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Report/Images/"}{"/media/cmccurley/0000-0001/University of Florida/Classes/2019_08_Principe_Deep_Learning/Homework/HW05/Report/Images/"}}
+\geometry{margin=1 in}
+
+\newcommand{\smallvskip}{\vspace{5 pt}}
+\newcommand{\medvskip}{\vspace{30 pt}}
+\newcommand{\bigvskip}{\vspace{100 pt}}
+\newcommand{\tR}{\mathtt{R}}
+
+
+
+
+\begin{document}
+	
+\begin{center}
+	\textbf{\Large Connor McCurley} \\
+	EEE 6814 \qquad \textbf{\large Homework 5} \qquad Fall 2019 
+\end{center}
+
+
+This assignment tasked us with applying multi-resolution PCA as a pre-processing procedure for Fashion-MNIST classification. To be honest, I never fully understood the implementation of PCA-M demonstrated in the paper (the steps were really not clear). So I implemented my own version of multi-resolution PCA (which may or may not be valid).   To do this, I took the full-resolution 
+
+%\begin{figure}[h]
+%	\centering
+%	\subfloat[][]{\includegraphics[width=.3\textwidth]{"Example_0_full_res"}}\quad
+%	\subfloat[][]{\includegraphics[width=.3\textwidth]{"Example_0_multi_res"}}\\
+%	\subfloat[][]{\includegraphics[width=.3\textwidth]{"Example_10000_full_res"}}\quad
+%	\subfloat[][]{\includegraphics[width=.3\textwidth]{"Example_10000_multi_res"}}
+%	\caption{Full resolution images (left) and corresponding multi-resolution PCA features (right) for two training examples.}
+%	\label{fig:sub1}
+%\end{figure}
+%
+%\begin{figure}[!h]
+%	\centering
+%	\subfloat[][]{\includegraphics[width=.3\textwidth]{"Example_20000_full_res"}}\quad
+%	\subfloat[][]{\includegraphics[width=.3\textwidth]{"Example_20000_multi_res"}}\\
+%	\subfloat[][]{\includegraphics[width=.3\textwidth]{"Example_30000_full_res"}}\quad
+%	\subfloat[][]{\includegraphics[width=.3\textwidth]{"Example_30000_multi_res"}}
+%	\caption{Full resolution images (left) and multi-resolution PCA features (right) for two training examples.}
+%	\label{fig:sub2}
+%\end{figure}
+%
+%\begin{figure}[!h]
+%	\centering
+%	\subfloat[][]{\includegraphics[width=.3\textwidth]{"Example_40000_full_res"}}\quad
+%	\subfloat[][]{\includegraphics[width=.3\textwidth]{"Example_40000_multi_res"}}\\
+%	\subfloat[][]{\includegraphics[width=.3\textwidth]{"Example_50000_full_res"}}\quad
+%	\subfloat[][]{\includegraphics[width=.3\textwidth]{"Example_50000_multi_res"}}
+%	\caption{Full resolution images (left) and multi-resolution PCA features (right) for two training examples.}
+%	\label{fig:sub3}
+%\end{figure}
+
+
+
+%\begin{figure}[h]
+%	\centering
+%	\subfloat[][]{\includegraphics[width=.4\textwidth]{"pcam_no_fft_learning_curve"}}\quad
+%	\subfloat[][]{\includegraphics[width=.4\textwidth]{"pcam_no_fft_confusion_mat"}}\\
+%	\subfloat[][]{\includegraphics[width=.4\textwidth]{"pcam_fft_learning_curve"}}\quad
+%	\subfloat[][]{\includegraphics[width=.4\textwidth]{"pcam_fft_confusion_mat"}}
+%	\caption{Top: Learning curves and confusion matrix from the network trained with Multi-resolution PCA features.  Bottom: Learning curves and confusion matrix from the network trained with frequency-domain Multi-resolution PCA features.}
+%	\label{fig:pcam_confusion_mats}
+%\end{figure}
+%
+%\begin{figure}[h]
+%	\centering
+%	\subfloat[][]{\includegraphics[width=.4\textwidth]{"base_confusion_mat"}}\quad
+%	\subfloat[][]{\includegraphics[width=.4\textwidth]{"pca_100_confusion_mat"}}\\
+%	\caption{Left: Confusion matrix for the base model trained on raw images. Right: Confusion matrix for model trained with images projected onto the first 100 principal components of the training set.}
+%	\label{fig:base_confusion_mats}
+%\end{figure}
+
+
+
+
+
+
+
+
+\end{document}

@@ -30,11 +30,13 @@ def setParams():
     parameters = dict()
 
     ################### Data Generation Parameters ###########################
+    parameters["gen_data"] = False
     parameters["dataPath"] = 'MGdata.txt'
-    parameters["window_size"] = 6
-    parameters["plot_raw"] = True
+    parameters["window_size"] = 20
+    parameters["plot_raw"] = False
     parameters["plot_range"] = np.array([[200],[400]])
     parameters["add_noise"] = False
+    parameters["saved_data_name"] = 'MGdata_split.npy'
 
     ################### Data Parameters #############################
     data_parameters = dict()
@@ -42,10 +44,15 @@ def setParams():
     parameters["data_parameters"] = data_parameters
 
     ################### Network Parameters ##########################
-    parameters["outputSize"] = 10
-    parameters["learningRate"] = 0.01
-    parameters["numEpochs"] = 800
+    parameters["loss_type"] = 'mee'
+    parameters["outputSize"] = 1
+    parameters["learningRate"] = 0.1
+    parameters["numEpochs"] = 2
     parameters["numTrials"] = 1
     parameters["updateIter"] = 10
+    
+    ####################### MEE Parameters ##########################
+    parameters["mee_kernel_width"] = 1
+    parameters["batch_size"] = 200
 
     return parameters

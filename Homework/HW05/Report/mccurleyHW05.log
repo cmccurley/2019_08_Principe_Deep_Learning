@@ -1,7 +1,7 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2019.4.9)  9 NOV 2019 18:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2019.4.9)  23 NOV 2019 16:57
 entering extended mode
-**./mccurleyHW04.tex
-(mccurleyHW04.tex
+**./mccurleyHW05.tex
+(mccurleyHW05.tex
 LaTeX2e <2017-04-15>
 Babel <3.10> and hyphenation patterns for 75 language(s) loaded.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\base\article.cls"
@@ -437,8 +437,8 @@ Package: bm 2017/01/16 v1.2c Bold Symbol Support (DPC/FMi)
 \symboldsymbols=\mathgroup8
 LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 141.
 LaTeX Info: Redefining \bm on input line 207.
-) (mccurleyHW04.aux)
-\openout1 = `mccurleyHW04.aux'.
+) (mccurleyHW05.aux)
+\openout1 = `mccurleyHW05.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 38.
 LaTeX Font Info:    ... okay on input line 38.
@@ -544,303 +544,73 @@ LaTeX Info: Redefining \ref on input line 38.
 LaTeX Info: Redefining \pageref on input line 38.
 LaTeX Info: Redefining \nameref on input line 38.
 
-(mccurleyHW04.out) (mccurleyHW04.out)
+(mccurleyHW05.out) (mccurleyHW05.out)
 \@outlinefile=\write3
-\openout3 = `mccurleyHW04.out'.
+\openout3 = `mccurleyHW05.out'.
 
 
-<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Report/
-Images/""Example_0_full_res".png, id=6, 462.528pt x 346.896pt>
-File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Re
-port/Images/""Example_0_full_res".png Graphic file (type png)
 
-<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Rep
-ort/Images/""Example_0_full_res".png>
-Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
-ng/Homework/HW04/Report/Images/""Example_0_full_res".png used on input line 62.
-
-(pdftex.def)             Requested size: 140.92793pt x 105.69461pt.
-
-<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Report/
-Images/""Example_0_multi_res".png, id=8, 462.528pt x 346.896pt>
-File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Re
-port/Images/""Example_0_multi_res".png Graphic file (type png)
-
-<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Rep
-ort/Images/""Example_0_multi_res".png>
-Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
-ng/Homework/HW04/Report/Images/""Example_0_multi_res".png used on input line 63
-.
-(pdftex.def)             Requested size: 140.92793pt x 105.69461pt.
-
-<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Report/
-Images/""Example_10000_full_res".png, id=9, 462.528pt x 346.896pt>
-File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Re
-port/Images/""Example_10000_full_res".png Graphic file (type png)
-
-<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Rep
-ort/Images/""Example_10000_full_res".png>
-Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
-ng/Homework/HW04/Report/Images/""Example_10000_full_res".png used on input line
- 64.
-(pdftex.def)             Requested size: 140.92793pt x 105.69461pt.
-
-<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Report/
-Images/""Example_10000_multi_res".png, id=10, 462.528pt x 346.896pt>
-File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Re
-port/Images/""Example_10000_multi_res".png Graphic file (type png)
-
-<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Rep
-ort/Images/""Example_10000_multi_res".png>
-Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
-ng/Homework/HW04/Report/Images/""Example_10000_multi_res".png used on input lin
-e 65.
-(pdftex.def)             Requested size: 140.92793pt x 105.69461pt.
-
-<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Report/
-Images/""Example_20000_full_res".png, id=11, 462.528pt x 346.896pt>
-File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Re
-port/Images/""Example_20000_full_res".png Graphic file (type png)
-
-<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Rep
-ort/Images/""Example_20000_full_res".png>
-Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
-ng/Homework/HW04/Report/Images/""Example_20000_full_res".png used on input line
- 72.
-(pdftex.def)             Requested size: 140.92793pt x 105.69461pt.
-
-<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Report/
-Images/""Example_20000_multi_res".png, id=12, 462.528pt x 346.896pt>
-File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Re
-port/Images/""Example_20000_multi_res".png Graphic file (type png)
-
-<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Rep
-ort/Images/""Example_20000_multi_res".png>
-Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
-ng/Homework/HW04/Report/Images/""Example_20000_multi_res".png used on input lin
-e 73.
-(pdftex.def)             Requested size: 140.92793pt x 105.69461pt.
-
-<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Report/
-Images/""Example_30000_full_res".png, id=13, 462.528pt x 346.896pt>
-File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Re
-port/Images/""Example_30000_full_res".png Graphic file (type png)
-
-<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Rep
-ort/Images/""Example_30000_full_res".png>
-Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
-ng/Homework/HW04/Report/Images/""Example_30000_full_res".png used on input line
- 74.
-(pdftex.def)             Requested size: 140.92793pt x 105.69461pt.
-
-<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Report/
-Images/""Example_30000_multi_res".png, id=14, 462.528pt x 346.896pt>
-File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Re
-port/Images/""Example_30000_multi_res".png Graphic file (type png)
-
-<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Rep
-ort/Images/""Example_30000_multi_res".png>
-Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
-ng/Homework/HW04/Report/Images/""Example_30000_multi_res".png used on input lin
-e 75.
-(pdftex.def)             Requested size: 140.92793pt x 105.69461pt.
+LaTeX Warning: Reference `fig:sub1' on page 1 undefined on input line 57.
 
 
-LaTeX Warning: `!h' float specifier changed to `!ht'.
+LaTeX Warning: Reference `fig:sub2' on page 1 undefined on input line 57.
 
 
-<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Report/
-Images/""Example_40000_full_res".png, id=15, 462.528pt x 346.896pt>
-File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Re
-port/Images/""Example_40000_full_res".png Graphic file (type png)
+LaTeX Warning: Reference `fig:sub3' on page 1 undefined on input line 57.
 
-<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Rep
-ort/Images/""Example_40000_full_res".png>
-Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
-ng/Homework/HW04/Report/Images/""Example_40000_full_res".png used on input line
- 82.
-(pdftex.def)             Requested size: 140.92793pt x 105.69461pt.
-
-<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Report/
-Images/""Example_40000_multi_res".png, id=16, 462.528pt x 346.896pt>
-File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Re
-port/Images/""Example_40000_multi_res".png Graphic file (type png)
-
-<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Rep
-ort/Images/""Example_40000_multi_res".png>
-Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
-ng/Homework/HW04/Report/Images/""Example_40000_multi_res".png used on input lin
-e 83.
-(pdftex.def)             Requested size: 140.92793pt x 105.69461pt.
-
-<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Report/
-Images/""Example_50000_full_res".png, id=17, 462.528pt x 346.896pt>
-File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Re
-port/Images/""Example_50000_full_res".png Graphic file (type png)
-
-<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Rep
-ort/Images/""Example_50000_full_res".png>
-Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
-ng/Homework/HW04/Report/Images/""Example_50000_full_res".png used on input line
- 84.
-(pdftex.def)             Requested size: 140.92793pt x 105.69461pt.
-
-<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Report/
-Images/""Example_50000_multi_res".png, id=18, 462.528pt x 346.896pt>
-File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Re
-port/Images/""Example_50000_multi_res".png Graphic file (type png)
-
-<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Rep
-ort/Images/""Example_50000_multi_res".png>
-Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
-ng/Homework/HW04/Report/Images/""Example_50000_multi_res".png used on input lin
-e 85.
-(pdftex.def)             Requested size: 140.92793pt x 105.69461pt.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-LaTeX Font Info:    Try loading font information for U+msa on input line 91.
+LaTeX Font Info:    Try loading font information for U+msa on input line 90.
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd"
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 91.
+LaTeX Font Info:    Try loading font information for U+msb on input line 90.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd"
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [1
+)
 
-{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map} <C:/Users/Conma/Documents/
-2019_08_Principe_Deep_Learning/Homework/HW04/Report/Images/Example_0_full_res.p
-ng> <C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Repo
-rt/Images/Example_0_multi_res.png> <C:/Users/Conma/Documents/2019_08_Principe_D
-eep_Learning/Homework/HW04/Report/Images/Example_10000_full_res.png> <C:/Users/
-Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Report/Images/Exam
-ple_10000_multi_res.png>] [2 <C:/Users/Conma/Documents/2019_08_Principe_Deep_Le
-arning/Homework/HW04/Report/Images/Example_20000_full_res.png> <C:/Users/Conma/
-Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Report/Images/Example_20
-000_multi_res.png> <C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Hom
-ework/HW04/Report/Images/Example_30000_full_res.png> <C:/Users/Conma/Documents/
-2019_08_Principe_Deep_Learning/Homework/HW04/Report/Images/Example_30000_multi_
-res.png> <C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04
-/Report/Images/Example_40000_full_res.png> <C:/Users/Conma/Documents/2019_08_Pr
-incipe_Deep_Learning/Homework/HW04/Report/Images/Example_40000_multi_res.png> <
-C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Report/Im
-ages/Example_50000_full_res.png> <C:/Users/Conma/Documents/2019_08_Principe_Dee
-p_Learning/Homework/HW04/Report/Images/Example_50000_multi_res.png>]
-<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Report/
-Images/""pcam_no_fft_learning_curve".png, id=66, 462.528pt x 344.0052pt>
-File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Re
-port/Images/""pcam_no_fft_learning_curve".png Graphic file (type png)
-
-<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Rep
-ort/Images/""pcam_no_fft_learning_curve".png>
-Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
-ng/Homework/HW04/Report/Images/""pcam_no_fft_learning_curve".png used on input 
-line 96.
-(pdftex.def)             Requested size: 187.89914pt x 139.75175pt.
-
-<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Report/
-Images/""pcam_no_fft_confusion_mat".png, id=67, 462.528pt x 344.0052pt>
-File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Re
-port/Images/""pcam_no_fft_confusion_mat".png Graphic file (type png)
-
-<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Rep
-ort/Images/""pcam_no_fft_confusion_mat".png>
-Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
-ng/Homework/HW04/Report/Images/""pcam_no_fft_confusion_mat".png used on input l
-ine 97.
-(pdftex.def)             Requested size: 187.89914pt x 139.75175pt.
-
-<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Report/
-Images/""pcam_fft_learning_curve".png, id=68, 462.528pt x 344.0052pt>
-File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Re
-port/Images/""pcam_fft_learning_curve".png Graphic file (type png)
-
-<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Rep
-ort/Images/""pcam_fft_learning_curve".png>
-Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
-ng/Homework/HW04/Report/Images/""pcam_fft_learning_curve".png used on input lin
-e 98.
-(pdftex.def)             Requested size: 187.89914pt x 139.75175pt.
-
-<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Report/
-Images/""pcam_fft_confusion_mat".png, id=69, 462.528pt x 344.0052pt>
-File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Re
-port/Images/""pcam_fft_confusion_mat".png Graphic file (type png)
-
-<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Rep
-ort/Images/""pcam_fft_confusion_mat".png>
-Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
-ng/Homework/HW04/Report/Images/""pcam_fft_confusion_mat".png used on input line
- 99.
-(pdftex.def)             Requested size: 187.89914pt x 139.75175pt.
-
-<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Report/
-Images/""base_confusion_mat".png, id=70, 199.34476pt x 174.6525pt>
-File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Re
-port/Images/""base_confusion_mat".png Graphic file (type png)
-
-<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Rep
-ort/Images/""base_confusion_mat".png>
-Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
-ng/Homework/HW04/Report/Images/""base_confusion_mat".png used on input line 106
-.
-(pdftex.def)             Requested size: 187.89914pt x 164.62375pt.
-
-<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Report/
-Images/""pca_100_confusion_mat".png, id=71, 199.34476pt x 179.4705pt>
-File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Re
-port/Images/""pca_100_confusion_mat".png Graphic file (type png)
-
-<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Rep
-ort/Images/""pca_100_confusion_mat".png>
-Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
-ng/Homework/HW04/Report/Images/""pca_100_confusion_mat".png used on input line 
-107.
-(pdftex.def)             Requested size: 187.89914pt x 169.16508pt.
+LaTeX Warning: Reference `fig:pcam_confusion_mats' on page 1 undefined on input
+ line 90.
 
 
-LaTeX Warning: `h' float specifier changed to `ht'.
+LaTeX Warning: Reference `fig:base_confusion_mats' on page 1 undefined on input
+ line 90.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 112--114
+Underfull \hbox (badness 10000) in paragraph at lines 111--113
 
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 128.
-[3 <C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Repor
-t/Images/pcam_no_fft_learning_curve.png> <C:/Users/Conma/Documents/2019_08_Prin
-cipe_Deep_Learning/Homework/HW04/Report/Images/pcam_no_fft_confusion_mat.png> <
-C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Report/Im
-ages/pcam_fft_learning_curve.png> <C:/Users/Conma/Documents/2019_08_Principe_De
-ep_Learning/Homework/HW04/Report/Images/pcam_fft_confusion_mat.png>] [4 <C:/Use
-rs/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW04/Report/Images/b
-ase_confusion_mat.png> <C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning
-/Homework/HW04/Report/Images/pca_100_confusion_mat.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 128.
- (mccurleyHW04.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 128.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 128.
-Package rerunfilecheck Info: File `mccurleyHW04.out' has not changed.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 127.
+[1
+
+{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 127.
+ (mccurleyHW05.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 127.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 127.
+Package rerunfilecheck Info: File `mccurleyHW05.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 128.
+
+
+LaTeX Warning: There were undefined references.
+
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 127.
  ) 
 Here is how much of TeX's memory you used:
- 10165 strings out of 493323
- 160140 string characters out of 3139067
- 269674 words of memory out of 3000000
- 13504 multiletter control sequences out of 15000+200000
- 9009 words of font info for 34 fonts, out of 3000000 for 9000
+ 10035 strings out of 493323
+ 150441 string characters out of 3139067
+ 264797 words of memory out of 3000000
+ 13422 multiletter control sequences out of 15000+200000
+ 8710 words of font info for 33 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 44i,10n,49p,1460b,420s stack positions out of 5000i,500n,10000p,200000b,50000s
-<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Pr
-ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Fi
-les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTe
-X 2.9/fonts/type1/public/amsfonts/cm/cmr8.pfb>
-Output written on mccurleyHW04.pdf (4 pages, 417321 bytes).
+ 44i,6n,42p,1460b,329s stack positions out of 5000i,500n,10000p,200000b,50000s
+<C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Pr
+ogram Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Program Fi
+les/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKT
+eX 2.9/fonts/type1/public/amsfonts/cm/cmr10.pfb>
+Output written on mccurleyHW05.pdf (1 page, 56137 bytes).
 PDF statistics:
- 115 PDF objects out of 1000 (max. 8388607)
- 33 named destinations out of 1000 (max. 500000)
- 91 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 34 PDF objects out of 1000 (max. 8388607)
+ 7 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
