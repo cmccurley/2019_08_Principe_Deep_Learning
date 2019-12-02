@@ -20,8 +20,6 @@ Created on Mon Dec  2 13:52:28 2019
 
 import numpy as np
 import torch
-import torch.nn as nn
-import torch.nn.functional as F
 
 ######################################################################
 ##################### Function Definitions ###########################

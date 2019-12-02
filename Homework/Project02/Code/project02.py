@@ -7,10 +7,10 @@ Created on Tue Sep 10 08:39:11 2019
 
 """
 ***********************************************************************
-    *  File:  project01.py
+    *  File:  project02.py
     *  Name:  Connor H. McCurley
-    *  Date:  2019-10-26
-    *  Desc:  Provides coded solutions to project 01 of EEL681,
+    *  Date:  2019-11-29
+    *  Desc:  Provides coded solutions to project 02 of EEL681,
     *         Deep Learning, taught by Dr. Jose Principe, Fall 2019.
 **********************************************************************
 """
@@ -18,33 +18,41 @@ Created on Tue Sep 10 08:39:11 2019
 ######################################################################
 ######################### Import Packages ############################
 ######################################################################
+
+## Default packages
 import os
 import copy
 import numpy as np
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
+
 import matplotlib.pyplot as plt
 import matplotlib.colors
+
+from fashion_mnist_master.utils import mnist_reader
+
 import sklearn.model_selection as ms
 import sklearn.metrics as metrics
 from sklearn.metrics import confusion_matrix
 from sklearn.utils.multiclass import unique_labels
-from fashion_mnist_master.utils import mnist_reader
-from setParams import setParams
-from torch.utils import data
-from my_data import my_data
-from torch.autograd import Variable
-from dim_reduction import pca_dim_reduction, umap_dim_reduction, plot_dist_distributions
-import seaborn as sns
+from sklearn.model_selection import train_test_split
 
+## PyTorch packages
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+from torch.utils import data
+from torch.autograd import Variable
+from torch.utils.data.sampler import SubsetRandomSampler
+from torchvision.datasets import FashionMNIST
+from torchvision import transforms
+
+## Custom packages
+from setParams import setParams
+from MyMNISTData import  MNISTdata, readData
 
 
 ######################################################################
 ##################### Function Definitions ###########################
 ######################################################################
-
-
 
 
 ######################################################################
@@ -61,21 +69,61 @@ if __name__== "__main__":
     print('Loading data...')
     cwd = os.getcwd()
 
-    X_train_all, y_train_all = mnist_reader.load_mnist(parameters["dataPath"], kind='train')
-    X_test, y_test = mnist_reader.load_mnist(parameters["dataPath"], kind='t10k')
+    ## Create dataset
+    dataset_train = FashionMNIST(parameters["dataPath"], train=True, transform=transforms.ToTensor, download=False)
+    dataset_test = FashionMNIST(parameters["dataPath"], train=False, transform=transforms.ToTensor, download=False)
+    
+    ## Split indices for training and validation 
+    indices_train = np.arange(len(dataset_train))
+    y_train = dataset_train.targets.numpy()
+    test_indices = np.arange(len(dataset_test))
+    y_test = dataset_test.targets.numpy()
+        
+    ## Split training, validation and test sets
+    y_train,y_val,train_indices,val_indices = train_test_split(y_train,indices_train,test_size = parameters["validationSize"],random_state=parameters["random_state"])
+ 
+    
+    ## Create data samplers and loaders:
+    train_sampler = SubsetRandomSampler(train_indices)
+    valid_sampler = SubsetRandomSampler(val_indices)
+    test_sampler = SubsetRandomSampler(test_indices)
+    mmist_datasets = {'train': dataset_train, 'val': dataset_train, 'test': dataset_test}
+    
+    
+    ## Create training and validation dataloaders
+    dataloaders_dict = {'train': torch.utils.data.DataLoader(mmist_datasets['train'], batch_size=parameters["batch_size"],
+                                               sampler=train_sampler, shuffle=False,num_workers=0),
+                        'val': torch.utils.data.DataLoader(mmist_datasets['val'],batch_size=parameters["batch_size"],
+                                               sampler=valid_sampler, shuffle=False,num_workers=0),
+                        'test': torch.utils.data.DataLoader(mmist_datasets['test'], batch_size=parameters["batch_size"],
+                                               sampler=test_sampler, shuffle=False,num_workers=0) }
 
-    # Normalize images between 0-1
-    X_train_all, X_test = scale_pixels(X_train_all, X_test)
-
-
-#    # Plot a sample from every class
-#    plot_classes(X_train_all, y_train_all)
-
-
-    ####################### Define Validation Set ####################
-
-    # partition data into training and validation
-    X_train, X_val, y_train, y_val = ms.train_test_split(X_train_all, y_train_all, test_size=parameters["data_parameters"]["validationSize"], random_state=42)
+#if __name__== "__main__":
+#
+#    print('Running Main...')
+#
+#    ####################### Set Parameters ###########################
+#    parameters = setParams()
+#
+#    ####################### Import data ##############################
+#    print('Loading data...')
+#    cwd = os.getcwd()
+#
+#    X_train_all, y_train_all = mnist_reader.load_mnist(parameters["dataPath"], kind='train')
+#    X_test, y_test = mnist_reader.load_mnist(parameters["dataPath"], kind='t10k')
+#
+#    # Normalize images between 0-1
+#    X_train_all, X_test = scale_pixels(X_train_all, X_test)
+#
+#
+##    # Plot a sample from every class
+##    plot_classes(X_train_all, y_train_all)
+#
+#
+#    ####################### Define Validation Set ####################
+#
+#    # partition data into training and validation
+#    X_train, X_val, y_train, y_val = ms.train_test_split(X_train_all, y_train_all, test_size=parameters["data_parameters"]["validationSize"], random_state=42)
 
 
     ###################### Apply Dimensionality Reduction #############
@@ -106,23 +154,7 @@ if __name__== "__main__":
 #    y_test = dataSet["y_test"]
 #
 #    plot_dist_distributions(X_train,y_train, parameters)
-##
-##    ######################## Visualize Reduction ######################
-#    fig, ax = plt.subplots(1, figsize=(14, 10))
-#    plt.scatter(X_train[:,0],X_train[:,1], s=1, c=y_train, cmap='Spectral', alpha=1.0)
-#    plt.setp(ax, xticks=[], yticks=[])
-#    cbar = plt.colorbar(boundaries=np.arange(11)-0.5)
-#    cbar.set_ticks(np.arange(10))
-#    cbar.set_ticklabels(parameters["classes"])
-#    plt.title('Fashion MNIST Embedded via UMAP')
 
-    ###################### Convert data into torch format ############
-    X_train = torch.FloatTensor(X_train)
-    y_train = torch.LongTensor(y_train)
-    X_val = torch.FloatTensor(X_val)
-    y_val = torch.LongTensor(y_val)
-    X_test = torch.FloatTensor(X_test)
-    y_test = torch.LongTensor(y_test)
 
 #    ########################### Apply Autoencoder ######################
 #

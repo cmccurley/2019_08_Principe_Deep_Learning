@@ -24,20 +24,6 @@ import torch
 ##################### Function Definitions ###########################
 ######################################################################
 
-def readData(dataFilePath, labelFilePath, skipHeader):
-    """
-    ******************************************************************
-        *  Func:      readData()
-        *  Desc:      Reads data from a .asc file
-        *  Inputs:
-        *  Outputs:
-    ******************************************************************
-    """
-    X = np.loadtxt(dataFilePath, skiprows=skipHeader)
-    y = np.loadtxt(labelFilePath, skiprows=skipHeader)
-
-    return X, y
-
 def scale_pixels(X_train, X_test):
     """
     ******************************************************************

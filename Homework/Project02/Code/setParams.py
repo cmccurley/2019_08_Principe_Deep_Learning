@@ -36,9 +36,8 @@ def setParams():
     parameters["image_size"] = 784
 
     ################### Data Parameters #############################
-    data_parameters = dict()
-    data_parameters["validationSize"] = 0.15
-    parameters["data_parameters"] = data_parameters
+    parameters["validationSize"] = 0.2
+    parameters["random_state"] = 24
 
     ################### Network Parameters ##########################
     parameters["outputSize"] = 10
@@ -46,5 +45,9 @@ def setParams():
     parameters["numEpochs"] = 800
     parameters["numTrials"] = 5
     parameters["updateIter"] = 10
+    
+    ####################### MEE Parameters ##########################
+    parameters["mee_kernel_width"] = 1.2
+    parameters["batch_size"] = 200
 
     return parameters
