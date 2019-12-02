@@ -1,0 +1,125 @@
+\documentclass{article}[12 pt]
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{appendix}
+\usepackage{array}
+\usepackage{geometry}
+\usepackage{enumitem}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{caption}
+\usepackage{url}
+\usepackage{float}
+\usepackage{pdfpages}
+\usepackage{shortvrb}
+\usepackage{mathtools}
+\usepackage{multirow}
+\usepackage{hyperref}
+\usepackage{commath}
+\usepackage{tabularx}
+\usepackage{bm}
+
+
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+		T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+
+\graphicspath{{"E:/University of Florida/Classes/2019_08_Principe_Deep_Learning/Homework/HW05/Report/Images/"}{"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/HW05/Report/Images/"}{"/media/cmccurley/0000-0001/University of Florida/Classes/2019_08_Principe_Deep_Learning/Homework/HW05/Report/Images/"}}
+\geometry{margin=1 in}
+
+\newcommand{\smallvskip}{\vspace{5 pt}}
+\newcommand{\medvskip}{\vspace{30 pt}}
+\newcommand{\bigvskip}{\vspace{100 pt}}
+\newcommand{\tR}{\mathtt{R}}
+
+
+
+
+\begin{document}
+	
+\begin{center}
+	\textbf{\Large Connor McCurley} \\
+	EEE 6814 \qquad \textbf{\large Homework 5} \qquad Fall 2019 
+\end{center}
+
+\section{Objectives}
+This assignment tasked us with implementing an FIR filter to predict the nonlinear Mackey-Glass time series.  We were told to implement the 20th order filter using a neural network with MSE and MEE cost functions.  Additionally, Middleton noise was added to the desired response, and the two filter implementations were compared in terms of robustness.
+
+\section{Filter Design}  
+The 20th order FIR filter was implemented using a fully-connected multilayer perceptron neural network.  The network architecture was arbitrarily chosen, and consisted of layers $20-256-128-100-1$.  Each unit in the hidden layer applied a ReLU non-linear activation.  The output layer applied a hyperbolic tangent function to scale the output between $-1$ and $1$.  This was motivated by the fact that the mean of the time series was subtracted as a preprocessing procedure to reduce the bias the net needed to learn.  Each network was trained for 10 epochs with 200 samples per mini-batch.  Adammax was the chosen optimizer with a learning rate of $\eta=0.01$.  The data consisted of approximately 4000 samples.  Eighty percent was used for training and ten percent was used for validation and test, respectively. 
+
+\section{Mackey-Glass Prediction}
+The Mackey-Glass data provided was a nonlinear time series (Figure \ref{fig:MGdata}).
+
+\begin{center}
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.80\textwidth]{"MGdata"}
+		\caption{200 Samples of a Mackey-Glass nonlinear time series.}
+		\label{fig:MGdata}
+	\end{figure}
+\end{center}
+
+Two 20th order FIR filters were trained as noted above, one with MSE loss, the other with MEE.  The Gaussian kernel bandwidth for the MEE cost was empirically chosen as $\sigma=1$.  One-step-ahead prediction results on both validation and test data for the two filters are exhibited in Figures \ref*{fig:validation_no_noise} and \ref{fig:test_no_noise}.  For the Mackey-Glass data without added noise, both nonlinear filters do a reasonable job of signal reconstruction.  While it is difficult to quantify the results visually (and even more difficult quantitatively), the filter trained with MEE seems to provide slightly better prediction results.
+
+\begin{figure}[h]
+	\centering
+	\subfloat[][]{\includegraphics[width=.45\textwidth]{"mse_valid_no_noise"}}\quad
+	\subfloat[][]{\includegraphics[width=.45\textwidth]{"mee_valid_no_noise"}}\\
+	\caption{Validation predictions of two 20th order FIR filters trained with MSE (a) and MEE, $\sigma=1$ (b).}
+	\label{fig:validation_no_noise}
+\end{figure}
+
+\begin{figure}[h]
+	\centering
+	\subfloat[][]{\includegraphics[width=.45\textwidth]{"mse_test_no_noise"}}\quad
+	\subfloat[][]{\includegraphics[width=.45\textwidth]{"mee_test_no_noise"}}\\
+	\caption{Test predictions of two 20th order FIR filters trained with MSE (a) and MEE, $\sigma=1$ (b).}
+	\label{fig:test_no_noise}
+\end{figure}
+
+\section{Middleton Noise Model}
+Next, noise following the Middleton Model was added to the desired response.  Two 20th order filters were trained in the same fashion to test the robustness of the cost functions.  Validation and test results using the same parameters as above are shown in Figures \ref{fig:validation_with_noise} and \ref{fig:test_with_noise}.  These plots show prediction results overlaying the signals without noise (although the filters were trained on noisy desired responses). 
+
+\begin{figure}[H]
+	\centering
+	\subfloat[][]{\includegraphics[width=.45\textwidth]{"mse_valid_with_noise"}}\quad
+	\subfloat[][]{\includegraphics[width=.45\textwidth]{"mee_valid_with_noise_bw1"}}\\
+	\caption{Validation predictions of two 20th order FIR filters trained with MSE (a) and MEE, $\sigma=1$ (b).  The desired signals were corrupted with Middleton noise during training.}
+	\label{fig:validation_with_noise}
+\end{figure}
+
+\begin{figure}[H]
+	\centering
+	\subfloat[][]{\includegraphics[width=.45\textwidth]{"mse_test_with_noise"}}\quad
+	\subfloat[][]{\includegraphics[width=.45\textwidth]{"mee_test_with_noise_bw1"}}\\
+	\caption{Test predictions of two 20th order FIR filters trained with MSE (a) and MEE, $\sigma=1$ (b).  The desired signals were corrupted with Middleton noise during training.}
+	\label{fig:test_with_noise}
+\end{figure}
+
+Again, while it is difficult to quantify the performance differences between the MSE and Information Theoretic models, it appears that (in this case) MSE actually outperformed the MEE trained model.  However, this result went against intuition which indicated that the MEE Gaussian kernel bandwidth was not optimal. Additionally, bandwidth selection variations seemed to alter performance more with the noisy model than the signal without additional noise. A comparison of  MEE trained filter predictions for varying bandwidths is shown in Figure \ref{fig:mee_bandwidth_comparison}.  From the results, it appears that a bandwidth of $\sigma=1.2$ provides comparable predictions (and actually outperforms the filter trained with MSE).  This demonstrates the ability of Information Potential to adequately filter noise and thus recover the underlying signal.
+
+\begin{figure}[H]
+	\centering
+	\subfloat[][$\sigma=0.01$, validation]{\includegraphics[width=.4\textwidth]{"mee_valid_with_noise_bw_point01"}}\quad
+	\subfloat[][$\sigma=0.01$, test]{\includegraphics[width=.4\textwidth]{"mee_test_with_noise_bw_point01"}}\\
+	\subfloat[][$\sigma=0.1$, validation]{\includegraphics[width=.4\textwidth]{"mee_valid_with_noise_bw_point1"}}\quad
+	\subfloat[][$\sigma=0.1$, test]{\includegraphics[width=.4\textwidth]{"mee_test_with_noise_bw_point1"}}\\
+	\subfloat[][$\sigma=1$, validation]{\includegraphics[width=.4\textwidth]{"mee_valid_with_noise_bw1"}}\quad
+	\subfloat[][$\sigma=1$, test]{\includegraphics[width=.4\textwidth]{"mee_test_with_noise_bw1"}}\\
+	\subfloat[][$\sigma=10$, validation]{\includegraphics[width=.4\textwidth]{"mee_valid_with_noise_bw10"}}\quad
+	\subfloat[][$\sigma=10$, test]{\includegraphics[width=.4\textwidth]{"mee_test_with_noise_bw10"}}\\
+	\caption{Comparison of validation (left column) and test (right column) predictions from a 20th order nonlinear FIR filter trained with MEE loss.  Each row represents predictions using a different MEE kernel bandwidth.}
+	\label{fig:mee_bandwidth_comparison}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+\end{document}
