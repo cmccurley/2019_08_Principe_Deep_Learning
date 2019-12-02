@@ -1,0 +1,23 @@
+This is BibTeX, Version 0.99dThe top-level auxiliary file: mccurleyProject2.aux
+The style file: IEEEtran.bst
+Database file #1: Project2.bib
+I was expecting a `,' or a `}'---line 88 of file Project2.bib
+ :  
+ :  journal = {Proceedings of the 19th Symposium of the Pattern Recognition Association of South Africa (PRASA 2008)}
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+I was expecting a `,' or a `}'---line 203 of file Project2.bib
+ :  
+ :  number = {2}
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+-- IEEEtran.bst version 1.14 (2015/08/26) by Michael Shell.
+-- http://www.michaelshell.org/tex/ieeetran/bibtex/
+-- See the "IEEEtran_bst_HOWTO.pdf" manual for usage information.
+Warning--empty journal in Prasad2015Review
+Warning--empty title in Timofte2013NaiveBayes
+Warning--missing publisher in Timofte2013NaiveBayes
+Warning--empty booktitle in Swaroop2016TemplateMatching
+
+Done.
+(There were 2 error messages)
