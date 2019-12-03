@@ -47,7 +47,7 @@ from torchvision import transforms
 
 ## Custom packages
 from setParams import setParams
-from MyMNISTData import  MNISTdata, readData
+from trainAE import trainAE
 
 
 ######################################################################
@@ -70,8 +70,8 @@ if __name__== "__main__":
     cwd = os.getcwd()
 
     ## Create dataset
-    dataset_train = FashionMNIST(parameters["dataPath"], train=True, transform=transforms.ToTensor, download=False)
-    dataset_test = FashionMNIST(parameters["dataPath"], train=False, transform=transforms.ToTensor, download=False)
+    dataset_train = FashionMNIST(parameters["dataPath"], train=True, transform=transforms.ToTensor(), download=False)
+    dataset_test = FashionMNIST(parameters["dataPath"], train=False, transform=transforms.ToTensor(), download=False)
     
     ## Split indices for training and validation 
     indices_train = np.arange(len(dataset_train))
@@ -98,87 +98,12 @@ if __name__== "__main__":
                         'test': torch.utils.data.DataLoader(mmist_datasets['test'], batch_size=parameters["batch_size"],
                                                sampler=test_sampler, shuffle=False,num_workers=0) }
 
-#if __name__== "__main__":
-#
-#    print('Running Main...')
-#
-#    ####################### Set Parameters ###########################
-#    parameters = setParams()
-#
-#    ####################### Import data ##############################
-#    print('Loading data...')
-#    cwd = os.getcwd()
-#
-#    X_train_all, y_train_all = mnist_reader.load_mnist(parameters["dataPath"], kind='train')
-#    X_test, y_test = mnist_reader.load_mnist(parameters["dataPath"], kind='t10k')
-#
-#    # Normalize images between 0-1
-#    X_train_all, X_test = scale_pixels(X_train_all, X_test)
-#
-#
-##    # Plot a sample from every class
-##    plot_classes(X_train_all, y_train_all)
-#
-#
-#    ####################### Define Validation Set ####################
-#
-#    # partition data into training and validation
-#    X_train, X_val, y_train, y_val = ms.train_test_split(X_train_all, y_train_all, test_size=parameters["data_parameters"]["validationSize"], random_state=42)
 
+    ######################################################################
+    ########################## Train Autoencoder #########################
+    ######################################################################
+    model = trainAE(dataloaders_dict, parameters)
 
-    ###################### Apply Dimensionality Reduction #############
-#    n_dims = 400
-##    X_train, X_val, X_test = pca_dim_reduction(X_train, X_val, X_test, n_dims)
-#
-#    X_train, X_val, X_test = umap_dim_reduction(X_train, X_val, X_test,n_dims, y_train)
-#
-#    ######################## Save Data ###############################
-#    dataSet = dict()
-#    dataSet["X_train"] = X_train
-#    dataSet["y_train"] = y_train
-#    dataSet["X_val"] = X_val
-#    dataSet["y_val"] = y_val
-#    dataSet["X_test"] = X_test
-#    dataSet["y_test"] = y_test
-#
-#    np.save('data_umap_400.npy', dataSet)
-#
-#    ######################## Load Data ###############################
-#    dataSet = np.load('reduced_dim_data/data_pca_100.npy').item()
-#
-#    X_train = dataSet["X_train"]
-#    y_train = dataSet["y_train"]
-#    X_val = dataSet["X_val"]
-#    y_val = dataSet["y_val"]
-#    X_test = dataSet["X_test"]
-#    y_test = dataSet["y_test"]
-#
-#    plot_dist_distributions(X_train,y_train, parameters)
-
-
-#    ########################### Apply Autoencoder ######################
-#
-#    model = Autoencoder100()
-#    model.load_state_dict(torch.load('autoencoder_100.pth'))
-#    model.eval()
-#
-#    X_train = model.encoder(X_train)
-#    X_val = model.encoder(X_val)
-#    X_test = model.encoder(X_test)
-#
-#    X_train = X_train.detach().numpy()
-#    X_val = X_val.detach().numpy()
-#    X_test = X_test.detach().numpy()
-#
-#    dataSet = dict()
-#    dataSet["X_train"] = X_train
-#    dataSet["y_train"] = y_train
-#    dataSet["X_val"] = X_val
-#    dataSet["y_val"] = y_val
-#    dataSet["X_test"] = X_test
-#    dataSet["y_test"] = y_test
-##
-#    np.save('data_auto_100.npy', dataSet)
 
 ############################### Train Network ############################
 

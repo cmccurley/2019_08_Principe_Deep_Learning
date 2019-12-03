@@ -39,13 +39,19 @@ def setParams():
     parameters["validationSize"] = 0.2
     parameters["random_state"] = 24
 
-    ################### Network Parameters ##########################
-    parameters["outputSize"] = 10
-    parameters["learningRate"] = 0.01
-    parameters["numEpochs"] = 800
-    parameters["numTrials"] = 5
-    parameters["updateIter"] = 10
+    ################### Autoencoder Parameters ######################
+    ae_parameters = dict()
     
+    ae_parameters["ae_latent_size"] = 10
+    ae_parameters["learning_rate"] = 0.01
+    ae_parameters["numEpochs"] = 800
+    ae_parameters["numTrials"] = 1
+    ae_parameters["updateIter"] = 10
+    
+    parameters["ae_parameters"] = ae_parameters
+    
+    
+    parameters["outputSize"] = 10
     ####################### MEE Parameters ##########################
     parameters["mee_kernel_width"] = 1.2
     parameters["batch_size"] = 200
