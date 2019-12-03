@@ -34,6 +34,10 @@ def setParams():
     parameters["class_num"] = [0,1,2,3,4,5,6,7,8,9]
     parameters["width"] = 28
     parameters["image_size"] = 784
+    
+    
+    parameters["train_ae"] = True
+    parameters["train_cnn"] = False
 
     ################### Data Parameters #############################
     parameters["validationSize"] = 0.2
@@ -44,14 +48,28 @@ def setParams():
     
     ae_parameters["ae_latent_size"] = 10
     ae_parameters["learning_rate"] = 0.01
-    ae_parameters["numEpochs"] = 800
+    ae_parameters["numEpochs"] = 2
     ae_parameters["numTrials"] = 1
     ae_parameters["updateIter"] = 10
+    ae_parameters["val_update"] = 100
+    ae_parameters["model_save_path"] = os.getcwd() + '\\ae_model_parameters\\ae_latent_' + str(ae_parameters["ae_latent_size"]) + '.pth'
+    ae_parameters["image_save_path"] = os.getcwd() + '\\ae_reconstructed_images\\ae_latent_' + str(ae_parameters["ae_latent_size"])
     
     parameters["ae_parameters"] = ae_parameters
     
+    ################### Baseline CNN Parameters ######################
+    cnn_parameters = dict()
     
-    parameters["outputSize"] = 10
+    cnn_parameters["learning_rate"] = 0.01
+    cnn_parameters["numEpochs"] = 2
+    cnn_parameters["numTrials"] = 1
+    cnn_parameters["updateIter"] = 10
+    cnn_parameters["val_update"] = 100
+    cnn_parameters["model_save_path"] = os.getcwd() + '\\cnn_model_parameters\\baseline_cnn.pth'
+#    cnn_parameters["image_save_path"] = os.getcwd() + '\\ae_reconstructed_images\\ae_latent_' + str(ae_parameters["ae_latent_size"])
+    
+    parameters["cnn_parameters"] = cnn_parameters
+    
     ####################### MEE Parameters ##########################
     parameters["mee_kernel_width"] = 1.2
     parameters["batch_size"] = 200

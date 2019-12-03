@@ -70,7 +70,7 @@ def predict(dataloader,model):
         
     ## Iterate over data.
     with torch.no_grad():
-        for inputs, labels, index, labels_no_noise in dataloader:
+        for inputs, labels, index in dataloader:
             # forward
             outputs = model(inputs)
             

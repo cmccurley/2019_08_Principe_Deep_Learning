@@ -71,7 +71,7 @@ class Autoencoder(torch.nn.Module):
             nn.Linear(200, 500),
             nn.ReLU(True),
             nn.Linear(500, 28 * 28), 
-            nn.Tanh())
+            nn.Sigmoid())
 
     def forward(self, x):
         x = self.encoder(x)
