@@ -36,7 +36,7 @@ def setParams():
     parameters["image_size"] = 784
     
     
-    parameters["train_ae"] = True
+    parameters["train_ae"] = False
     parameters["train_cnn"] = False
 
     ################### Data Parameters #############################
@@ -48,7 +48,7 @@ def setParams():
     
     ae_parameters["ae_latent_size"] = 10
     ae_parameters["learning_rate"] = 0.01
-    ae_parameters["numEpochs"] = 2
+    ae_parameters["numEpochs"] = 10
     ae_parameters["numTrials"] = 1
     ae_parameters["updateIter"] = 10
     ae_parameters["val_update"] = 100
@@ -61,12 +61,25 @@ def setParams():
     cnn_parameters = dict()
     
     cnn_parameters["learning_rate"] = 0.01
-    cnn_parameters["numEpochs"] = 2
+    cnn_parameters["numEpochs"] = 20
     cnn_parameters["numTrials"] = 1
     cnn_parameters["updateIter"] = 10
-    cnn_parameters["val_update"] = 100
+    cnn_parameters["val_update"] = 300
     cnn_parameters["model_save_path"] = os.getcwd() + '\\cnn_model_parameters\\baseline_cnn.pth'
-#    cnn_parameters["image_save_path"] = os.getcwd() + '\\ae_reconstructed_images\\ae_latent_' + str(ae_parameters["ae_latent_size"])
+    cnn_parameters["image_save_path"] = os.getcwd() + '\\cnn_model_parameters\\baseline_cnn' 
+    
+    parameters["cnn_parameters"] = cnn_parameters
+    
+    ######################## SVM Parameters ###########################
+    svm_parameters = dict()
+    
+    svm_parameters["learning_rate"] = 0.01
+    svm_parameters["numEpochs"] = 20
+    svm_parameters["numTrials"] = 1
+    svm_parameters["updateIter"] = 10
+    svm_parameters["val_update"] = 300
+    svm_parameters["model_save_path"] = os.getcwd() + '\\cnn_model_parameters\\baseline_cnn.pth'
+    svm_parameters["image_save_path"] = os.getcwd() + '\\cnn_model_parameters\\baseline_cnn' 
     
     parameters["cnn_parameters"] = cnn_parameters
     

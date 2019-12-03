@@ -47,8 +47,24 @@ from utils import predict
 ######################################################################
 
 def trainCNN(dataloaders_dict, all_parameters):
-
+    
     parameters = all_parameters["cnn_parameters"]
+    best_model = dict()
+    
+#    ## Check validation loss of trained model
+#    print('Validating model...')
+#    model = baselineCNN()
+#    model.load_state_dict(torch.load(parameters["model_save_path"]))
+#    ## Compute total validation loss
+#    model.eval()
+#    criterion = torch.nn.CrossEntropyLoss()
+#    loss_valid = 0
+#    for inputs, labels in dataloaders_dict["val"]:
+#        y_pred = model(inputs)
+#        loss_valid = loss_valid + criterion(y_pred, labels)
+#    loss_valid =  loss_valid/len(dataloaders_dict["val"])
+#    print(f'Validation loss: {loss_valid}')
+    
     
     print(f'Training Baseline CNN...')
 
@@ -61,7 +77,10 @@ def trainCNN(dataloaders_dict, all_parameters):
         ####################### Define Network ###########################
 
         # instantiate model
+#        model = baselineCNN()
+        
         model = baselineCNN()
+#        model.load_state_dict(torch.load(parameters["model_save_path"]))
 
         # define loss function
         criterion = torch.nn.CrossEntropyLoss()
@@ -93,9 +112,6 @@ def trainCNN(dataloaders_dict, all_parameters):
                 # backward pass
                 loss.backward() # computes the gradients
                 optimizer.step() # updates the weights
-                
-                ## Add to training learning curve each batch
-                learningCurve.append(loss)
             
                 count = count + 1
     
@@ -103,6 +119,9 @@ def trainCNN(dataloaders_dict, all_parameters):
                 if not(count%parameters["val_update"]):
             
                     print(f'Batch: {count}')
+                    
+                    ## Add to training learning curve each batch
+                    learningCurve.append(loss) 
                     
                     ## Compute total validation loss
                     model.eval()
@@ -117,40 +136,28 @@ def trainCNN(dataloaders_dict, all_parameters):
 
             ####################### Update Best Model #########################
             ## Update state dictionary of best model
-            best_model = dict()
             best_model["modelParameters"] = copy.deepcopy(model.state_dict())
             best_model["numEpochs"] = epoch
 
-
+            torch.save(best_model["modelParameters"], parameters["model_save_path"])
     ######################### Learning Curve ##############################
 
     # plot the learning curve
     plt.figure()
-    plt.plot(np.arange(0,len(learningCurve),1),learningCurve, c='blue')
+    plt.plot(np.arange(0,len(learningCurve)*parameters["val_update"],parameters["val_update"]),learningCurve, c='blue')
     plt.plot(np.arange(0,len(valLearningCurve)*parameters["val_update"],parameters["val_update"]),valLearningCurve, c='orange')
     plt.title("Learing Curve", fontsize=18)
     plt.xlabel('Iteration', fontsize=12)
     plt.ylabel('Cross-Entropy Loss', fontsize=12)
 
+    save_path = parameters["image_save_path"] + '_learning_curve.png'
+    plt.savefig(save_path)
+    plt.close()
 
     ######################## Save Weights and Plot Images #################
     
     ## Save state dictionary of best model
     torch.save(best_model["modelParameters"], parameters["model_save_path"])
     
-#    ## Save a few validation images
-#    count = 0
-#    for inputs, labels in dataloaders_dict["val"]:
-#        if (count < 10):
-#            save_path = parameters["image_save_path"] + '_img_' + str(count) + '.png'
-#            y_pred = model(inputs)
-#            loss_valid = loss_valid + criterion(y_pred, labels)
-#                        
-#            plt.figure()
-#            plt.imshow(y_pred[0,:].reshape((28,28)).detach().numpy())
-#            plt.savefig(save_path)
-#            plt.close()
-#            
-#            count = count + 1
 
     return

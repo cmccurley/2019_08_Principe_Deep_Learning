@@ -124,6 +124,10 @@ def trainAE(dataloaders_dict, all_parameters):
     plt.title("Learing Curve", fontsize=18)
     plt.xlabel('Iteration', fontsize=12)
     plt.ylabel('MSE Loss', fontsize=12)
+    
+    save_path = parameters["image_save_path"] + '_learning_curve.png'
+    plt.savefig(save_path)
+    plt.close()
 
 
     ######################## Save Weights and Plot Images #################

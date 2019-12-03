@@ -106,7 +106,12 @@ if __name__== "__main__":
     ## Train autoencoder network with chosen bottlenck size
     
     if parameters["train_ae"]:
-        trainAE(dataloaders_dict, parameters)
+        
+        for val in [10, 25, 50, 75, 100]:
+            parameters["ae_parameters"]["ae_latent_size"] = val
+            parameters["ae_parameters"]["model_save_path"] = os.getcwd() + '\\ae_model_parameters\\ae_latent_' + str(parameters["ae_parameters"]["ae_latent_size"]) + '.pth'
+            parameters["ae_parameters"]["image_save_path"] = os.getcwd() + '\\ae_reconstructed_images\\ae_latent_' + str(parameters["ae_parameters"]["ae_latent_size"])
+            trainAE(dataloaders_dict, parameters)
 
 
     ######################################################################
