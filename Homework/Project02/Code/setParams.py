@@ -38,7 +38,8 @@ def setParams():
     parameters["train_ae"] = False
     parameters["train_cnn"] = False
     parameters["encode_data"] = False
-    parameters["train_svm"] = True
+    parameters["train_svm"] = False
+    parameters["train_mlp_itl"] = True
 
     ################### Data Parameters #############################
     parameters["validationSize"] = 0.2
@@ -92,6 +93,24 @@ def setParams():
     svm_parameters["image_save_path"] = os.getcwd() + '/svm_conf_mat/svm_feature_size_'
 
     parameters["svm_parameters"] = svm_parameters
+    
+    ##################### MLP with ITL Parameters ######################
+    mlp_itl_parameters = dict()
+
+    mlp_itl_parameters["validate_model"] = False
+    mlp_itl_parameters["test_model"] = False
+    mlp_itl_parameters["learning_rate"] = 0.01
+    mlp_itl_parameters["numEpochs"] = 20
+    mlp_itl_parameters["numTrials"] = 1
+    mlp_itl_parameters["updateIter"] = 10
+    mlp_itl_parameters["val_update"] = 300
+    mlp_itl_parameters["label_noise"] = 0.002
+    mlp_itl_parameters["num_classes"] = 10
+    mlp_itl_parameters["xent_bw"] = 300
+    
+    parameters["mlp_itl_parameters"] = mlp_itl_parameters
+    
+
 
     ####################### MEE Parameters ##########################
     parameters["mee_kernel_width"] = 1.2

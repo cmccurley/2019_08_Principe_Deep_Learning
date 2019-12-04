@@ -5,13 +5,6 @@ Created on Tue Dec  3 09:57:54 2019
 @author: Conma
 """
 
-# -*- coding: utf-8 -*-
-"""
-Created on Mon Dec  2 19:39:29 2019
-
-@author: cmccurley
-"""
-
 
 """
 ***********************************************************************
