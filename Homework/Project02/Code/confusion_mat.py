@@ -44,12 +44,11 @@ def plot_confusion_matrix(y_true, y_pred, classes, testLoss, normalize=False, ti
         cm = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
         print("Normalized confusion matrix")
     else:
-        print(f'Confusion matrix \n Test Loss: {testLoss}')
+        print(f'Confusion matrix \n Test Accuracy: {testLoss}')
 
     print(cm)
 
-    accuracy = 1 - testLoss
-
+    tit = title + ' \n Test Accuracy: %.2f' % testLoss
     fig, ax = plt.subplots()
     im = ax.imshow(cm, interpolation='nearest', cmap=cmap)
     ax.figure.colorbar(im, ax=ax)
@@ -58,7 +57,7 @@ def plot_confusion_matrix(y_true, y_pred, classes, testLoss, normalize=False, ti
            yticks=np.arange(cm.shape[0]),
            # ... and label them with the respective list entries
            xticklabels=classes, yticklabels=classes,
-           title=f'Confusion matrix \n Test Loss: %.2f' % testLoss,
+           title=tit,
            ylabel='True label',
            xlabel='Predicted label')
 

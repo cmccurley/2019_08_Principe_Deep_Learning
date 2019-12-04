@@ -38,69 +38,74 @@ from utils import predict
 ##################### Function Definitions ###########################
 ######################################################################
 
-def encodeData(dataloaders_dict, feature_size, all_parameters):
+def encodeData(dataloaders_dict, feature_size, train_indices, val_indices, y_train, y_val, y_test, all_parameters):
 
     parameters = all_parameters["encode_parameters"]
-    
+
     print(f'Encoding data with feature size {feature_size}...')
-    
+
     ######################## Define Encoder ##########################
     model = Autoencoder(feature_size)
     load_path = parameters["model_load_path"] + str(feature_size) + '.pth'
     model.load_state_dict(torch.load(load_path))
     model.eval()
-    
+
     #################### Encode Training Data ########################
     print('Encoding training data')
     num_samples = len(dataloaders_dict["train"].dataset)
-    data_train = np.empty((feature_size,num_samples))
-    
+    data_train_and_val = np.empty((feature_size,num_samples))
+
     idx = 0
-    
+
     ## Loop through full training dataset
     for inputs, labels in dataloaders_dict["train"].dataset:
-        
+
         ## Get latent representation of data point
         data_latent = model.encoder(inputs.flatten(start_dim=1))
-    
+
         ## Add to data matrix
-        data_train[:,idx] = data_latent.detach().numpy()
+        data_train_and_val[:,idx] = data_latent.detach().numpy()
         idx = idx + 1
-        
+
     #################### Encode Validation Data #######################
-    print('Encoding validation data')
-    num_samples = len(dataloaders_dict["val"].dataset)
-    data_valid = np.empty((feature_size,num_samples))
-    
-    idx = 0
-    
-    ## Loop through full dataset
-    for inputs, labels in dataloaders_dict["val"].dataset:
-        
-        ## Get latent representation of data point
-        data_latent = model.encoder(inputs.flatten(start_dim=1))
-    
-        ## Add to data matrix
-        data_valid[:,idx] = data_latent.detach().numpy()
-        idx = idx + 1
-        
+    print('Splitting into training and validation')
+
+    data_train = data_train_and_val[:,train_indices]
+
+    data_val = data_train_and_val[:,val_indices]
+
+
     ###################### Encode Test Data ###########################
     print('Encoding test data')
     num_samples = len(dataloaders_dict["test"].dataset)
     data_test = np.empty((feature_size,num_samples))
-    
+
     idx = 0
-    
+
     ## Loop through full dataset
     for inputs, labels in dataloaders_dict["test"].dataset:
-        
+
         ## Get latent representation of data point
         data_latent = model.encoder(inputs.flatten(start_dim=1))
-    
+
         ## Add to data matrix
         data_test[:,idx] = data_latent.detach().numpy()
         idx = idx + 1
-        
+
+
+    ######################## Save Data ###############################
+    print('Saving data')
+
+    data = dict()
+    data["X_train"] = data_train
+    data["X_val"] = data_val
+    data["X_test"] = data_test
+    data["y_train"] = y_train
+    data["y_val"] = y_val
+    data["y_test"] = y_test
+
+    save_path = parameters["data_save_path"] + str(feature_size) + '.npy'
+    np.save(save_path, data)
+
     return
-        
-         
+

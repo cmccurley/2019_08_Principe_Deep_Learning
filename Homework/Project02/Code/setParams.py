@@ -37,8 +37,8 @@ def setParams():
 
     parameters["train_ae"] = False
     parameters["train_cnn"] = False
-    parameters["encode_data"] = True
-    parameters["train_svm"] = False
+    parameters["encode_data"] = False
+    parameters["train_svm"] = True
 
     ################### Data Parameters #############################
     parameters["validationSize"] = 0.2
@@ -61,21 +61,22 @@ def setParams():
     ################### Baseline CNN Parameters ######################
     cnn_parameters = dict()
 
+    cnn_parameters["test_model"] = True
     cnn_parameters["learning_rate"] = 0.01
     cnn_parameters["numEpochs"] = 20
     cnn_parameters["numTrials"] = 1
     cnn_parameters["updateIter"] = 10
     cnn_parameters["val_update"] = 300
-    cnn_parameters["model_save_path"] = os.getcwd() + '\\cnn_model_parameters\\baseline_cnn.pth'
-    cnn_parameters["image_save_path"] = os.getcwd() + '\\cnn_model_parameters\\baseline_cnn'
+    cnn_parameters["model_save_path"] = os.getcwd() + '/cnn_model_parameters/baseline_cnn2.pth'
+    cnn_parameters["image_save_path"] = os.getcwd() + '/cnn_model_parameters/baseline_cnn2_confusion_mat.png'
 
     parameters["cnn_parameters"] = cnn_parameters
 
     #################### Data Encoding Parameters #####################
     encode_parameters = dict()
 
-    encode_parameters["model_load_path"] = os.getcwd() + '\\ae_model_parameters\\ae_latent_'
-    encode_parameters["data_save_path"] = os.getcwd() + '\\encoded_data\\'
+    encode_parameters["model_load_path"] = os.getcwd() + '/ae_model_parameters/ae_latent_'
+    encode_parameters["data_save_path"] = os.getcwd() + '/encoded_data/feature_size_'
 
     parameters["encode_parameters"] = encode_parameters
 
@@ -87,9 +88,8 @@ def setParams():
     svm_parameters["numTrials"] = 1
     svm_parameters["updateIter"] = 10
     svm_parameters["val_update"] = 300
-    svm_parameters["model_load_path"] = os.getcwd() + '\\ae_model_parameters\\ae_latent_'
-    svm_parameters["model_save_path"] = os.getcwd() + '\\svm_model_parameters\\svm_feature_size_'
-    svm_parameters["image_save_path"] = os.getcwd() + '\\svm_model_parameters\\svm_feature_size_'
+    svm_parameters["data_load_path"] = os.getcwd() + '/encoded_data/feature_size_'
+    svm_parameters["image_save_path"] = os.getcwd() + '/svm_conf_mat/svm_feature_size_'
 
     parameters["svm_parameters"] = svm_parameters
 

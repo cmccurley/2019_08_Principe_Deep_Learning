@@ -75,24 +75,24 @@ if __name__== "__main__":
     ## Create dataset
     dataset_train = FashionMNIST(parameters["dataPath"], train=True, transform=transforms.ToTensor(), download=False)
     dataset_test = FashionMNIST(parameters["dataPath"], train=False, transform=transforms.ToTensor(), download=False)
-    
-    ## Split indices for training and validation 
+
+    ## Split indices for training and validation
     indices_train = np.arange(len(dataset_train))
     y_train = dataset_train.targets.numpy()
     test_indices = np.arange(len(dataset_test))
     y_test = dataset_test.targets.numpy()
-        
+
     ## Split training, validation and test sets
     y_train,y_val,train_indices,val_indices = train_test_split(y_train,indices_train,test_size = parameters["validationSize"],random_state=parameters["random_state"])
- 
-    
+
+
     ## Create data samplers and loaders:
     train_sampler = SubsetRandomSampler(train_indices)
     valid_sampler = SubsetRandomSampler(val_indices)
     test_sampler = SubsetRandomSampler(test_indices)
     mmist_datasets = {'train': dataset_train, 'val': dataset_train, 'test': dataset_test}
-    
-    
+
+
     ## Create training and validation dataloaders
     dataloaders_dict = {'train': torch.utils.data.DataLoader(mmist_datasets['train'], batch_size=parameters["batch_size"],
                                                sampler=train_sampler, shuffle=False,num_workers=0),
@@ -106,9 +106,9 @@ if __name__== "__main__":
     ########################## Train Autoencoder #########################
     ######################################################################
     ## Train autoencoder network with chosen bottlenck size
-    
+
     if parameters["train_ae"]:
-        
+
         for val in [10, 25, 50, 75, 100]:
             parameters["ae_parameters"]["ae_latent_size"] = val
             parameters["ae_parameters"]["model_save_path"] = os.getcwd() + '\\ae_model_parameters\\ae_latent_' + str(parameters["ae_parameters"]["ae_latent_size"]) + '.pth'
@@ -119,37 +119,33 @@ if __name__== "__main__":
     ######################################################################
     ############################# Train CNN ##############################
     ######################################################################
-    ## Train baseline CNN Network 
+    ## Train baseline CNN Network
     if parameters["train_cnn"]:
         trainCNN(dataloaders_dict, parameters)
-    
+
     ######################################################################
     ############################ Encode Data #############################
     ######################################################################
     ## Encode data with chosen bottleneck size
     if parameters["encode_data"]:
-        for feature_size in [10]:
-            encodeData(dataloaders_dict, feature_size, parameters)
+        for feature_size in [10, 25, 50, 75, 100]:
+            encodeData(dataloaders_dict, feature_size, train_indices, val_indices, y_train, y_val, y_test, parameters)
     ######################################################################
     ############################ Train SVM ###############################
     ######################################################################
-    ## Train SVM with data from chosen bottleneck layer Network 
+    ## Train SVM with data from chosen bottleneck layer Network
     if parameters["train_svm"]:
-        
-        for feature_size in [10]:
-            parameters["svm_parameters"]["model_save_path"] = os.getcwd() + '\\svm_model_parameters\\svm_feature_size_' + str(feature_size) + '.npy'
-            parameters["svm_parameters"]["image_save_path"] = os.getcwd() + '\\svm_model_parameters\\svm_feature_size_' + str(feature_size)
+
+        for feature_size in [10, 25, 50, 75, 100]:
+            parameters["svm_parameters"]["data_load_path"] = os.getcwd() + '/encoded_data/feature_size_' + str(feature_size) + '.npy'
             trainSVM(dataloaders_dict, feature_size, parameters)
-    
-    ## Load desired model
-    
-    ## Train SVM
-    
+
+
     ## Get performance on test set
-    
+
     ## Confusion matrices
-    
-    
+
+
 
 ##    ####################### Confusion Matrix #########################
 #

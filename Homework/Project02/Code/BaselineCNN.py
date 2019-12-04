@@ -97,6 +97,7 @@ class baselineCNN2(nn.Module):
         self.fc2 = nn.Linear(in_features=128, out_features=10)
         self.relu = nn.ReLU()
         self.max_pool = nn.MaxPool2d(2,stride=2)
+        self.softmax = nn.Softmax(dim=1)
 
       # define forward function
     def forward(self, t):
@@ -116,5 +117,27 @@ class baselineCNN2(nn.Module):
 
         # fc2
         t = self.fc2(t)
+
+        return t
+
+    def test_forward(self, t):
+        # conv 1
+        t = self.relu(self.conv1(t))
+        t = self.max_pool(t)
+
+        # conv 2
+        t = self.relu(self.conv2(t))
+        t = self.max_pool(t)
+
+        # fc1
+        t = torch.flatten(t,start_dim=1)
+        t = self.relu(self.fc1(t))
+
+        t = self.dropout(t)
+
+        # fc2
+        t = self.fc2(t)
+
+        t = self.softmax(t)
 
         return t

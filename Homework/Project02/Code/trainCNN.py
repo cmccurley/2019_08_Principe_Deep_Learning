@@ -42,6 +42,7 @@ from torch.autograd import Variable
 from BaselineCNN import baselineCNN, baselineCNN2
 import matplotlib.pyplot as plt
 from utils import predict
+from confusion_mat import plot_confusion_matrix
 
 ######################################################################
 ##################### Function Definitions ###########################
@@ -49,6 +50,7 @@ from utils import predict
 
 def trainCNN(dataloaders_dict, all_parameters):
 
+    classes = all_parameters["classes"]
     parameters = all_parameters["cnn_parameters"]
     best_model = dict()
 
@@ -66,102 +68,121 @@ def trainCNN(dataloaders_dict, all_parameters):
 #    loss_valid =  loss_valid/len(dataloaders_dict["val"])
 #    print(f'Validation loss: {loss_valid}')
 
-
-    print(f'Training Baseline CNN...')
-
-    ############# run a number of trials, save best model ############
-    for trial in range(parameters["numTrials"]):
-
-        learningCurve = []
-        valLearningCurve = []
-
-        ####################### Define Network ###########################
-
-        # instantiate model
-#        model = baselineCNN()
-
+################################ Test trained model ###########################
+    if parameters["test_model"]:
+        ## Check test loss of trained model
+        print('Testing model...')
         model = baselineCNN2()
+        model.load_state_dict(torch.load(parameters["model_save_path"]))
+        ## Compute total validation loss
+        model.eval()
+        y_true, y_pred = predict(dataloaders_dict["test"],model)
 
-        load_path = os.getcwd() + '\\cnn_model_parameters\\baseline_cnn.pth'
-        model.load_state_dict(torch.load(load_path))
-#        model.load_state_dict(torch.load(parameters["model_save_path"]))
+        ## Make confusion matrix
+        acc = 1 - np.count_nonzero(y_true - y_pred)/len(dataloaders_dict["test"].dataset)
+        plot_title = "CNN"
+        plot_confusion_matrix(y_true, y_pred, classes, acc, normalize=False, title=plot_title)
 
-        # define loss function
-        criterion = torch.nn.CrossEntropyLoss()
+        conf_mat_save_path = parameters["image_save_path"]
+        plt.savefig(conf_mat_save_path)
+        plt.close()
+    else:
+        ###################### Train Model ####################################
+        print(f'Training Baseline CNN...')
 
-        # define optimizer (stochastic gradient descent)
-        optimizer = torch.optim.Adamax(model.parameters(), parameters["learning_rate"])
+        ############# run a number of trials, save best model ############
+        for trial in range(parameters["numTrials"]):
 
-        ##################### Train the Network ##########################
+            learningCurve = []
+            valLearningCurve = []
 
-        model.train()
+            ####################### Define Network ###########################
 
-        ################# Train a single network #####################
-        for epoch in range(parameters["numEpochs"]):
-            count = 0
+            # instantiate model
+    #        model = baselineCNN()
 
-            print(f'Trial: {trial} Epoch: {epoch}')
+            model = baselineCNN2()
 
-            for inputs, labels in dataloaders_dict["train"]:
+    #        load_path = os.getcwd() + '/cnn_model_parameters/baseline_cnn2.pth'
+    #        model.load_state_dict(torch.load(load_path))
+    #        model.load_state_dict(torch.load(parameters["model_save_path"]))
 
-                #set gradients to zero
-                optimizer.zero_grad()
+            # define loss function
+            criterion = torch.nn.CrossEntropyLoss()
 
-                # forward pass
-                y_pred = model(inputs) # predict output vector
+            # define optimizer (stochastic gradient descent)
+            optimizer = torch.optim.Adamax(model.parameters(), parameters["learning_rate"])
 
-                # compute loss (desired is the input image)
-                loss = criterion(y_pred, labels)
+            ##################### Train the Network ##########################
 
-                # backward pass
-                loss.backward() # computes the gradients
-                optimizer.step() # updates the weights
+            model.train()
 
-                count = count + 1
+            ################# Train a single network #####################
+            for epoch in range(parameters["numEpochs"]):
+                count = 0
 
-                ############### Add to validation learning curve ##############
-                if not(count%parameters["val_update"]):
+                print(f'Trial: {trial} Epoch: {epoch}')
 
-                    print(f'Batch: {count}')
+                for inputs, labels in dataloaders_dict["train"]:
 
-                    ## Add to training learning curve each batch
-                    learningCurve.append(loss)
+                    #set gradients to zero
+                    optimizer.zero_grad()
 
-                    ## Compute total validation loss
-                    model.eval()
-                    loss_valid = 0
-                    for inputs, labels in dataloaders_dict["val"]:
-                        y_pred = model(inputs)
-                        loss_valid = loss_valid + criterion(y_pred, labels)
-                    loss_valid =  loss_valid/len(dataloaders_dict["val"])
+                    # forward pass
+                    y_pred = model(inputs) # predict output vector
 
-                    valLearningCurve.append(loss_valid)
-                    model.train()
+                    # compute loss (desired is the input image)
+                    loss = criterion(y_pred, labels)
 
-            ####################### Update Best Model #########################
-            ## Update state dictionary of best model
-            best_model["modelParameters"] = copy.deepcopy(model.state_dict())
-            best_model["numEpochs"] = epoch
+                    # backward pass
+                    loss.backward() # computes the gradients
+                    optimizer.step() # updates the weights
 
-            torch.save(best_model["modelParameters"], parameters["model_save_path"])
-    ######################### Learning Curve ##############################
+                    count = count + 1
 
-    # plot the learning curve
-    plt.figure()
-    plt.plot(np.arange(0,len(learningCurve)*parameters["val_update"],parameters["val_update"]),learningCurve, c='blue')
-    plt.plot(np.arange(0,len(valLearningCurve)*parameters["val_update"],parameters["val_update"]),valLearningCurve, c='orange')
-    plt.title("Learing Curve", fontsize=18)
-    plt.xlabel('Iteration', fontsize=12)
-    plt.ylabel('Cross-Entropy Loss', fontsize=12)
+                    ############### Add to validation learning curve ##############
+                    if not(count%parameters["val_update"]):
 
-    save_path = parameters["image_save_path"] + '_learning_curve.png'
-    plt.savefig(save_path)
-    plt.close()
+                        print(f'Batch: {count}')
 
-    ######################## Save Weights and Plot Images #################
+                        ## Add to training learning curve each batch
+                        learningCurve.append(loss)
 
-    ## Save state dictionary of best model
-    torch.save(best_model["modelParameters"], parameters["model_save_path"])
+                        ## Compute total validation loss
+                        model.eval()
+                        loss_valid = 0
+                        for inputs, labels in dataloaders_dict["val"]:
+                            y_pred = model(inputs)
+                            loss_valid = loss_valid + criterion(y_pred, labels)
+                        loss_valid =  loss_valid/len(dataloaders_dict["val"])
+
+                        valLearningCurve.append(loss_valid)
+                        model.train()
+
+                ####################### Update Best Model #########################
+                ## Update state dictionary of best model
+                best_model["modelParameters"] = copy.deepcopy(model.state_dict())
+                best_model["numEpochs"] = epoch
+
+                torch.save(best_model["modelParameters"], parameters["model_save_path"])
+        ######################### Learning Curve ##############################
+
+        # plot the learning curve
+        plt.figure()
+        plt.plot(np.arange(0,len(learningCurve)*parameters["val_update"],parameters["val_update"]),learningCurve, c='blue')
+        plt.plot(np.arange(0,len(valLearningCurve)*parameters["val_update"],parameters["val_update"]),valLearningCurve, c='orange')
+        plt.title("Learing Curve", fontsize=18)
+        plt.xlabel('Iteration', fontsize=12)
+        plt.ylabel('Cross-Entropy Loss', fontsize=12)
+
+        save_path = parameters["image_save_path"] + '_learning_curve.png'
+        plt.savefig(save_path)
+        plt.close()
+
+        ######################## Save Weights and Plot Images #################
+
+        ## Save state dictionary of best model
+        torch.save(best_model["modelParameters"], parameters["model_save_path"])
 
 
     return

@@ -52,31 +52,31 @@ def predict(dataloader,model):
     ******************************************************************
         *  Func:      predict()
         *  Desc:      Passes dataset through a model and returns model outputs.
-        *  Inputs:    
+        *  Inputs:
         *             dataloader: Pytorch data loader for a dataset
         *             window_size:  Trained model which will compute output.
-        *  Outputs:   
+        *  Outputs:
         *             GT: list of desired values for a dataset
         *             Predictions: list of model outputs for a dataset
-        *             GT_no_noise: list of desired values without added noise  
+        *             GT_no_noise: list of desired values without added noise
     ******************************************************************
-    """    
+    """
 
     #Initialize and accumalate ground truth and predictions
     GT = np.array(0)
     Predictions = np.array(0)
-    GT_no_noise =  np.array(0)
     model.eval()
-        
+
     ## Iterate over data.
     with torch.no_grad():
-        for inputs, labels, index in dataloader:
+        for inputs, labels in dataloader.dataset:
             # forward
-            outputs = model(inputs)
-            
+            outputs = model.test_forward(torch.unsqueeze(inputs,0))
+
+            test_class = np.argmax(outputs.detach().cpu().numpy())
+
             #If validation, accumulate labels for confusion matrix
-            GT = np.concatenate((GT,labels.detach().cpu().numpy()),axis=None)
-            GT_no_noise = np.concatenate((GT_no_noise,labels_no_noise.detach().cpu().numpy()),axis=None)
-            Predictions = np.concatenate((Predictions,outputs.detach().cpu().numpy()),axis=None)
-            
-    return GT[1:],Predictions[1:], GT_no_noise[1:]
+            GT = np.concatenate((GT,labels),axis=None)
+            Predictions = np.concatenate((Predictions,test_class),axis=None)
+
+    return GT[1:],Predictions[1:]
