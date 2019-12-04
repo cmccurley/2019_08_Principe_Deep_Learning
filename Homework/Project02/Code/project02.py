@@ -49,6 +49,8 @@ from torchvision import transforms
 from setParams import setParams
 from trainAE import trainAE
 from trainCNN import trainCNN
+from trainSVM import trainSVM
+from encodeData import encodeData
 
 
 ######################################################################
@@ -122,8 +124,22 @@ if __name__== "__main__":
         trainCNN(dataloaders_dict, parameters)
     
     ######################################################################
+    ############################ Encode Data #############################
+    ######################################################################
+    ## Encode data with chosen bottleneck size
+    if parameters["encode_data"]:
+        for feature_size in [10]:
+            encodeData(dataloaders_dict, feature_size, parameters)
+    ######################################################################
     ############################ Train SVM ###############################
     ######################################################################
+    ## Train SVM with data from chosen bottleneck layer Network 
+    if parameters["train_svm"]:
+        
+        for feature_size in [10]:
+            parameters["svm_parameters"]["model_save_path"] = os.getcwd() + '\\svm_model_parameters\\svm_feature_size_' + str(feature_size) + '.npy'
+            parameters["svm_parameters"]["image_save_path"] = os.getcwd() + '\\svm_model_parameters\\svm_feature_size_' + str(feature_size)
+            trainSVM(dataloaders_dict, feature_size, parameters)
     
     ## Load desired model
     

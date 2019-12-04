@@ -35,9 +35,10 @@ def setParams():
     parameters["width"] = 28
     parameters["image_size"] = 784
 
-
     parameters["train_ae"] = False
-    parameters["train_cnn"] = True
+    parameters["train_cnn"] = False
+    parameters["encode_data"] = True
+    parameters["train_svm"] = False
 
     ################### Data Parameters #############################
     parameters["validationSize"] = 0.2
@@ -69,6 +70,28 @@ def setParams():
     cnn_parameters["image_save_path"] = os.getcwd() + '\\cnn_model_parameters\\baseline_cnn'
 
     parameters["cnn_parameters"] = cnn_parameters
+
+    #################### Data Encoding Parameters #####################
+    encode_parameters = dict()
+
+    encode_parameters["model_load_path"] = os.getcwd() + '\\ae_model_parameters\\ae_latent_'
+    encode_parameters["data_save_path"] = os.getcwd() + '\\encoded_data\\'
+
+    parameters["encode_parameters"] = encode_parameters
+
+    ######################## SVM Parameters ###########################
+    svm_parameters = dict()
+
+    svm_parameters["learning_rate"] = 0.01
+    svm_parameters["numEpochs"] = 20
+    svm_parameters["numTrials"] = 1
+    svm_parameters["updateIter"] = 10
+    svm_parameters["val_update"] = 300
+    svm_parameters["model_load_path"] = os.getcwd() + '\\ae_model_parameters\\ae_latent_'
+    svm_parameters["model_save_path"] = os.getcwd() + '\\svm_model_parameters\\svm_feature_size_'
+    svm_parameters["image_save_path"] = os.getcwd() + '\\svm_model_parameters\\svm_feature_size_'
+
+    parameters["svm_parameters"] = svm_parameters
 
     ####################### MEE Parameters ##########################
     parameters["mee_kernel_width"] = 1.2
