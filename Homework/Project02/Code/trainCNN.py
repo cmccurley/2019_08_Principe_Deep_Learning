@@ -27,6 +27,7 @@ Created on Mon Dec  2 19:39:29 2019
 ######################################################################
 
 ## Default packages
+import os
 import copy
 import numpy as np
 
@@ -38,7 +39,7 @@ from torch.utils import data
 from torch.autograd import Variable
 
 ## Custom packages
-from BaselineCNN import baselineCNN
+from BaselineCNN import baselineCNN, baselineCNN2
 import matplotlib.pyplot as plt
 from utils import predict
 
@@ -47,13 +48,13 @@ from utils import predict
 ######################################################################
 
 def trainCNN(dataloaders_dict, all_parameters):
-    
+
     parameters = all_parameters["cnn_parameters"]
     best_model = dict()
-    
+
 #    ## Check validation loss of trained model
 #    print('Validating model...')
-#    model = baselineCNN()
+#    model = baselineCNN2()
 #    model.load_state_dict(torch.load(parameters["model_save_path"]))
 #    ## Compute total validation loss
 #    model.eval()
@@ -64,8 +65,8 @@ def trainCNN(dataloaders_dict, all_parameters):
 #        loss_valid = loss_valid + criterion(y_pred, labels)
 #    loss_valid =  loss_valid/len(dataloaders_dict["val"])
 #    print(f'Validation loss: {loss_valid}')
-    
-    
+
+
     print(f'Training Baseline CNN...')
 
     ############# run a number of trials, save best model ############
@@ -78,8 +79,11 @@ def trainCNN(dataloaders_dict, all_parameters):
 
         # instantiate model
 #        model = baselineCNN()
-        
-        model = baselineCNN()
+
+        model = baselineCNN2()
+
+        load_path = os.getcwd() + '\\cnn_model_parameters\\baseline_cnn.pth'
+        model.load_state_dict(torch.load(load_path))
 #        model.load_state_dict(torch.load(parameters["model_save_path"]))
 
         # define loss function
@@ -95,34 +99,34 @@ def trainCNN(dataloaders_dict, all_parameters):
         ################# Train a single network #####################
         for epoch in range(parameters["numEpochs"]):
             count = 0
-            
+
             print(f'Trial: {trial} Epoch: {epoch}')
-            
+
             for inputs, labels in dataloaders_dict["train"]:
 
                 #set gradients to zero
                 optimizer.zero_grad()
-    
+
                 # forward pass
                 y_pred = model(inputs) # predict output vector
-    
+
                 # compute loss (desired is the input image)
                 loss = criterion(y_pred, labels)
-    
+
                 # backward pass
                 loss.backward() # computes the gradients
                 optimizer.step() # updates the weights
-            
+
                 count = count + 1
-    
+
                 ############### Add to validation learning curve ##############
                 if not(count%parameters["val_update"]):
-            
+
                     print(f'Batch: {count}')
-                    
+
                     ## Add to training learning curve each batch
-                    learningCurve.append(loss) 
-                    
+                    learningCurve.append(loss)
+
                     ## Compute total validation loss
                     model.eval()
                     loss_valid = 0
@@ -130,7 +134,7 @@ def trainCNN(dataloaders_dict, all_parameters):
                         y_pred = model(inputs)
                         loss_valid = loss_valid + criterion(y_pred, labels)
                     loss_valid =  loss_valid/len(dataloaders_dict["val"])
-                    
+
                     valLearningCurve.append(loss_valid)
                     model.train()
 
@@ -155,9 +159,9 @@ def trainCNN(dataloaders_dict, all_parameters):
     plt.close()
 
     ######################## Save Weights and Plot Images #################
-    
+
     ## Save state dictionary of best model
     torch.save(best_model["modelParameters"], parameters["model_save_path"])
-    
+
 
     return
