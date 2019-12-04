@@ -107,7 +107,6 @@ if __name__== "__main__":
     ########################## Train Autoencoder #########################
     ######################################################################
     ## Train autoencoder network with chosen bottlenck size
-
     if parameters["train_ae"]:
 
         for val in [10, 25, 50, 75, 100]:
@@ -115,7 +114,6 @@ if __name__== "__main__":
             parameters["ae_parameters"]["model_save_path"] = os.getcwd() + '\\ae_model_parameters\\ae_latent_' + str(parameters["ae_parameters"]["ae_latent_size"]) + '.pth'
             parameters["ae_parameters"]["image_save_path"] = os.getcwd() + '\\ae_reconstructed_images\\ae_latent_' + str(parameters["ae_parameters"]["ae_latent_size"])
             trainAE(dataloaders_dict, parameters)
-
 
     ######################################################################
     ############################# Train CNN ##############################
@@ -131,6 +129,7 @@ if __name__== "__main__":
     if parameters["encode_data"]:
         for feature_size in [10, 25, 50, 75, 100]:
             encodeData(dataloaders_dict, feature_size, train_indices, val_indices, y_train, y_val, y_test, parameters)
+            
     ######################################################################
     ############################ Train SVM ###############################
     ######################################################################
@@ -147,10 +146,13 @@ if __name__== "__main__":
     ## Train MLP with Information Theoretic Learning
     if parameters["train_mlp_itl"]:
 #        for feature_size in [10, 25, 50, 75, 100]:
-            for feature_size in [50]:
-                parameters["mlp_itl_parameters"]["model_save_path"] = os.getcwd() + '/mlp_itl_model_parameters/feature_size_' + str(feature_size) + '.pth'
-                parameters["mlp_itl_parameters"]["image_save_path"] = os.getcwd() + '/mlp_itl_model_parameters/feature_size_' + str(feature_size)
-                trainMLP(dataloaders_dict, feature_size, parameters)
+            for bw_size in [3]:
+                for feature_size in [10,25,50,75,100]:
+                
+                    parameters["mlp_itl_parameters"]["xent_bw"] = bw_size
+                    parameters["mlp_itl_parameters"]["model_save_path"] = os.getcwd() + '/mlp_itl_model_parameters/feature_size_' + str(feature_size) + '_bw_' + str(parameters["mlp_itl_parameters"]["xent_bw"]) + '.pth'
+                    parameters["mlp_itl_parameters"]["image_save_path"] = os.getcwd() + '/mlp_itl_model_parameters/feature_size_' + str(feature_size) + '_bw_' + str(parameters["mlp_itl_parameters"]["xent_bw"])
+                    trainMLP(dataloaders_dict, feature_size, train_indices, val_indices, test_indices, parameters)
 
     print('================ DONE ================')
 

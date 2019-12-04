@@ -34,7 +34,7 @@ from torch.distributions import multivariate_normal
 ## Custom packages
 from MLP import Feedforward
 import matplotlib.pyplot as plt
-from utils import predict
+from utils import predictMLP
 from confusion_mat import plot_confusion_matrix
 from LossFunctions import XEntLoss
 
@@ -42,7 +42,7 @@ from LossFunctions import XEntLoss
 ##################### Function Definitions ###########################
 ######################################################################
 
-def trainMLP(dataloaders_dict, feature_size, all_parameters):
+def trainMLP(dataloaders_dict, feature_size, train_indices, val_indices, test_indices, all_parameters):
 
     classes = all_parameters["classes"]
     parameters = all_parameters["mlp_itl_parameters"]
@@ -53,13 +53,14 @@ def trainMLP(dataloaders_dict, feature_size, all_parameters):
         print('Validating model...')
         model = Feedforward(feature_size)
         model.load_state_dict(torch.load(parameters["model_save_path"]))
-        ## Compute total validation loss
+        
+        ## Compute total validation accuracy
         model.eval()
-        y_true, y_pred = predict(dataloaders_dict["test"],model)
+        y_true, y_pred = predictMLP(dataloaders_dict["val"], model, val_indices)
 
         ## Make confusion matrix
-        acc = 1 - np.count_nonzero(y_true - y_pred)/len(dataloaders_dict["val"].dataset)
-        print(f'Validation loss: {loss_valid}')
+        acc = 1 - np.count_nonzero(y_true - y_pred)/len(val_indices)        
+        print('Validation accuracy: %.4f' % acc)
 
 ################################ Test trained model ###########################
     if parameters["test_model"]:
@@ -67,13 +68,16 @@ def trainMLP(dataloaders_dict, feature_size, all_parameters):
         print('Testing model...')
         model = Feedforward(feature_size)
         model.load_state_dict(torch.load(parameters["model_save_path"]))
-        ## Compute total validation loss
+        
+        ## Compute total test accuracy
         model.eval()
-        y_true, y_pred = predict(dataloaders_dict["test"],model)
+        y_true, y_pred = predictMLP(dataloaders_dict["test"], model, test_indices)
 
         ## Make confusion matrix
-        acc = 1 - np.count_nonzero(y_true - y_pred)/len(dataloaders_dict["test"].dataset)
-        plot_title = "MLP with XEnt - " + str(feature_size) + "D Data"
+        acc = 1 - np.count_nonzero(y_true - y_pred)/len(test_indices)
+        
+        ## Make confusion matrix
+        plot_title = "MLP with XEnt - " + str(feature_size) + "D Data \n BW: " + str(parameters["xent_bw"])
         plot_confusion_matrix(y_true, y_pred, classes, acc, normalize=False, title=plot_title)
 
         conf_mat_save_path = parameters["image_save_path"]
@@ -140,47 +144,78 @@ def trainMLP(dataloaders_dict, feature_size, all_parameters):
                     if not(count%parameters["val_update"]):
 
                         print(f'Batch: {count}')
-
-                        ## Add to training learning curve each batch
-                        learningCurve.append(loss)
-#
-                        ## Compute total validation loss
+                        
+                
+                        ## Compute total training accuracy
                         model.eval()
-                        loss_valid = 0
-                        for inputs, labels in dataloaders_dict["val"]:
-                            y_pred = model(inputs)
-                            loss_valid = loss_valid + criterion(y_pred, labels)
-                        loss_valid =  loss_valid/len(dataloaders_dict["val"])
+                        y_true, y_pred = predictMLP(dataloaders_dict["train"],model, train_indices)
+                
+                        ## Make confusion matrix
+                        acc = 1 - np.count_nonzero(y_true - y_pred)/len(train_indices)
+                        
+                        ## Add to training learning curve each batch
+                        learningCurve.append(acc)
+                        
+                        print('Training accuracy: %.4f' % acc)
+                        
 
-                        valLearningCurve.append(loss_valid)
+                        ## Compute total validation accuracy
+                        model.eval()
+                        y_true, y_pred = predictMLP(dataloaders_dict["val"] ,model, val_indices)
+                
+                        ## Make confusion matrix
+                        acc = 1 - np.count_nonzero(y_true - y_pred)/len(val_indices)
+                        
+                        valLearningCurve.append(acc)
+                        
+                        print('Validation accuracy: %.4f' % acc)
                         model.train()
 
-                ####################### Update Best Model #########################
+#                ####################### Update Best Model #########################
                 ## Update state dictionary of best model
                 best_model["modelParameters"] = copy.deepcopy(model.state_dict())
                 best_model["numEpochs"] = epoch
-
+#
 #                torch.save(best_model["modelParameters"], parameters["model_save_path"])
-                
-                
-            ######################### Learning Curve ##############################
-        
-            # plot the learning curve
-            plt.figure()
-            plt.plot(np.arange(0,len(learningCurve)*parameters["val_update"],parameters["val_update"]),learningCurve, c='blue')
+#        
+#        
+#                ######################### Learning Curve ##############################
+#            
+#                # plot the learning curve
+#                plot_title = "Learning Curve \n" +  "MLP with XEnt - " + str(feature_size) + "D Data \n BW: " + str(parameters["xent_bw"])
+#                
+#                plt.figure()
+#                plt.plot(np.arange(0,len(learningCurve)*parameters["val_update"],parameters["val_update"]),learningCurve, c='blue')
 #                plt.plot(np.arange(0,len(valLearningCurve)*parameters["val_update"],parameters["val_update"]),valLearningCurve, c='orange')
-            plt.title("Learing Curve", fontsize=18)
-            plt.xlabel('Iteration', fontsize=12)
-            plt.ylabel('XEnt Loss', fontsize=12)
-            
-            save_path = parameters["image_save_path"] + '_learning_curve.png'
-            plt.savefig(save_path)
-            plt.close()
+#                plt.title(plot_title, fontsize=18)
+#                plt.xlabel('Iteration', fontsize=12)
+#                plt.ylabel('Validation Accuracy', fontsize=12)
+#                plt.ylim((0.5,1))
+#                
+#                save_path = parameters["image_save_path"] + '_learning_curve.png'
+#                plt.savefig(save_path)
+#                plt.close()
 
         ######################## Save Weights and Plot Images #################
 
-        ## Save state dictionary of best model
+        # Save state dictionary of best model
         torch.save(best_model["modelParameters"], parameters["model_save_path"])
+        
+        ############################# Create Confusion matrix #################
+        ## Compute total test accuracy
+        model.eval()
+        y_true, y_pred = predictMLP(dataloaders_dict["test"], model, test_indices)
+
+        ## Make confusion matrix
+        acc = 1 - np.count_nonzero(y_true - y_pred)/len(test_indices)
+        
+        ## Make confusion matrix
+        plot_title = "MLP with XEnt - " + str(feature_size) + "D Data \n BW: " + str(parameters["xent_bw"])
+        plot_confusion_matrix(y_true, y_pred, classes, acc, normalize=False, title=plot_title)
+
+        conf_mat_save_path = parameters["image_save_path"]
+        plt.savefig(conf_mat_save_path)
+        plt.close()
 
 
     return

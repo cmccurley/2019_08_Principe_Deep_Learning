@@ -100,13 +100,13 @@ def setParams():
     mlp_itl_parameters["validate_model"] = False
     mlp_itl_parameters["test_model"] = False
     mlp_itl_parameters["learning_rate"] = 0.01
-    mlp_itl_parameters["numEpochs"] = 12
+    mlp_itl_parameters["numEpochs"] = 20
     mlp_itl_parameters["numTrials"] = 1
     mlp_itl_parameters["updateIter"] = 10
-    mlp_itl_parameters["val_update"] = 50
+    mlp_itl_parameters["val_update"] = 300
     mlp_itl_parameters["label_noise"] = 0.002
     mlp_itl_parameters["num_classes"] = 10
-    mlp_itl_parameters["xent_bw"] = 3
+    mlp_itl_parameters["xent_bw"] = 300
     
     parameters["mlp_itl_parameters"] = mlp_itl_parameters
     
