@@ -51,6 +51,7 @@ from trainAE import trainAE
 from trainCNN import trainCNN
 from trainSVM import trainSVM
 from encodeData import encodeData
+from trainMLP import trainMLP
 
 
 ######################################################################
@@ -140,34 +141,16 @@ if __name__== "__main__":
             parameters["svm_parameters"]["data_load_path"] = os.getcwd() + '/encoded_data/feature_size_' + str(feature_size) + '.npy'
             trainSVM(dataloaders_dict, feature_size, parameters)
 
-
-    ## Get performance on test set
-
-    ## Confusion matrices
-
-
-
-##    ####################### Confusion Matrix #########################
-#
-##    np.save('model_auto_400.npy', best_model)
-#
-#    # revert model back to best performing
-#    model.load_state_dict(best_model["modelParameters"])
-#    model.eval()
-#
-#    # predict state labels
-#    y_test_pred = model(X_test)
-#    values, y_test_pred_index = y_test_pred.max(1)
-#
-#    # compute the loss
-#    testLoss = criterion(y_test_pred, y_test)
-#
-#    testLoss = testLoss.detach().numpy()
-#    testLoss = np.round(testLoss,2)
-#
-#    # plot the confusion matrix
-#    plot_confusion_matrix(y_test.detach().numpy(), y_test_pred_index.detach().numpy(), parameters["classes"], testLoss, normalize=False, title='Normalized Confusion Matrix for Fashion-MNIST')
-
+    ######################################################################
+    ############################# Train MLP ##############################
+    ######################################################################
+    ## Train MLP with Information Theoretic Learning
+    if parameters["train_mlp_itl"]:
+#        for feature_size in [10, 25, 50, 75, 100]:
+            for feature_size in [50]:
+                parameters["mlp_itl_parameters"]["model_save_path"] = os.getcwd() + '/mlp_itl_model_parameters/feature_size_' + str(feature_size) + '.pth'
+                parameters["mlp_itl_parameters"]["image_save_path"] = os.getcwd() + '/mlp_itl_model_parameters/feature_size_' + str(feature_size)
+                trainMLP(dataloaders_dict, feature_size, parameters)
 
     print('================ DONE ================')
 
