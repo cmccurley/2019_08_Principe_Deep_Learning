@@ -29,6 +29,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 from torch.utils import data
 from torch.autograd import Variable
+from torch.distributions import multivariate_normal
 
 ## Custom packages
 from MLP import Feedforward
@@ -50,7 +51,7 @@ def trainMLP(dataloaders_dict, feature_size, all_parameters):
     if parameters["validate_model"]:
         ## Check validation loss of trained model
         print('Validating model...')
-        model = Feedforward()
+        model = Feedforward(feature_size)
         model.load_state_dict(torch.load(parameters["model_save_path"]))
         ## Compute total validation loss
         model.eval()
@@ -64,7 +65,7 @@ def trainMLP(dataloaders_dict, feature_size, all_parameters):
     if parameters["test_model"]:
         ## Check test loss of trained model
         print('Testing model...')
-        model = Feedforward()
+        model = Feedforward(feature_size)
         model.load_state_dict(torch.load(parameters["model_save_path"]))
         ## Compute total validation loss
         model.eval()
@@ -91,7 +92,7 @@ def trainMLP(dataloaders_dict, feature_size, all_parameters):
             ####################### Define Network ###########################
 
             # instantiate model
-            model = Feedforward()
+            model = Feedforward(feature_size)
 
     #        load_path = os.getcwd() + '/cnn_model_parameters/baseline_cnn2.pth'
     #        model.load_state_dict(torch.load(load_path))
@@ -114,15 +115,20 @@ def trainMLP(dataloaders_dict, feature_size, all_parameters):
                 print(f'Trial: {trial} Epoch: {epoch}')
 
                 for inputs, labels in dataloaders_dict["train"]:
+                    
+                    ## Create continuous labels
+                    labels = torch.eye(parameters["num_classes"])[labels]
+                    m = multivariate_normal.MultivariateNormal(torch.zeros(parameters["num_classes"]),parameters["label_noise"]*torch.eye(parameters["num_classes"]))
+                    labels = labels + m.sample(sample_shape = torch.Size([len(labels)]))
 
                     #set gradients to zero
                     optimizer.zero_grad()
 
                     # forward pass
-                    y_pred = model(inputs) # predict output vector
+                    y_pred = model(inputs.flatten(start_dim=1)) # predict output vector
 
                     # compute loss (desired is the input image)
-                    loss = criterion(y_pred, labels, parameters)
+                    loss = criterion(y_pred, labels, parameters["xent_bw"])
 
                     # backward pass
                     loss.backward() # computes the gradients
@@ -130,14 +136,14 @@ def trainMLP(dataloaders_dict, feature_size, all_parameters):
 
                     count = count + 1
 
-                    ############### Add to validation learning curve ##############
+                    ############## Add to validation learning curve ##############
                     if not(count%parameters["val_update"]):
 
                         print(f'Batch: {count}')
 
                         ## Add to training learning curve each batch
                         learningCurve.append(loss)
-
+#
                         ## Compute total validation loss
                         model.eval()
                         loss_valid = 0
@@ -154,22 +160,22 @@ def trainMLP(dataloaders_dict, feature_size, all_parameters):
                 best_model["modelParameters"] = copy.deepcopy(model.state_dict())
                 best_model["numEpochs"] = epoch
 
-                torch.save(best_model["modelParameters"], parameters["model_save_path"])
+#                torch.save(best_model["modelParameters"], parameters["model_save_path"])
                 
                 
-                ######################### Learning Curve ##############################
+            ######################### Learning Curve ##############################
+        
+            # plot the learning curve
+            plt.figure()
+            plt.plot(np.arange(0,len(learningCurve)*parameters["val_update"],parameters["val_update"]),learningCurve, c='blue')
+#                plt.plot(np.arange(0,len(valLearningCurve)*parameters["val_update"],parameters["val_update"]),valLearningCurve, c='orange')
+            plt.title("Learing Curve", fontsize=18)
+            plt.xlabel('Iteration', fontsize=12)
+            plt.ylabel('XEnt Loss', fontsize=12)
             
-                # plot the learning curve
-                plt.figure()
-                plt.plot(np.arange(0,len(learningCurve),1),learningCurve, c='blue')
-                plt.plot(np.arange(0,len(valLearningCurve)*parameters["val_update"],parameters["val_update"]),valLearningCurve, c='orange')
-                plt.title("Learing Curve", fontsize=18)
-                plt.xlabel('Iteration', fontsize=12)
-                plt.ylabel('XEnt Loss', fontsize=12)
-                
-                save_path = parameters["image_save_path"] + '_learning_curve.png'
-                plt.savefig(save_path)
-                plt.close()
+            save_path = parameters["image_save_path"] + '_learning_curve.png'
+            plt.savefig(save_path)
+            plt.close()
 
         ######################## Save Weights and Plot Images #################
 

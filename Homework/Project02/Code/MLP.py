@@ -40,8 +40,12 @@ class Feedforward(torch.nn.Module):
             nn.ReLU(True),
             nn.Linear(500, 200),
             nn.ReLU(True), 
-            nn.Linear(200, self.ae_latent_size), 
-            nn.ReLU(True))
+            nn.Linear(200, self.latent_size), 
+            nn.ReLU(True),
+            nn.Linear(self.latent_size, 10), 
+            nn.ReLU(True),
+            nn.Softmax(dim=1)
+            )
 
         def forward(self, x):
             x = self.forward_pass(x)

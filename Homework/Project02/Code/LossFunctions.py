@@ -75,9 +75,9 @@ class MEELoss(torch.nn.Module):
 class XEntLoss(torch.nn.Module):
     
     def __init__(self):
-        super(MEELoss,self).__init__()
+        super(XEntLoss,self).__init__()
         
-    def forward(self, y_pred, y_true, parameters):
+    def forward(self, y_pred, y_true, kernel_bw):
         """
         ******************************************************************
             *  Func:      XEntLoss()
@@ -96,7 +96,7 @@ class XEntLoss(torch.nn.Module):
         
         ## compute normalizing constant for Gaussian kernel
         self.gauss_norm_const = torch.empty(1, dtype=torch.float)
-        self.gauss_norm_const.fill_((1/(np.sqrt(2*np.pi)*parameters["mee_kernel_width"])))
+        self.gauss_norm_const.fill_((1/(np.sqrt(2*np.pi)*kernel_bw)))
         
         ## Compute normalizing constnant on error (number of samples squared)
         self.norm_const = torch.empty(1, dtype=torch.float)
@@ -112,9 +112,10 @@ class XEntLoss(torch.nn.Module):
         self.error = self.error.clamp(min=1e-12).sqrt()
         
         ## Apply kernel
-        self.xent_loss = torch.sum(self.gauss_norm_const*torch.exp(-((self.error)**2)/((2*(parameters["mee_kernel_width"]**2)))))
+        self.xent_loss = torch.sum(self.gauss_norm_const*torch.exp(-((self.error)**2)/((2*(kernel_bw**2)))))
         
         ## Normalize by number of samples squared
-        self.xent_loss_val = (-1)*torch.sum(self.mee_loss)*self.norm_const*(1/parameters["mee_kernel_width"])
+#        self.xent_loss_val = (-1)*torch.sum(self.xent_loss)*self.norm_const*(1/kernel_bw)
+        self.xent_loss_val = (-1)*torch.log(torch.sum(self.xent_loss)*self.norm_const*(1/kernel_bw))
         
         return self.xent_loss_val
