@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2019.4.9)  5 DEC 2019 10:14
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2019.4.9)  5 DEC 2019 11:43
 entering extended mode
 **./mccurleyProject2.tex
 (mccurleyProject2.tex
@@ -791,16 +791,14 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}
 
 
-]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [2 <C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project02
-/Report/Images/samples/samples.png> <C:/Users/Conma/Documents/2019_08_Principe_
-Deep_Learning/Homework/Project02/Report/Images/autoencoder.png> <C:/Users/Conma
-/Documents/2019_08_Principe_Deep_Learning/Homework/Project02/Report/Images/ae_r
-econstructed_images/ae_latent_10_img_2.png> <C:/Users/Conma/Documents/2019_08_P
-rincipe_Deep_Learning/Homework/Project02/Report/Images/ae_reconstructed_images/
-ae_latent_100_img_1.png>] (mccurleyProject2.bbl)
+] [2 <C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project0
+2/Report/Images/samples/samples.png> <C:/Users/Conma/Documents/2019_08_Principe
+_Deep_Learning/Homework/Project02/Report/Images/autoencoder.png> <C:/Users/Conm
+a/Documents/2019_08_Principe_Deep_Learning/Homework/Project02/Report/Images/ae_
+reconstructed_images/ae_latent_10_img_2.png> <C:/Users/Conma/Documents/2019_08_
+Principe_Deep_Learning/Homework/Project02/Report/Images/ae_reconstructed_images
+/ae_latent_100_img_1.png>] [3]
+(mccurleyProject2.bbl)
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -812,34 +810,41 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 367.
-[3]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 367.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 394.
+[4
+
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 394.
  (mccurleyProject2.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 367.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 367.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 394.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 394.
 Package rerunfilecheck Info: File `mccurleyProject2.out' has not changed.
-(rerunfilecheck)             Checksum: 5A44974FD6548B5050262AAF9FFF8BA6;1151.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 367.
+(rerunfilecheck)             Checksum: 2E9359A82E2BC306BAF17B5BA0EF026A;1125.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 394.
  ) 
 Here is how much of TeX's memory you used:
- 11209 strings out of 493323
- 175519 string characters out of 3139067
- 281929 words of memory out of 3000000
- 14541 multiletter control sequences out of 15000+200000
- 40049 words of font info for 84 fonts, out of 3000000 for 9000
+ 11231 strings out of 493323
+ 175762 string characters out of 3139067
+ 284966 words of memory out of 3000000
+ 14548 multiletter control sequences out of 15000+200000
+ 41597 words of font info for 89 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 61i,9n,96p,1536b,441s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 61i,10n,96p,1536b,441s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/Mi
-KTeX 2.9/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9
-/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
-pe1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/
-times/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmbi8a.pfb
-><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program File
-s/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on mccurleyProject2.pdf (3 pages, 193190 bytes).
+KTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files/MiKTeX 2.9
+/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
+ype1/public/amsfonts/cm/cmmi5.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/publ
+ic/amsfonts/cm/cmmi7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfon
+ts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr
+7.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C
+:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Program
+ Files/MiKTeX 2.9/fonts/type1/public/amsfonts/symbols/msbm10.pfb><C:/Program Fi
+les/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fo
+nts/type1/urw/times/utmbi8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/ti
+mes/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
+Output written on mccurleyProject2.pdf (4 pages, 247336 bytes).
 PDF statistics:
- 172 PDF objects out of 1000 (max. 8388607)
- 43 named destinations out of 1000 (max. 500000)
+ 216 PDF objects out of 1000 (max. 8388607)
+ 53 named destinations out of 1000 (max. 500000)
  165 words of extra memory for PDF output out of 10000 (max. 10000000)
 

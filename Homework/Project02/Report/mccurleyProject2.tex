@@ -128,20 +128,43 @@ Fashion MNIST, Autoencoder, Information Theoretic Learning, Support Vector Machi
 	 
 	 \subsection{Baseline CNN}
 	 
+	 \subsubsection*{Description}
+	 The autoencoder + SVM classifiers were compared against a baseline convolutional neural network (CNN) architecture.  A CNN is a special type of neural network which utilizes weight sharing. A suit of kernels is convolved across the input feature map to detect interesting attributes in an image \cite{Goodfellow2016DeepLearning,Haykin2009NeuralNetworks}.  CNNs have shown considerable success in a variety of image classification problems.  For this reason, a CNN architecture is used as a standard for comparison.  Classification performance of the baseline architecture is provided in section \ref{classification_accuracy}.
+	 
 	 %% Architecture
+	 \subsubsection*{CNN Architecture}
+	 The baseline CNN architecture was chosen based off previous performance on Fashion-MNIST classification \cite{Xiao2017FashionMNIST}.  The network consists of two convolutional/ max-pooling layers followed by two fully connected layers.  The network provides an output size of 10.  This is passed into a soft-max activation function to provide class probability scores.  ReLUs are used to provide nonlinearity in each of the hidden layers. 
 	 
 	 %% Training
+	 \subsubsection*{CNN Experiments}
+	 The baseline CNN was initialized with a learning rate of $\eta=0.01$.  This was refined during training with the Adamax optimizer.  The model was trained 5 times for 20 epochs each.  Mini-batches of size 200 were implemented and class prediction scores were evaluated using cross-entropy loss.  The model with the best classification accuracy on the hold-out validation set was selected for comparison against the alternative methods in this work.  
 	 
 	 
-	 \subsection{Information Theoretic Learning (Minimum Cross-Entropy)}
+	 
+	 \subsection{Information Theoretic Learning}
+	 The methods previously described are what the author considers as ``traditional" forms of learning.  In this sense, these methods typically rely on low-order statistics to capture prediction error.  Alternatively, Information Theoretic Learning (ITL) approaches have proven effective in a variety of learning applications \cite{Principe2010ITL}.  These methods take advantage of class distributions to compare higher-order statistics and thus provide richer  descriptions of classification error.
 	 
 	 %% Review of XEnt
+	 \subsubsection*{Minimum Cross-Entropy (xEnt)}
+	 One such information-theoretic metric is Minimum Cross-Entropy (MinxEnt).  As outlined by Principe in \cite{Principe2010ITL}, MinxEnt is formulated as a constrained minimization of KL-divergence between the label and predicted-value distributions, $p_d$ and $p_y$. 
+	 \begin{align}
+	 	\min_{p_y}D_{KL}(p_d||p_y) \quad \text{subject to (constraints)}
+	 \end{align} 
 	 
-	 %% Labels
+	 \noindent To implement this comparison, a small amount of Gaussian noise is added to the one-hot encoded label vectors:
 	 
-	 %% Networks
+	 \begin{align}
+	 	d_{new} = d + \mathcal{N}(0,\sigma^2\mathbf{I})
+	 \end{align}
+	 
+	 \noindent where $d\in\mathbb{R}^{10\times1}$, and $\sigma^2$ was arbitrarily chosen as $0.002$.
+	 
+	 \subsubsection*{ITL Network Architecture}
+	 In order to provide a comparison to the alternative methods, multi-layer perceptron networks were implemented and trained with MinxEnt.  The network architectures were designed as $784 \rightarrow 500 \rightarrow 200 \rightarrow k \rightarrow 10$ which is consistent with the autoencoder networks defined earlier in this work.  The value of $k$ was selected to match the bottleneck sizes of the tested autoencoders and an output layer of size 10 was employed to allow label comparison.  ReLU activations were utilized in each of the hidden layers and a softmax was applied at the output to produce class probability vectors.
 	 
 	 %% Experiments
+	 \subsubsection*{ITL Experiments}
+	 As with the previous experiments, networks were trained 5 times each with an initial learning rate of $\eta=0.01$ and updated with Adamax.  For each of the sizes for $k$, $[10,25,50,75,100]$, models were trained using a range of bandwidth parameters on the parzen window estimator for xEnt.  Specifically, bandwidths of $\sigma = [3,30,300,300]$ were implemented to allow for broad generalization of effects on classification performance.
 	 
 	 
 	 
@@ -246,6 +269,10 @@ In this sections, observations are made on results and insight is given to poten
 
 
 %% potentially suboptimal parameters in all experimentation
+
+%% cross-validation
+
+%% run time
 
 \subsection{Results}
 

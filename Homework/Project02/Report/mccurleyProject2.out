@@ -4,7 +4,7 @@
 \BOOKMARK [2][-]{subsection.2.2}{Autoencoder}{section.2}% 4
 \BOOKMARK [2][-]{subsection.2.3}{Support Vector Machines}{section.2}% 5
 \BOOKMARK [2][-]{subsection.2.4}{Baseline CNN}{section.2}% 6
-\BOOKMARK [2][-]{subsection.2.5}{Information Theoretic Learning \(Minimum Cross-Entropy\)}{section.2}% 7
+\BOOKMARK [2][-]{subsection.2.5}{Information Theoretic Learning}{section.2}% 7
 \BOOKMARK [2][-]{subsection.2.6}{Experiments}{section.2}% 8
 \BOOKMARK [1][-]{section.3}{Results}{}% 9
 \BOOKMARK [2][-]{subsection.3.1}{Autoencoder Reconstruction}{section.3}% 10
@@ -15,4 +15,4 @@
 \BOOKMARK [2][-]{subsection.4.1}{Results}{section.4}% 15
 \BOOKMARK [2][-]{subsection.4.2}{Potential Improvements}{section.4}% 16
 \BOOKMARK [1][-]{section.5}{Conclusions}{}% 17
-\BOOKMARK [1][-]{section*.13}{References}{}% 18
+\BOOKMARK [1][-]{section*.19}{References}{}% 18
