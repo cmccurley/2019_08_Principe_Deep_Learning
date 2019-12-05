@@ -94,16 +94,6 @@ Fashion MNIST, Autoencoder, Information Theoretic Learning, Support Vector Machi
 	  		\label{fig:autoencoder}
 	  	\end{figure}
 	  \end{center}
-	 
-	 %% Examples of reconstructed images here
-  	\begin{figure}%
-  		\centering
-  		\subfloat[]{{\includegraphics[width=5cm]{"ae_reconstructed_images/ae_latent_10_img_2"} }}%
-  		\qquad
-  		\subfloat[]{{\includegraphics[width=5cm]{"ae_reconstructed_images/ae_latent_100_img_1"} }}%
-  		\caption{Reconstructed images of a shoe after passing through an SAE with bottleneck dimensionality 10 (a) and 100 (b).  The images' original dimensionality was 784.}%
-  		\label{fig:example}%
-  	\end{figure}
 
   
   	%% Architecture parameters
@@ -160,48 +150,40 @@ Fashion MNIST, Autoencoder, Information Theoretic Learning, Support Vector Machi
 	 \noindent where $d\in\mathbb{R}^{10\times1}$, and $\sigma^2$ was arbitrarily chosen as $0.002$.
 	 
 	 \subsubsection*{ITL Network Architecture}
-	 In order to provide a comparison to the alternative methods, multi-layer perceptron networks were implemented and trained with MinxEnt.  The network architectures were designed as $784 \rightarrow 500 \rightarrow 200 \rightarrow k \rightarrow 10$ which is consistent with the autoencoder networks defined earlier in this work.  The value of $k$ was selected to match the bottleneck sizes of the tested autoencoders and an output layer of size 10 was employed to allow label comparison.  ReLU activations were utilized in each of the hidden layers and a softmax was applied at the output to produce class probability vectors.
+	 In order to provide a comparison to the alternative methods, multi-layer perceptron networks were implemented and trained with MinxEnt.  The network architectures were designed as $784 \rightarrow 500 \rightarrow 200 \rightarrow k \rightarrow 10$ which is consistent with the autoencoder networks defined earlier in this work.  The value of $k$ was selected to match the bottleneck sizes of the tested autoencoders and an output layer of size 10 was employed to allow for label comparison.  ReLU activations were utilized in each of the hidden layers and a softmax was applied at the output to produce class probability vectors.
 	 
 	 %% Experiments
 	 \subsubsection*{ITL Experiments}
-	 As with the previous experiments, networks were trained 5 times each with an initial learning rate of $\eta=0.01$ and updated with Adamax.  For each of the sizes for $k$, $[10,25,50,75,100]$, models were trained using a range of bandwidth parameters on the parzen window estimator for xEnt.  Specifically, bandwidths of $\sigma = [3,30,300,300]$ were implemented to allow for broad generalization of effects on classification performance.
+	 As with the previous experiments, networks were trained 5 times each with an initial learning rate of $\eta=0.01$ and updated with Adamax.  Mini-batches of 200 were utilized for 20 epochs.  For each of the sizes of $k$, $[10,25,50,75,100]$, models were trained using a range of bandwidth parameters on the parzen window estimator for xEnt.  Specifically, bandwidths of $\sigma = [3,30,300,300]$ were implemented to allow for broad generalization of effects on classification performance. During test, maximum a-priori with priors on the noisy one-hot encoded label vectors was used to assign hard class labels. Comparison of performance based on bandwidth and value of $k$ is provided in Section \ref{bw_comparison}.
 	 
-	 
-	 
-\subsection{Experiments} \label{Experiments}
-Experiments 
-
-%\begin{enumerate}
-%	\item \textit{Baseline:} Model trained on the original data (described in section \ref{Methodology}).
-%	\item \textit{PCA 100:} Principal vectors estimated from the training set were used to project the data down to 100 dimensions, thus retaining 91.1$\%$ of the original variance.  The model was the same as the baseline excluding the input layer.
-%	\item \textit{PCA 400:} Principal vectors estimated from the training set were used to project the data down to 400 dimensions, thus retaining 98.5$\%$ of the original variance.  The model was the same as the baseline excluding the input layer.
-%	\item \textit{UMAP 100:} UMAP was used to project the data down to 100 dimensions.  15 neighbors were used in the local neighborhood and the minimum distance of points in the latent space was constrained to 0.1, which was measured by Euclidean distance.  The model was the same as the baseline excluding the input layer.
-%	\item \textit{UMAP 400:} UMAP was used to project the data down to 400 dimensions.  15 neighbors were used in the local neighborhood and the minimum distance of points in the latent space was constrained to 0.1, which was measured by Euclidean distance.  The model was the same as the baseline excluding the input layer.
-%	\item \textit{AE 100:} An additional multi-layer perceptron was first trained in the form of an autoencoder.  This MLP demonstrated layers as (784-500-400-150-100) in the encoder with the reverse in the decoder.  A hyperbolic tangent activation was applied at the output layer.  The network was trained with mean-square error loss and updated with Adamax. The original dataset was passed through the encoder to reduce dimensionality. The model was the same as the baseline excluding the input layer.
-%	\item \textit{AE 400:}  An additional multi-layer perceptron was first trained in the form of an autoencoder.  This MLP demonstrated layers as (784-500-400) in the encoder with the reverse in the decoder.  A hyperbolic tangent activation was applied at the output layer.  The network was trained with mean-square error loss and updated with Adamax. The original dataset was passed through the encoder to reduce dimensionality. The model was the same as the baseline excluding the input layer.
-%\end{enumerate}
-
-
-
 
 
 %==================================================================================================
 %========================================= Results ================================================
 %==================================================================================================
 \section{Results} \label{Results}
+In this section, results from experimentation are presented.  Comparison of autoencoder bottleneck size is shown, classification performance on auto-encoded data is presented and a comparison of ITL approaches is revealed. 
 
 \subsection{Autoencoder Reconstruction} \label{ae_reconstruction}
+Each of the autoencoder  networks tested achieved near-zero MSE loss. This value was negligible, however, as MSE was being computed on values between $[0,1]$.  This inherently makes MSE small.  Instead, reconstruction results on a shoe passed through bottlenecks of 10 and 100, respectively, are shown in Figure \ref{fig:ae_reconstruction}.  As can be observed, the reconstructed image from the wider bottleneck retains more fine detail than the smaller.  This is at the cost of dimensionality, however.
 
-%% Table of loss values
+%% Examples of reconstructed images here
+\begin{figure}%
+	\centering
+	\subfloat[]{{\includegraphics[width=5cm]{"ae_reconstructed_images/ae_latent_10_img_2"} }}%
+	\qquad
+	\subfloat[]{{\includegraphics[width=5cm]{"ae_reconstructed_images/ae_latent_100_img_1"} }}%
+	\caption{Reconstructed images of a shoe after passing through an SAE with bottleneck dimensionality 10 (a) and 100 (b).  The images' original dimensionality was 784.}%
+	\label{fig:ae_reconstruction}%
+\end{figure}
 
-%% Examples  of reconstructed images
 
 \subsection{Confusion Matrices}
 
-In this section, classification results for each experimental method tested are presented in the form of confusion matrices.  A confusion matrix demonstrates the discrepancies between predicted and true class values for groups of samples.  Essentially, it is a way to measure how accurate a classifier is, while providing insight into how the network confuses samples.  A diagonal matrix signifies zero mis-classifications among all categories.
+A confusion matrix demonstrates the discrepancies between predicted and true class values for groups of samples.  Essentially, it is a way to measure how accurate a classifier is, while providing insight into how the network confuses samples.  A diagonal matrix signifies zero mis-classifications among all categories.  Confusion matrices are used in this work to provide insight to classification performance.
 
-\subsection{Comparison of Cost Functions} \label{classification_accuracy}
-
+\subsection{Comparison of Bottleneck Size} \label{classification_accuracy}
+This section presents classification accuracies for the top performing baseline CNN and SVMs trained on the autoencoded data.  Table \ref{tab:step1comparison} shows that the baseline CNN achieved the best classification accuracy of 90\%.  The second-best performance was exhibited by the SVM trained on 100D features, which achieved 86\% classification accuracy.  Performance dropped sequentially with dimensionality reduction.  The lowest performing system was the SVM trained on 10D features.  This model obtained 76\% classification accuracy.  Confusion matrices for the baseline CNN, SVM on 100D data and SVM trained on 10D data are shown in Figures \ref{fig:conf_mat_cnn}, \ref{fig:conf_mat_svm_100} and \ref{fig:conf_mat_svm_10}, respectively.
 
 \begin{table}[h!]
 	\caption{Classification Accuracies for Different Neural Model/ Classification Systems}
@@ -211,9 +193,9 @@ In this section, classification results for each experimental method tested are 
 			\hline
 			\centering \textbf{Classification Model}  & \textbf{Accuracy} \\
 			\hline
-			\centering Baseline CNN & 0.90 \\
+			\centering Baseline CNN & \textbf{0.90} \\
 			\hline
-			\centering SVM 100D & 0.86 \\
+			\centering SVM 100D & \underline{0.86} \\
 			\hline
 			\centering SVM 75D & 0.85 \\
 			\hline
@@ -226,30 +208,139 @@ In this section, classification results for each experimental method tested are 
 		\end{tabularx}
 \end{table} 
  
-\subsection{Comparison of XEnt Kernel Bandwidths}
+ 
+ \begin{center}
+ 	\begin{figure}[t]
+ 		\centering
+ 		\includegraphics[width=0.4\textwidth]{"cnn_model_parameters/baseline_cnn2_confusion_mat"}
+ 		\caption{Confusion matrix for the baseline CNN.  The model classified 90\% of the test data correctly.}
+ 		\label{fig:conf_mat_cnn}
+ 	\end{figure}
+ \end{center}
+
+\begin{center}
+	\begin{figure}[t]
+		\centering
+		\includegraphics[width=0.4\textwidth]{"svm_conf_mat/svm_feature_size_100_default"}
+		\caption{Confusion matrix for the SVM trained on data passed through an encoder network with bottleneck dimensionality 100.  The model classified 86\% of the test data correctly.}
+		\label{fig:conf_mat_svm_100}
+	\end{figure}
+\end{center}
+
+\begin{center}
+	\begin{figure}[t]
+		\centering
+		\includegraphics[width=0.4\textwidth]{"svm_conf_mat/svm_feature_size_10_default"}
+		\caption{Confusion matrix for the SVM trained on data passed through an encoder network with bottleneck dimensionality 10.  The model classified 76\% of the test data correctly.}
+		\label{fig:conf_mat_svm_10}
+	\end{figure}
+\end{center}
+ 
+\subsection{Comparison of xEnt Kernel Bandwidths} \label{bw_comparison}
+This section demonstrates classification accuracies for the networks trained with MinxEnt.  Table \ref{tab:bw_comparison} shows test classification accuracies for the networks trained with different values for the parzen window estimator bandwidth and dimensionality of the smallest layer (before 10D final output).  From the table, it can be seen that 
+
+Confusion matrices for the best-performing models for each latent dimensionality are provided by Figures , and , respectively.
+
+From the confusion matrices, it can be observed that..
 
 \begin{table}[h!]
-	\caption{Classification Accuracies for Different XEnt Kernel Bandwidths}
+	\caption{Classification Accuracies for Varying xEnt Kernel Bandwidths and Latent Dimensionalities}
 	\label{tab:bw_comparison}
 	\normalsize
 	\begin{tabularx}{\columnwidth}{ |X|X|X| } 
 		\hline
-		\centering \textbf{Bottleneck Size}  & \textbf{Bandwidth} & \textbf{Accuracy} \\
+		\textbf{Latent Dim. $k$}  & \textbf{Bandwidth $\sigma$} & \textbf{Accuracy} \\
 		\hline
-		\centering Baseline CNN & 0.90 \\
+		100D & 3 & 0.74\\
 		\hline
-		\centering SVM 100D & 0.86 \\
+		 & 30 & 0.79\\
 		\hline
-		\centering SVM 75D & 0.85 \\
+		 & \textbf{300} & \textbf{0.89}\\
 		\hline
-		\centering SVM 50D & 0.84 \\
+		 & 3000 & 0.86\\
 		\hline
-		\centering SVM 25D & 0.81 \\
+		75D & 3 & 0.60\\
 		\hline
-		\centering SVM 10D & 0.76 \\
+		 & 30 & 0.65\\
+		\hline
+		 & \textbf{300} & \textbf{0.74}\\
+		\hline
+		 & 3000 & 0.50\\
+		\hline
+		50D & \textbf{3} & \textbf{0.88}\\
+		\hline
+		 & 30 & 0.87\\
+		\hline
+		 & 300 & 0.78\\
+		\hline
+		 & 3000 & 0.71\\
+		 \hline
+		25D & 3 & 0.72\\
+		\hline
+		& 30 & 0.62\\
+		\hline
+		& \textbf{300} & \textbf{0.73}\\
+		\hline
+		& 3000 & 0.52\\
+		\hline
+		10D & 3 & 0.68\\
+		\hline
+		& 30 & 0.78\\
+		\hline
+		& \textbf{300} & \textbf{0.80}\\
+		\hline
+		& 3000 & 0.66\\
 		\hline
 	\end{tabularx}
 \end{table} 
+
+
+\begin{center}
+	\begin{figure}[t]
+		\centering
+		\includegraphics[width=0.4\textwidth]{"mlp_itl_model_parameters/feature_size_100_bw_300"}
+		\caption{Confusion matrix for the MLP with a final dimensionality (before output) of $k=100$ and a xEnt bandwidth of $\sigma=300$.  The model classified 89\% of the test data correctly.}
+		\label{fig:feature_size_100_bw_300}
+	\end{figure}
+\end{center}
+
+\begin{center}
+	\begin{figure}[t]
+		\centering
+		\includegraphics[width=0.4\textwidth]{"mlp_itl_model_parameters/feature_size_75_bw_300"}
+		\caption{Confusion matrix for the MLP with a final dimensionality (before output) of $k=75$ and a xEnt bandwidth of $\sigma=300$.  The model classified 89\% of the test data correctly.}
+		\label{fig:feature_size_75_bw_300}
+	\end{figure}
+\end{center}
+
+\begin{center}
+	\begin{figure}[t]
+		\centering
+		\includegraphics[width=0.4\textwidth]{"mlp_itl_model_parameters/feature_size_50_bw_3"}
+		\caption{Confusion matrix for the MLP with a final dimensionality (before output) of $k=50$ and a xEnt bandwidth of $\sigma=3$.  The model classified 89\% of the test data correctly.}
+		\label{fig:feature_size_50_bw_3}
+	\end{figure}
+\end{center}
+
+\begin{center}
+	\begin{figure}[t]
+		\centering
+		\includegraphics[width=0.4\textwidth]{"mlp_itl_model_parameters/feature_size_25_bw_300"}
+		\caption{Confusion matrix for the MLP with a final dimensionality (before output) of $k=25$ and a xEnt bandwidth of $\sigma=300$.  The model classified 89\% of the test data correctly.}
+		\label{fig:feature_size_25_bw_300}
+	\end{figure}
+\end{center}
+
+\begin{center}
+	\begin{figure}[t]
+		\centering
+		\includegraphics[width=0.4\textwidth]{"mlp_itl_model_parameters/feature_size_10_bw_300"}
+		\caption{Confusion matrix for the MLP with a final dimensionality (before output) of $k=10$ and a xEnt bandwidth of $\sigma=300$.  The model classified 89\% of the test data correctly.}
+		\label{fig:feature_size_10_bw_300}
+	\end{figure}
+\end{center}
+
+
 
 %==================================================================================================
 %====================================== Discussion ================================================
@@ -266,6 +357,8 @@ In this sections, observations are made on results and insight is given to poten
 
 
 %% Comparison of ITL bandwidth
+
+%% Best ITL without convolution was as good as baseline cnn
 
 
 %% potentially suboptimal parameters in all experimentation
