@@ -66,6 +66,7 @@ Fashion MNIST, Autoencoder, Information Theoretic Learning, Support Vector Machi
 \section{Methodology} \label{Methodology}
 	This section describes the methodology implemented in this work.  Analysis of the data is performed, dimensionality reduction and classification procedures are described, various network architectures under analysis are elaborated on and experimental procedures are outlined.
 
+	%% Data analysis
 	\subsection{Data Analysis}
 	 The following data analysis was originally described in \cite{McCurley2019PrincipeProject1}, but is pertinent to this work and is thus re-analyzed here.  The data was plotted as shown in Figure \ref{fig:samples} to gain an understanding of the format.  Each sample in the Fashion-MNIST dataset is a 28x28, gray-scale image of a clothing item belonging to one of ten classes \cite{Xiao2017FashionMNIST}. This translates to 784 length feature vectors with values ranging between 0-255. There were exactly 60000 training images included in the  training dataset and 10000 which were held-out for test.  The 60000 samples were later sub-divided in the experimentation for cross-validation.  As with Project 1, dimensionality reduction(DR) was incorporated to reduce data complexity.  This DR was employed through the use of stacked autocoder neural networks (SAE).  Elaboration on the SAE networks is provided in the following section.
 	
@@ -79,8 +80,10 @@ Fashion MNIST, Autoencoder, Information Theoretic Learning, Support Vector Machi
 	 	\end{figure*}
 	 \end{center}
 
-	 \subsection{Autoencoder} An autoencoder is a specific taxonomy of artificial neural network which learns how to  compress and de-compress representations of data \cite{Haykin2009NeuralNetworks,Goodfellow2016DeepLearning}. The first half of an autoencoder typically performs dimensionality reduction through non-linear transformations until the middle layer, known as the \textit{bottleneck} or \textit{latent} layer.  The goal of the \textit{encoder} is to learn efficient representations of the factors which govern variation in the data, or in terms of compression, \textit{codes} which can be used to reconstruct the input  data with high accuracy. The second half of an SAE (which is called the \textit{decoder}) projects the data back into its original dimensionality in attempt to reconstruct the original sample.(See Figure \ref{fig:autoencoder}.) Reconstruction loss is between the input and output is used to update the network's parameters.  In practice, samples can be passed through the encoder to perform dimensionality reduction. 
-	 
+	%% Autoencoder
+	 \subsection{Autoencoder} 
+	 \subsubsection*{Description}
+	 An autoencoder is a specific taxonomy of artificial neural network which learns how to  compress and de-compress representations of data \cite{Haykin2009NeuralNetworks,Goodfellow2016DeepLearning}. The first half of an autoencoder typically performs dimensionality reduction through non-linear transformations until the middle layer, known as the \textit{bottleneck} or \textit{latent} layer.  The goal of the \textit{encoder} is to learn efficient representations of the factors which govern variation in the data, or in terms of compression, \textit{codes} which can be used to reconstruct the input  data with high accuracy. The second half of an SAE (which is called the \textit{decoder}) projects the data back into its original dimensionality in attempt to reconstruct the original sample.(See Figure \ref{fig:autoencoder}.) Reconstruction loss is between the input and output is used to update the network's parameters.  In practice, samples can be passed through the encoder to perform dimensionality reduction. 
 	 
 	 %% Autoencoder network
 	 \begin{center}
@@ -104,39 +107,43 @@ Fashion MNIST, Autoencoder, Information Theoretic Learning, Support Vector Machi
 
   
   	%% Architecture parameters
+  	\subsubsection*{SAE Architecture}
+  	The SAE architecture tested in this work consisted of 5 hidden layers, along with the input and output.  The layers were selected as $784 \rightarrow 500 \rightarrow 200 \rightarrow k \rightarrow 200 \rightarrow 500 \rightarrow 784$, where $k$ is the arbitrarily chosen dimensionality of the bottleneck.  In this work, $k$ was tested at $[10,25,50,75,100]$ in order to provided a reasonable comparison of performance changes resulting from dimensionality reduction.  ReLU activation functions were used to apply nonlinearity.  A sigmoid activation, however, was used at the output layer to enforce image value constraints between $[0-1]$.  This was done because the images were normalized between $[0-1]$ before passing through the network.  An initial learning rate of $\eta=0.01$ was selected, and was updated using the Adamax optimizer through training.
   	
   	%% Description of experiments
-	 
+  	\subsubsection*{SAE Experiments}
+  	The SAE network was trained for 20 epochs using mini-batch sizes of 200 samples.  The bottleneck layer's dimensionality was varied between $[10,25,50,75,100]$.  Each network configuration was trained 5 times, and the model which provided the lowest reconstruction  Mean-Squared Error (MSE) on the hold-out validation set was selected for further use in classification.  Results are shown in section \ref{ae_reconstruction}.
+  	
+	 %% Support vector Machines
 	 \subsection{Support Vector Machines}
+	 \subsubsection*{Description}
+	 A Support Vector Machine (SVM) is a specific class of sparse kernel machines whose objective  is to learn a decision boundary which can adequately discriminate between classes in a high-dimensional space \cite{Murphy2012Textbook}.  Because of its sparsity constraints, a SVMs' predictions rely only on a subset of the training data known as \textit{support vectors}. By design, support vectors tend to be examples in the training data which lie closest to the decision boundary, and are thus the most prone to incorrect classification. A primary difference between SVM and methods relying on Information Theory is that vanilla SVM classification predictions are not probabilistic.  In other words, hard labels are assigned which do not capture the uncertainty of the prediction results.  Here, 
+	 
+	 \subsubsection*{Parameters}
+	 
+	 \subsubsection*{Experiments}
+	 
+	 
 	 
 	 \subsection{Baseline CNN}
 	 
+	 %% Architecture
+	 
+	 %% Training
 	 
 	 
 	 \subsection{Information Theoretic Learning (Minimum Cross-Entropy)}
 	 
-	 \subsection{Label and Network Implementation}
+	 %% Review of XEnt
 	 
-	 %% Add examples of reconstructed images here
+	 %% Labels
 	 
-	 % \begin{center}
-	 % 	\begin{figure}[t]
-	 % 		\centering
-	 % 		\includegraphics[width=0.4\textwidth]{"dist_before"}
-	 % 		\caption{Histograms of one versus all Euclidean distances for top left): Pullover, top right): Dress, bottom left): Sandal, and bottom right): Trouser classes.  The red bars represent Euclidean distances for samples of the given class to their mean.  Blue represents the distance of every other training sample to the same mean.}
-	 % 		\label{fig:dist_before}
-	 % 	\end{figure}
-	 % \end{center}
+	 %% Networks
+	 
+	 %% Experiments
 	 
 	 
-	\subsection{Network Architecture}
-	
-	
-
-
-
-
-
+	 
 \subsection{Experiments} \label{Experiments}
 Experiments 
 
@@ -159,10 +166,18 @@ Experiments
 %==================================================================================================
 \section{Results} \label{Results}
 
-In this section, classification results for each experimental method tested are presented in the form of confusion matrices.  A confusion matrix demonstrates the discrepancies between predicted and true class values for groups of samples.  Essentially, it is a way to measure how accurate a classifier is, while providing insight into how the network confuses samples.  A diagonal matrix signifies zero mis-classifications among all categories.
+\subsection{Autoencoder Reconstruction} \label{ae_reconstruction}
+
+%% Table of loss values
+
+%% Examples  of reconstructed images
 
 \subsection{Confusion Matrices}
-Figures 
+
+In this section, classification results for each experimental method tested are presented in the form of confusion matrices.  A confusion matrix demonstrates the discrepancies between predicted and true class values for groups of samples.  Essentially, it is a way to measure how accurate a classifier is, while providing insight into how the network confuses samples.  A diagonal matrix signifies zero mis-classifications among all categories.
+
+\subsection{Comparison of Cost Functions}
+
 
 \begin{table}[h!]
 	\caption{Classification Accuracies for Different Neural Model/ Classification Systems}
@@ -187,6 +202,30 @@ Figures
 		\end{tabularx}
 \end{table} 
  
+\subsection{Comparison of XEnt Kernel Bandwidths}
+
+\begin{table}[h!]
+	\caption{Classification Accuracies for Different XEnt Kernel Bandwidths}
+	\label{tab:bw_comparison}
+	\normalsize
+	\begin{tabularx}{\columnwidth}{ |X|X|X| } 
+		\hline
+		\centering \textbf{Bottleneck Size}  & \textbf{Bandwidth} & \textbf{Accuracy} \\
+		\hline
+		\centering Baseline CNN & 0.90 \\
+		\hline
+		\centering SVM 100D & 0.86 \\
+		\hline
+		\centering SVM 75D & 0.85 \\
+		\hline
+		\centering SVM 50D & 0.84 \\
+		\hline
+		\centering SVM 25D & 0.81 \\
+		\hline
+		\centering SVM 10D & 0.76 \\
+		\hline
+	\end{tabularx}
+\end{table} 
 
 %==================================================================================================
 %====================================== Discussion ================================================
@@ -194,6 +233,8 @@ Figures
 \vspace{5cm}
 \section{Discussion} \label{Discussion}
 In this sections, observations are made on results and insight is given to potential influences.
+
+%% autoencoder only captures variation and may not be best for discrimination, whereas CNN features were learned with classifcaiton in mind
 
 \subsection{Results}
 
