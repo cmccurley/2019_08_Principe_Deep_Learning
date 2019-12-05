@@ -18,6 +18,7 @@
 
 
 
+
 \usepackage[linesnumbered,ruled,vlined]{algorithm2e}
 
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
@@ -91,11 +92,26 @@ Fashion MNIST, Autoencoder, Information Theoretic Learning, Support Vector Machi
 	  	\end{figure}
 	  \end{center}
 	 
-	 %% Add examples of reconstructed images here
+	 %% Examples of reconstructed images here
+  	\begin{figure}%
+  		\centering
+  		\subfloat[]{{\includegraphics[width=5cm]{"ae_reconstructed_images/ae_latent_10_img_2"} }}%
+  		\qquad
+  		\subfloat[]{{\includegraphics[width=5cm]{"ae_reconstructed_images/ae_latent_100_img_1"} }}%
+  		\caption{Reconstructed images of a shoe after passing through an SAE with bottleneck dimensionality 10 (a) and 100 (b).  The images' original dimensionality was 784.}%
+  		\label{fig:example}%
+  	\end{figure}
+
+  
+  	%% Architecture parameters
+  	
+  	%% Description of experiments
+	 
+	 \subsection{Support Vector Machines}
 	 
 	 \subsection{Baseline CNN}
 	 
-	 \subsection{Support Vector Machines}
+	 
 	 
 	 \subsection{Information Theoretic Learning (Minimum Cross-Entropy)}
 	 

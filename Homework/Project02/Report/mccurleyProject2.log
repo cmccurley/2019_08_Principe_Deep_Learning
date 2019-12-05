@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2019.4.9)  5 DEC 2019 07:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2019.4.9)  5 DEC 2019 07:45
 entering extended mode
 **./mccurleyProject2.tex
 (mccurleyProject2.tex
@@ -655,26 +655,26 @@ Package: relsize 2003/07/04 ver 3.1
 (mccurleyProject2.aux)
 \openout1 = `mccurleyProject2.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 30.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 30.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 31.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 31.
  ("C:\Program Files\MiKTeX 2.9\tex\latex\base\ts1cmr.fd"
 File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 30.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 30.
-LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
 -- Lines per column: 56 (exact).
 (C:\Users\Conma\AppData\Roaming\MiKTeX\2.9\tex\context\base\mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -703,7 +703,7 @@ G,.JBIG2,.JB2,.eps]
 (grfext)             \AppendGraphicsExtensions on input line 456.
 )
 \AtBeginShipoutBox=\box43
-Package hyperref Info: Link coloring OFF on input line 30.
+Package hyperref Info: Link coloring OFF on input line 31.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\hyperref\nameref.sty"
 Package: nameref 2016/05/21 v2.44 Cross-referencing by name of section
@@ -713,9 +713,9 @@ Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
 \c@section@level=\count150
 )
-LaTeX Info: Redefining \ref on input line 30.
-LaTeX Info: Redefining \pageref on input line 30.
-LaTeX Info: Redefining \nameref on input line 30.
+LaTeX Info: Redefining \ref on input line 31.
+LaTeX Info: Redefining \pageref on input line 31.
+LaTeX Info: Redefining \nameref on input line 31.
 
 (mccurleyProject2.out) (mccurleyProject2.out)
 \@outlinefile=\write3
@@ -734,7 +734,7 @@ File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project
 2/Report/Images/""samples/samples".png>
 Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
 ng/Homework/Project02/Report/Images/""samples/samples".png used on input line 7
-5.
+6.
 (pdftex.def)             Requested size: 412.80157pt x 168.98868pt.
 
 
@@ -749,21 +749,53 @@ File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project
 <use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project0
 2/Report/Images/""autoencoder".png>
 Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
-ng/Homework/Project02/Report/Images/""autoencoder".png used on input line 88.
+ng/Homework/Project02/Report/Images/""autoencoder".png used on input line 89.
 (pdftex.def)             Requested size: 206.39685pt x 107.3025pt.
+
+<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project02/Re
+port/Images/""ae_reconstructed_images/ae_latent_10_img_2".png, id=79, 462.528pt
+ x 346.896pt>
+File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project
+02/Report/Images/""ae_reconstructed_images/ae_latent_10_img_2".png Graphic file
+ (type png)
+
+<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project0
+2/Report/Images/""ae_reconstructed_images/ae_latent_10_img_2".png>
+Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
+ng/Homework/Project02/Report/Images/""ae_reconstructed_images/ae_latent_10_img_
+2".png used on input line 99.
+(pdftex.def)             Requested size: 142.26378pt x 106.70032pt.
+
+<"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project02/Re
+port/Images/""ae_reconstructed_images/ae_latent_100_img_1".png, id=81, 462.528p
+t x 346.896pt>
+File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project
+02/Report/Images/""ae_reconstructed_images/ae_latent_100_img_1".png Graphic fil
+e (type png)
+
+<use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project0
+2/Report/Images/""ae_reconstructed_images/ae_latent_100_img_1".png>
+Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
+ng/Homework/Project02/Report/Images/""ae_reconstructed_images/ae_latent_100_img
+_1".png used on input line 101.
+(pdftex.def)             Requested size: 142.26378pt x 106.70032pt.
 
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsa.fd")
 ("C:\Program Files\MiKTeX 2.9\tex\latex\amsfonts\umsb.fd")
 
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
-
-Underfull \vbox (badness 1112) has occurred while \output is active []
-
- [1{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}
+[1{C:/ProgramData/MiKTeX/2.9/pdftex/config/pdftex.map}
 
 
-] (mccurleyProject2.bbl)
+] (mccurleyProject2.bbl
+[2 <C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project02/
+Report/Images/samples/samples.png> <C:/Users/Conma/Documents/2019_08_Principe_D
+eep_Learning/Homework/Project02/Report/Images/autoencoder.png> <C:/Users/Conma/
+Documents/2019_08_Principe_Deep_Learning/Homework/Project02/Report/Images/ae_re
+constructed_images/ae_latent_10_img_2.png> <C:/Users/Conma/Documents/2019_08_Pr
+incipe_Deep_Learning/Homework/Project02/Report/Images/ae_reconstructed_images/a
+e_latent_100_img_1.png>])
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -775,34 +807,33 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 299.
-[2 <C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project02/
-Report/Images/samples/samples.png> <C:/Users/Conma/Documents/2019_08_Principe_D
-eep_Learning/Homework/Project02/Report/Images/autoencoder.png>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 299.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 316.
+[3
 
-(mccurleyProject2.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 299.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 299.
+]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 316.
+ (mccurleyProject2.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 316.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 316.
 Package rerunfilecheck Info: File `mccurleyProject2.out' has not changed.
-(rerunfilecheck)             Checksum: 257DB1B8D0364695B6DBE11DE1043D23;1061.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 299.
+(rerunfilecheck)             Checksum: C13CBF63E75883AACF9653733BBD4530;1061.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 316.
  ) 
 Here is how much of TeX's memory you used:
- 11171 strings out of 493323
- 173775 string characters out of 3139067
- 281412 words of memory out of 3000000
- 14522 multiletter control sequences out of 15000+200000
+ 11191 strings out of 493323
+ 175241 string characters out of 3139067
+ 282598 words of memory out of 3000000
+ 14534 multiletter control sequences out of 15000+200000
  40049 words of font info for 84 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 61i,9n,96p,1536b,390s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 61i,9n,96p,1536b,459s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/Mi
 KTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/ty
 pe1/urw/times/utmbi8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/ut
 mr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on mccurleyProject2.pdf (2 pages, 140136 bytes).
+Output written on mccurleyProject2.pdf (3 pages, 157890 bytes).
 PDF statistics:
- 123 PDF objects out of 1000 (max. 8388607)
- 28 named destinations out of 1000 (max. 500000)
- 147 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 136 PDF objects out of 1000 (max. 8388607)
+ 32 named destinations out of 1000 (max. 500000)
+ 157 words of extra memory for PDF output out of 10000 (max. 10000000)
 
