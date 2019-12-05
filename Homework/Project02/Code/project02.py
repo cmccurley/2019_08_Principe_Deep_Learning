@@ -129,7 +129,7 @@ if __name__== "__main__":
     if parameters["encode_data"]:
         for feature_size in [10, 25, 50, 75, 100]:
             encodeData(dataloaders_dict, feature_size, train_indices, val_indices, y_train, y_val, y_test, parameters)
-            
+
     ######################################################################
     ############################ Train SVM ###############################
     ######################################################################
@@ -146,9 +146,9 @@ if __name__== "__main__":
     ## Train MLP with Information Theoretic Learning
     if parameters["train_mlp_itl"]:
 #        for feature_size in [10, 25, 50, 75, 100]:
-            for bw_size in [3]:
+            for bw_size in [3000]:
                 for feature_size in [10,25,50,75,100]:
-                
+
                     parameters["mlp_itl_parameters"]["xent_bw"] = bw_size
                     parameters["mlp_itl_parameters"]["model_save_path"] = os.getcwd() + '/mlp_itl_model_parameters/feature_size_' + str(feature_size) + '_bw_' + str(parameters["mlp_itl_parameters"]["xent_bw"]) + '.pth'
                     parameters["mlp_itl_parameters"]["image_save_path"] = os.getcwd() + '/mlp_itl_model_parameters/feature_size_' + str(feature_size) + '_bw_' + str(parameters["mlp_itl_parameters"]["xent_bw"])
