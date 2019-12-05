@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2019.4.9)  5 DEC 2019 09:08
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2019.4.9)  5 DEC 2019 10:14
 entering extended mode
 **./mccurleyProject2.tex
 (mccurleyProject2.tex
@@ -792,13 +792,6 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 
 
 ]
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
-LaTeX Warning: `!h' float specifier changed to `!ht'.
-
-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [2 <C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project02
@@ -819,21 +812,21 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 354.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 367.
 [3]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 354.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 367.
  (mccurleyProject2.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 354.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 354.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 367.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 367.
 Package rerunfilecheck Info: File `mccurleyProject2.out' has not changed.
 (rerunfilecheck)             Checksum: 5A44974FD6548B5050262AAF9FFF8BA6;1151.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 354.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 367.
  ) 
 Here is how much of TeX's memory you used:
- 11204 strings out of 493323
- 175432 string characters out of 3139067
- 281796 words of memory out of 3000000
- 14538 multiletter control sequences out of 15000+200000
+ 11209 strings out of 493323
+ 175519 string characters out of 3139067
+ 281929 words of memory out of 3000000
+ 14541 multiletter control sequences out of 15000+200000
  40049 words of font info for 84 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
  61i,9n,96p,1536b,441s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -844,9 +837,9 @@ pe1/public/amsfonts/cm/cmsy10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/
 times/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmbi8a.pfb
 ><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmr8a.pfb><C:/Program File
 s/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on mccurleyProject2.pdf (3 pages, 190027 bytes).
+Output written on mccurleyProject2.pdf (3 pages, 193190 bytes).
 PDF statistics:
- 165 PDF objects out of 1000 (max. 8388607)
- 41 named destinations out of 1000 (max. 500000)
+ 172 PDF objects out of 1000 (max. 8388607)
+ 43 named destinations out of 1000 (max. 500000)
  165 words of extra memory for PDF output out of 10000 (max. 10000000)
 

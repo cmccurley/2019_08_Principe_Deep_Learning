@@ -117,12 +117,13 @@ Fashion MNIST, Autoencoder, Information Theoretic Learning, Support Vector Machi
 	 %% Support vector Machines
 	 \subsection{Support Vector Machines}
 	 \subsubsection*{Description}
-	 A Support Vector Machine (SVM) is a specific class of sparse kernel machines whose objective  is to learn a decision boundary which can adequately discriminate between classes in a high-dimensional space \cite{Murphy2012Textbook}.  Because of its sparsity constraints, a SVMs' predictions rely only on a subset of the training data known as \textit{support vectors}. By design, support vectors tend to be examples in the training data which lie closest to the decision boundary, and are thus the most prone to incorrect classification. A primary difference between SVM and methods relying on Information Theory is that vanilla SVM classification predictions are not probabilistic.  In other words, hard labels are assigned which do not capture the uncertainty of the prediction results.  Here, 
+	 A Support Vector Machine (SVM) is a specific class of sparse kernel machines whose objective  is to learn a decision boundary which can adequately discriminate between classes in a high-dimensional space \cite{Lin2011svm,Sanchez2011svm}.  Because of its sparsity constraints, a SVMs' predictions rely only on a subset of the training data known as \textit{support vectors}. By design, support vectors tend to be examples in the training data which lie closest to the decision boundary, and are thus the most prone to mis-classification. A primary difference between SVM and methods relying on Information Theory is that vanilla SVM classification predictions are not probabilistic \cite{Murphy2012Textbook}.  In other words, hard labels are assigned which do not capture the uncertainty of the prediction results.  In this work, SVMs were trained on the data passed through the selected autoencoders.  A comparison of classification performance on the various sizes of features is provided in section \ref{classification_accuracy}.
 	 
 	 \subsubsection*{Parameters}
+	 Non-linear support vector machines were used as the classifiers in this work. The necessary hyperparameters were the type of mapping kernel,  kernel parameters, and a regularization (slack) parameter.  A radial-basis function was arbitrarily chosen as the mapping function.  Silverman's rule was used to provided a reasonable range for the kernel bandwidth. The regularization parameter was set to the Python Scikitlearn's default value of $C=1$.  These parameter choices provided reasonable results for comparison.  More parameter variations for the SVM were not tested due to time limitations.
 	 
 	 \subsubsection*{Experiments}
-	 
+	 SVMs were employed using Scikitlearn's SVM SVC package.  The classifiers were trained using one-versus-one training.  At test, a sample was applied to the classifier ensemble and the most-likely label was provided to the sample.  Data was passed through each of the top 5 trained autoencoders, and a single SVM was trained to provide label predictions for each input feature dimensionality, $[10,25,50,75,100]$.  Classification performance is presented in section \ref{classification_accuracy}. 
 	 
 	 
 	 \subsection{Baseline CNN}
@@ -176,7 +177,7 @@ Experiments
 
 In this section, classification results for each experimental method tested are presented in the form of confusion matrices.  A confusion matrix demonstrates the discrepancies between predicted and true class values for groups of samples.  Essentially, it is a way to measure how accurate a classifier is, while providing insight into how the network confuses samples.  A diagonal matrix signifies zero mis-classifications among all categories.
 
-\subsection{Comparison of Cost Functions}
+\subsection{Comparison of Cost Functions} \label{classification_accuracy}
 
 
 \begin{table}[h!]
@@ -234,7 +235,17 @@ In this section, classification results for each experimental method tested are 
 \section{Discussion} \label{Discussion}
 In this sections, observations are made on results and insight is given to potential influences.
 
+%% Comparison of ae reconstruction
+
+%% Comparison of classifiers
+
 %% autoencoder only captures variation and may not be best for discrimination, whereas CNN features were learned with classifcaiton in mind
+
+
+%% Comparison of ITL bandwidth
+
+
+%% potentially suboptimal parameters in all experimentation
 
 \subsection{Results}
 

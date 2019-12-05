@@ -38,6 +38,18 @@ I.~Goodfellow, Y.~Bengio, and A.~Courville, \emph{Deep Learning}.\hskip 1em
   plus 0.5em minus 0.4em\relax MIT Press, 2016,
   \url{http://www.deeplearningbook.org}.
 
+\bibitem{Lin2011svm}
+Y.~{Lin}, F.~{Lv}, S.~{Zhu}, M.~{Yang}, T.~{Cour}, K.~{Yu}, L.~{Cao}, and
+  T.~{Huang}, ``Large-scale image classification: Fast feature extraction and
+  svm training,'' in \emph{CVPR 2011}, June 2011, pp. 1689--1696.
+
+\bibitem{Sanchez2011svm}
+J.~Sanchez and F.~Perronnin, ``High-dimensional signature compression for
+  large-scale image classification,'' in \emph{Proceedings of the 2011 IEEE
+  Conference on Computer Vision and Pattern Recognition}, ser. CVPR '11.\hskip
+  1em plus 0.5em minus 0.4em\relax Washington, DC, USA: IEEE Computer Society,
+  2011, pp. 1665--1672.
+
 \bibitem{Murphy2012Textbook}
 K.~P. Murphy, \emph{Machine Learning: A Probabilistic Perspective}.\hskip 1em
   plus 0.5em minus 0.4em\relax The MIT Press, 2012.
