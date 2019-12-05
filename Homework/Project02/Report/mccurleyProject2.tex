@@ -49,36 +49,59 @@ Email: cmccurley@ufl.edu}
 Fashion MNIST, Autoencoder, Information Theoretic Learning, Support Vector Machine
 \end{IEEEkeywords}
 
-
-%===============================================================================================================================================================================================
+%==================================================================================================
+%====================================  Introduction ===============================================
+%==================================================================================================
 \section{Introduction} 
 
 %\lettrine{A}{utonomous} image classification is a challenging problem which offers potential for significant advancement in the areas of biometrics, biology, medical diagnosis, security, and more \cite{Prasad2015Review,Lu2007Review}.  This paper focuses on the use of dimensionality reduction/ manifold learning in conjunction with multi-layer perceptron artificial neural networks to automatically classify clothing items from the well-known Fashion MNIST dataset \cite{Xiao2017FashionMNIST}.  \\
 %\indent A wide variety of approaches have been taken in attempt to solve detection and classification problems in imagery.  \cite{Mensink2013KNN} used dissimilarity-based classifiers along with metric learning to dually drive samples toward their respective class representatives while also enforcing separation between classes.  \cite{Sanchez2011svm,Lin2011svm} utilized vector embeddings with linear support vector machines to discriminate between low-dimensional image representations.  The work in \cite{Shao2019DictionaryLearning} found sparse weighted combinations of dictionary atoms to accurately reconstruct images where specific bases equated to the various  classes.  The authors of \cite{Timofte2013NaiveBayes} utilized statistical properties to match samples to generating distributions.  The work in \cite{Swaroop2016TemplateMatching} employed traditional template matching to locate objects or compositions in imagery.  The review in \cite{Driss2017MLPandCNN} demonstrated that expansive uses of artificial neural networks in image classification.  This, of course, is just a small sample of image classification techniques.  The reviews in \cite{Prasad2015Review,Lu2007Review} elaborate extensively on the myriad of methods.  A commonality among all of the discussed methods is that they suffer from high-dimensionality.  Because of this fact, this work explores the use of dimensionality reduction as a preprocessing procedure for classification with fully-connect multi-layer perceptrons. \\
 %\indent The remainder of this paper is organized as follows.  Section \ref{Methodology} describes the methodology used to perform dimensionality reduction and classification with multilayer perceptrons.  Classification results are presented in Section \ref{Results}.  Practical insights to results are given in Section \ref{Discussion}.  Finally, Section \ref{Conclusions} reveals concluding remarks and discusses future lines of research.
 
-
-%===============================================================================================================================================================================================
+%==================================================================================================
+%====================================  Methodology ================================================
+%==================================================================================================
 
 \section{Methodology} \label{Methodology}
-	This section describes the methodology implemented in this work.  Analysis of the data is performed, dimensionality reduction  and classification procedures are described, various network architectures under analysis are elaborated on and the experimental procedure is outlined.
+	This section describes the methodology implemented in this work.  Analysis of the data is performed, dimensionality reduction and classification procedures are described, various network architectures under analysis are elaborated on and experimental procedures are outlined.
 
 	\subsection{Data Analysis}
-	 The following data analysis was originally described in \cite{McCurley2019PrincipeProject1}, but is pertinent to this work and is thus re-analyzed here.  The data was plotted as shown in Figure \ref{fig:samples} to gain an understanding of the format.  Each sample in the Fashion-MNIST dataset is a 28x28, gray-scale image of a clothing item belonging to one of ten classes \cite{Xiao2017FashionMNIST}. This translates to 784 length feature vectors with values ranging between 0-255. There were exactly 60000 training images included in the  training dataset and 10000 which were held-out for test.  The 60000 samples were later sub-divided in the experimentation for cross-validation.  As with Project 1,    Given that the classifier would be a multi-layer perceptron artificial neural network, it was determined that dimensionality reduction should be utilized to combat the Curse of Dimensionality, while potentially improving class discriminability.
+	 The following data analysis was originally described in \cite{McCurley2019PrincipeProject1}, but is pertinent to this work and is thus re-analyzed here.  The data was plotted as shown in Figure \ref{fig:samples} to gain an understanding of the format.  Each sample in the Fashion-MNIST dataset is a 28x28, gray-scale image of a clothing item belonging to one of ten classes \cite{Xiao2017FashionMNIST}. This translates to 784 length feature vectors with values ranging between 0-255. There were exactly 60000 training images included in the  training dataset and 10000 which were held-out for test.  The 60000 samples were later sub-divided in the experimentation for cross-validation.  As with Project 1, dimensionality reduction(DR) was incorporated to reduce data complexity.  This DR was employed through the use of stacked autocoder neural networks (SAE).  Elaboration on the SAE networks is provided in the following section.
 	
-	% \begin{center}
-	% 	\begin{figure*}[h]
-	% 		\centering
-	% 		\includegraphics[width=0.8\textwidth]{"samples/samples"}
-	% 		\caption{Samples from the Fashion-MNIST dataset. One sample from each class was randomly chosen for visualization.  The gray-scale images are size 28x28, each representing an article of clothing.}
-	% 		\label{fig:samples}
-	% 	\end{figure*}
-	% \end{center}
+	%% Fashion MNIST data samples
+	 \begin{center}
+	 	\begin{figure*}[h]
+	 		\centering
+	 		\includegraphics[width=0.8\textwidth]{"samples/samples"}
+	 		\caption{Samples from the Fashion-MNIST dataset. One sample from each class was randomly chosen for visualization.  The gray-scale images are size 28x28, each representing an article of clothing.}
+	 		\label{fig:samples}
+	 	\end{figure*}
+	 \end{center}
 
-	
-
-
-	% \subsubsection*{Autoencoder} An autoencoder is a specific taxonomy of artificial neural networks whose output has the same dimensionality as the input and whose desired is actually the input sample \cite{Haykin2009NeuralNetworks,Goodfellow2016DeepLearning}. Typically, autoencoders enforce dimensionality reduction operations up to their middle layers.  This portion of the network is known as the `encoder', since it projects data into a lower dimensional space.  The second half of the network projects the data back into its original dimensionality in attempt to reconstruct the original sample.  This section of the network is known as the `decoder'. (See Figure \ref{fig:autoencoder}.)  In practice, samples can be passed through the encoder to perform dimensionality reduction. 
+	 \subsection{Autoencoder} An autoencoder is a specific taxonomy of artificial neural network which learns how to  compress and de-compress representations of data \cite{Haykin2009NeuralNetworks,Goodfellow2016DeepLearning}. The first half of an autoencoder typically performs dimensionality reduction through non-linear transformations until the middle layer, known as the \textit{bottleneck} or \textit{latent} layer.  The goal of the \textit{encoder} is to learn efficient representations of the factors which govern variation in the data, or in terms of compression, \textit{codes} which can be used to reconstruct the input  data with high accuracy. The second half of an SAE (which is called the \textit{decoder}) projects the data back into its original dimensionality in attempt to reconstruct the original sample.(See Figure \ref{fig:autoencoder}.) Reconstruction loss is between the input and output is used to update the network's parameters.  In practice, samples can be passed through the encoder to perform dimensionality reduction. 
+	 
+	 
+	 %% Autoencoder network
+	 \begin{center}
+	  	\begin{figure}[t]
+	  		\centering
+	  		\includegraphics[width=0.4\textwidth]{"autoencoder"}
+	  		\caption{Block diagram of an autoencoder neural network.  The layers consecutively reduce dimensionality until the middle (bottleneck) layer.  The second half of the network transforms the data back to the size of the input.  The desired value of the network is the original image.}
+	  		\label{fig:autoencoder}
+	  	\end{figure}
+	  \end{center}
+	 
+	 %% Add examples of reconstructed images here
+	 
+	 \subsection{Baseline CNN}
+	 
+	 \subsection{Support Vector Machines}
+	 
+	 \subsection{Information Theoretic Learning (Minimum Cross-Entropy)}
+	 
+	 \subsection{Label and Network Implementation}
+	 
+	 %% Add examples of reconstructed images here
 	 
 	 % \begin{center}
 	 % 	\begin{figure}[t]
@@ -95,34 +118,29 @@ Fashion MNIST, Autoencoder, Information Theoretic Learning, Support Vector Machi
 	
 
 
-% \begin{center}
-% 	\begin{figure}[t]
-% 		\centering
-% 		\includegraphics[width=0.4\textwidth]{"autoencoder"}
-% 		\caption{Block diagram of an autoencoder neural network.  The layers consecutively reduce dimensionality before increasing back to the input size.  The desired value of the network is the original image.}
-% 		\label{fig:autoencoder}
-% 	\end{figure}
-% \end{center}
+
 
 
 \subsection{Experiments} \label{Experiments}
 Experiments 
 
-\begin{enumerate}
-	\item \textit{Baseline:} Model trained on the original data (described in section \ref{Methodology}).
-	\item \textit{PCA 100:} Principal vectors estimated from the training set were used to project the data down to 100 dimensions, thus retaining 91.1$\%$ of the original variance.  The model was the same as the baseline excluding the input layer.
-	\item \textit{PCA 400:} Principal vectors estimated from the training set were used to project the data down to 400 dimensions, thus retaining 98.5$\%$ of the original variance.  The model was the same as the baseline excluding the input layer.
-	\item \textit{UMAP 100:} UMAP was used to project the data down to 100 dimensions.  15 neighbors were used in the local neighborhood and the minimum distance of points in the latent space was constrained to 0.1, which was measured by Euclidean distance.  The model was the same as the baseline excluding the input layer.
-	\item \textit{UMAP 400:} UMAP was used to project the data down to 400 dimensions.  15 neighbors were used in the local neighborhood and the minimum distance of points in the latent space was constrained to 0.1, which was measured by Euclidean distance.  The model was the same as the baseline excluding the input layer.
-	\item \textit{AE 100:} An additional multi-layer perceptron was first trained in the form of an autoencoder.  This MLP demonstrated layers as (784-500-400-150-100) in the encoder with the reverse in the decoder.  A hyperbolic tangent activation was applied at the output layer.  The network was trained with mean-square error loss and updated with Adamax. The original dataset was passed through the encoder to reduce dimensionality. The model was the same as the baseline excluding the input layer.
-	\item \textit{AE 400:}  An additional multi-layer perceptron was first trained in the form of an autoencoder.  This MLP demonstrated layers as (784-500-400) in the encoder with the reverse in the decoder.  A hyperbolic tangent activation was applied at the output layer.  The network was trained with mean-square error loss and updated with Adamax. The original dataset was passed through the encoder to reduce dimensionality. The model was the same as the baseline excluding the input layer.
-\end{enumerate}
+%\begin{enumerate}
+%	\item \textit{Baseline:} Model trained on the original data (described in section \ref{Methodology}).
+%	\item \textit{PCA 100:} Principal vectors estimated from the training set were used to project the data down to 100 dimensions, thus retaining 91.1$\%$ of the original variance.  The model was the same as the baseline excluding the input layer.
+%	\item \textit{PCA 400:} Principal vectors estimated from the training set were used to project the data down to 400 dimensions, thus retaining 98.5$\%$ of the original variance.  The model was the same as the baseline excluding the input layer.
+%	\item \textit{UMAP 100:} UMAP was used to project the data down to 100 dimensions.  15 neighbors were used in the local neighborhood and the minimum distance of points in the latent space was constrained to 0.1, which was measured by Euclidean distance.  The model was the same as the baseline excluding the input layer.
+%	\item \textit{UMAP 400:} UMAP was used to project the data down to 400 dimensions.  15 neighbors were used in the local neighborhood and the minimum distance of points in the latent space was constrained to 0.1, which was measured by Euclidean distance.  The model was the same as the baseline excluding the input layer.
+%	\item \textit{AE 100:} An additional multi-layer perceptron was first trained in the form of an autoencoder.  This MLP demonstrated layers as (784-500-400-150-100) in the encoder with the reverse in the decoder.  A hyperbolic tangent activation was applied at the output layer.  The network was trained with mean-square error loss and updated with Adamax. The original dataset was passed through the encoder to reduce dimensionality. The model was the same as the baseline excluding the input layer.
+%	\item \textit{AE 400:}  An additional multi-layer perceptron was first trained in the form of an autoencoder.  This MLP demonstrated layers as (784-500-400) in the encoder with the reverse in the decoder.  A hyperbolic tangent activation was applied at the output layer.  The network was trained with mean-square error loss and updated with Adamax. The original dataset was passed through the encoder to reduce dimensionality. The model was the same as the baseline excluding the input layer.
+%\end{enumerate}
 
 
 
 
 
-%===============================================================================================================================================================================================
+%==================================================================================================
+%========================================= Results ================================================
+%==================================================================================================
 \section{Results} \label{Results}
 
 In this section, classification results for each experimental method tested are presented in the form of confusion matrices.  A confusion matrix demonstrates the discrepancies between predicted and true class values for groups of samples.  Essentially, it is a way to measure how accurate a classifier is, while providing insight into how the network confuses samples.  A diagonal matrix signifies zero mis-classifications among all categories.
@@ -154,7 +172,9 @@ Figures
 \end{table} 
  
 
-%===============================================================================================================================================================================================
+%==================================================================================================
+%====================================== Discussion ================================================
+%==================================================================================================
 \vspace{5cm}
 \section{Discussion} \label{Discussion}
 In this sections, observations are made on results and insight is given to potential influences.
@@ -194,7 +214,9 @@ In
 
 
 
-%===============================================================================================================================================================================================
+%==================================================================================================
+%===================================== Conclusions ================================================
+%==================================================================================================
 \section{Conclusions} \label{Conclusions}
 Three \\
 \indent
@@ -257,7 +279,9 @@ Future research endeavors toward this topic include,
 % \end{center} 
 
 
-%===============================================================================================================================================================================================
+%==================================================================================================
+%==================================== Bibliography ================================================
+%==================================================================================================
 
 \section*{Honor Statement}
 \noindent
