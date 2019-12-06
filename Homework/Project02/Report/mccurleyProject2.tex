@@ -62,40 +62,31 @@ Fashion MNIST, Autoencoder, Information Theoretic Learning, Support Vector Machi
 %==================================================================================================
 %====================================  Methodology ================================================
 %==================================================================================================
-
+\vspace{-0.3cm}
 \section{Methodology} \label{Methodology}
 	This section describes the methodology implemented in this work.  Analysis of the data is performed, dimensionality reduction and classification procedures are described, various network architectures under analysis are elaborated on and experimental procedures are outlined.
 
+%% Fashion MNIST data samples
+\begin{center}
+	\begin{figure*}[ht!]
+		\centering
+		\includegraphics[width=0.8\textwidth]{"samples/samples"}
+		\caption{Samples from the Fashion-MNIST dataset. One sample from each class was randomly chosen for visualization.  The gray-scale images are size 28x28, each representing an article of clothing.}
+		\label{fig:samples}
+	\end{figure*}
+\end{center}
+
+	\vspace{-1cm}
 	%% Data analysis
 	\subsection{Data Analysis}
 	 The following data analysis was originally described in \cite{McCurley2019PrincipeProject1}, but is pertinent to this work and is thus re-analyzed here.  The data was plotted as shown in Figure \ref{fig:samples} to gain an understanding of the format.  Each sample in the Fashion-MNIST dataset is a 28x28, gray-scale image of a clothing item belonging to one of ten classes \cite{Xiao2017FashionMNIST}. This translates to 784 length feature vectors with values ranging between 0-255. There were exactly 60000 training images included in the  training dataset and 10000 which were held-out for test.  The 60000 samples were later sub-divided in the experimentation for cross-validation.  As with Project 1, dimensionality reduction(DR) was incorporated to reduce data complexity.  This DR was employed through the use of stacked autocoder neural networks (SAE).  Elaboration on the SAE networks is provided in the following section.
-	
-	%% Fashion MNIST data samples
-	 \begin{center}
-	 	\begin{figure*}[h]
-	 		\centering
-	 		\includegraphics[width=0.8\textwidth]{"samples/samples"}
-	 		\caption{Samples from the Fashion-MNIST dataset. One sample from each class was randomly chosen for visualization.  The gray-scale images are size 28x28, each representing an article of clothing.}
-	 		\label{fig:samples}
-	 	\end{figure*}
-	 \end{center}
 
+	\vspace{-0.1cm}
 	%% Autoencoder
 	 \subsection{Autoencoder} 
 	 \subsubsection*{Description}
 	 An autoencoder is a specific taxonomy of artificial neural network which learns how to  compress and de-compress representations of data \cite{Haykin2009NeuralNetworks,Goodfellow2016DeepLearning}. The first half of an autoencoder typically performs dimensionality reduction through non-linear transformations until the middle layer, known as the \textit{bottleneck} or \textit{latent} layer.  The goal of the \textit{encoder} is to learn efficient representations of the factors which govern variation in the data, or in terms of compression, \textit{codes} which can be used to reconstruct the input  data with high accuracy. The second half of an SAE (which is called the \textit{decoder}) projects the data back into its original dimensionality in attempt to reconstruct the original sample.(See Figure \ref{fig:autoencoder}.) Reconstruction loss is between the input and output is used to update the network's parameters.  In practice, samples can be passed through the encoder to perform dimensionality reduction. 
 	 
-	 %% Autoencoder network
-	 \begin{center}
-	  	\begin{figure}[t]
-	  		\centering
-	  		\includegraphics[width=0.4\textwidth]{"autoencoder"}
-	  		\caption{Block diagram of an autoencoder neural network.  The layers consecutively reduce dimensionality until the middle (bottleneck) layer.  The second half of the network transforms the data back to the size of the input.  The desired value of the network is the original image.}
-	  		\label{fig:autoencoder}
-	  	\end{figure}
-	  \end{center}
-
-  
   	%% Architecture parameters
   	\subsubsection*{SAE Architecture}
   	The SAE architecture tested in this work consisted of 5 hidden layers, along with the input and output.  The layers were selected as $784 \rightarrow 500 \rightarrow 200 \rightarrow k \rightarrow 200 \rightarrow 500 \rightarrow 784$, where $k$ is the arbitrarily chosen dimensionality of the bottleneck.  In this work, $k$ was tested at $[10,25,50,75,100]$ in order to provided a reasonable comparison of performance changes resulting from dimensionality reduction.  ReLU activation functions were used to apply nonlinearity.  A sigmoid activation, however, was used at the output layer to enforce image value constraints between $[0-1]$.  This was done because the images were normalized between $[0-1]$ before passing through the network.  An initial learning rate of $\eta=0.01$ was selected, and was updated using the Adamax optimizer through training.
@@ -115,7 +106,17 @@ Fashion MNIST, Autoencoder, Information Theoretic Learning, Support Vector Machi
 	 \subsubsection*{Experiments}
 	 SVMs were employed using Scikitlearn's SVM SVC package.  The classifiers were trained using one-versus-one training.  At test, a sample was applied to the classifier ensemble and the most-likely label was provided to the sample.  Data was passed through each of the top 5 trained autoencoders, and a single SVM was trained to provide label predictions for each input feature dimensionality, $[10,25,50,75,100]$.  Classification performance is presented in section \ref{classification_accuracy}. 
 	 
+	 %% Autoencoder network
+	 \begin{center}
+	 	\begin{figure}[t]
+	 		\centering
+	 		\includegraphics[width=0.4\textwidth]{"autoencoder"}
+	 		\caption{Block diagram of an autoencoder neural network.  The layers consecutively reduce dimensionality until the middle (bottleneck) layer.  The second half of the network transforms the data back to the size of the input.  The desired value of the network is the original image.}
+	 		\label{fig:autoencoder}
+	 	\end{figure}
+	 \end{center}
 	 
+	 \vspace{-1.3cm}
 	 \subsection{Baseline CNN}
 	 
 	 \subsubsection*{Description}
