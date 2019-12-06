@@ -107,7 +107,7 @@ Fashion MNIST, Autoencoder, Information Theoretic Learning, Support Vector Machi
 	 %% Support vector Machines
 	 \subsection{Support Vector Machines}
 	 \subsubsection*{Description}
-	 A Support Vector Machine (SVM) is a specific class of sparse kernel machines whose objective  is to learn a decision boundary which can adequately discriminate between classes in a high-dimensional space \cite{Lin2011svm,Sanchez2011svm}.  Because of its sparsity constraints, a SVMs' predictions rely only on a subset of the training data known as \textit{support vectors}. By design, support vectors tend to be examples in the training data which lie closest to the decision boundary, and are thus the most prone to mis-classification. A primary difference between SVM and methods relying on Information Theory is that vanilla SVM classification predictions are not probabilistic \cite{Murphy2012Textbook}.  In other words, hard labels are assigned which do not capture the uncertainty of the prediction results.  In this work, SVMs were trained on the data passed through the selected autoencoders.  A comparison of classification performance on the various sizes of features is provided in section \ref{classification_accuracy}.
+	 A Support Vector Machine (SVM) is a specific class of sparse kernel machine whose objective  is to learn a decision boundary which can adequately discriminate between classes in a high-dimensional space \cite{Lin2011svm,Sanchez2011svm}.  Because of its sparsity constraints, a SVMs' predictions rely only on a subset of the training data known as \textit{support vectors}. By design, support vectors tend to be examples in the training data which lie closest to the decision boundary, and are thus the most prone to mis-classification. A primary difference between SVM and methods relying on Information Theory is that vanilla SVM classification predictions are not probabilistic \cite{Murphy2012Textbook}.  In other words, hard labels are assigned which do not capture the uncertainty of the prediction results.  In this work, SVMs were trained on the data passed through the selected autoencoders.  A comparison of classification performance on the various sizes of features is provided in section \ref{classification_accuracy}.
 	 
 	 \subsubsection*{Parameters}
 	 Non-linear support vector machines were used as the classifiers in this work. The necessary hyperparameters were the type of mapping kernel,  kernel parameters, and a regularization (slack) parameter.  A radial-basis function was arbitrarily chosen as the mapping function.  Silverman's rule was used to provided a reasonable range for the kernel bandwidth. The regularization parameter was set to the Python Scikitlearn's default value of $C=1$.  These parameter choices provided reasonable results for comparison.  More parameter variations for the SVM were not tested due to time limitations.
@@ -165,14 +165,13 @@ Fashion MNIST, Autoencoder, Information Theoretic Learning, Support Vector Machi
 In this section, results from experimentation are presented.  Comparison of autoencoder bottleneck size is shown, classification performance on auto-encoded data is presented and a comparison of ITL approaches is revealed. 
 
 \subsection{Autoencoder Reconstruction} \label{ae_reconstruction}
-Each of the autoencoder  networks tested achieved near-zero MSE loss. This value was negligible, however, as MSE was being computed on values between $[0,1]$.  This inherently makes MSE small.  Instead, reconstruction results on a shoe passed through bottlenecks of 10 and 100, respectively, are shown in Figure \ref{fig:ae_reconstruction}.  As can be observed, the reconstructed image from the wider bottleneck retains more fine detail than the smaller.  This is at the cost of dimensionality, however.
+Each of the autoencoder  networks tested achieved near-zero MSE loss. This value was negligible, however, as MSE was being computed on values between $[0,1]$.  This inherently makes MSE small.  Instead, reconstruction results of a shoe passed through bottlenecks of 10 and 100, respectively, are shown in Figure \ref{fig:ae_reconstruction}.  As can be observed, the reconstructed image from the wider bottleneck retains more fine detail than the smaller.  This is at the cost of dimensionality, however.
 
 %% Examples of reconstructed images here
 \begin{figure}%
 	\centering
-	\subfloat[]{{\includegraphics[width=5cm]{"ae_reconstructed_images/ae_latent_10_img_2"} }}%
-	\qquad
-	\subfloat[]{{\includegraphics[width=5cm]{"ae_reconstructed_images/ae_latent_100_img_1"} }}%
+	\subfloat[]{{\includegraphics[width=4.5cm]{"ae_reconstructed_images/ae_latent_10_img_2"} }}%
+	\subfloat[]{{\includegraphics[width=4.5cm]{"ae_reconstructed_images/ae_latent_100_img_1"} }}%
 	\caption{Reconstructed images of a shoe after passing through an SAE with bottleneck dimensionality 10 (a) and 100 (b).  The images' original dimensionality was 784.}%
 	\label{fig:ae_reconstruction}%
 \end{figure}
@@ -184,6 +183,7 @@ A confusion matrix demonstrates the discrepancies between predicted and true cla
 
 \subsection{Comparison of Bottleneck Size} \label{classification_accuracy}
 This section presents classification accuracies for the top performing baseline CNN and SVMs trained on the autoencoded data.  Table \ref{tab:step1comparison} shows that the baseline CNN achieved the best classification accuracy of 90\%.  The second-best performance was exhibited by the SVM trained on 100D features, which achieved 86\% classification accuracy.  Performance dropped sequentially with dimensionality reduction.  The lowest performing system was the SVM trained on 10D features.  This model obtained 76\% classification accuracy.  Confusion matrices for the baseline CNN, SVM on 100D data and SVM trained on 10D data are shown in Figures \ref{fig:conf_mat_cnn}, \ref{fig:conf_mat_svm_100} and \ref{fig:conf_mat_svm_10}, respectively.
+From the figures, it can be observed that the mis-classified classes are fairly consistent between each of the models.  The most-commonly confused classes are shirt, pullover, and coat.
 
 \begin{table}[h!]
 	\caption{Classification Accuracies for Different Neural Model/ Classification Systems}
@@ -237,11 +237,7 @@ This section presents classification accuracies for the top performing baseline 
 \end{center}
  
 \subsection{Comparison of xEnt Kernel Bandwidths} \label{bw_comparison}
-This section demonstrates classification accuracies for the networks trained with MinxEnt.  Table \ref{tab:bw_comparison} shows test classification accuracies for the networks trained with different values for the parzen window estimator bandwidth and dimensionality of the smallest layer (before 10D final output).  From the table, it can be seen that 
-
-Confusion matrices for the best-performing models for each latent dimensionality are provided by Figures , and , respectively.
-
-From the confusion matrices, it can be observed that..
+This section demonstrates classification accuracies for the networks trained with MinxEnt.  Table \ref{tab:bw_comparison} shows test classification accuracies for the networks trained with different values for the parzen window estimator bandwidth and dimensionality of the smallest layer (before 10D final output).  Addtionally, confusion matrices for the best-performing models for each latent dimensionality are provided by Figures \ref{fig:feature_size_100_bw_300}, \ref{fig:feature_size_75_bw_300}, \ref{fig:feature_size_50_bw_3}, \ref{fig:feature_size_25_bw_300} and \ref{fig:feature_size_10_bw_300}, respectively. From the table, it can be seen that a bandwidth of $\sigma=300$ consistently provided the best results among the parameters compared. The highest performing model was the MLP with a final layer with  100 units and a MinxEnt bandwidth of 300.  Moreover, the confusion matrices show that the networks had similar confusers to the previous experiments.  The shirt, coat, and pullover classes were the most difficult for the networks to discriminate between.
 
 \begin{table}[h!]
 	\caption{Classification Accuracies for Varying xEnt Kernel Bandwidths and Latent Dimensionalities}
@@ -308,7 +304,7 @@ From the confusion matrices, it can be observed that..
 	\begin{figure}[t]
 		\centering
 		\includegraphics[width=0.4\textwidth]{"mlp_itl_model_parameters/feature_size_75_bw_300"}
-		\caption{Confusion matrix for the MLP with a final dimensionality (before output) of $k=75$ and a xEnt bandwidth of $\sigma=300$.  The model classified 89\% of the test data correctly.}
+		\caption{Confusion matrix for the MLP with a final dimensionality (before output) of $k=75$ and a xEnt bandwidth of $\sigma=300$.  The model classified 74\% of the test data correctly.}
 		\label{fig:feature_size_75_bw_300}
 	\end{figure}
 \end{center}
@@ -317,7 +313,7 @@ From the confusion matrices, it can be observed that..
 	\begin{figure}[t]
 		\centering
 		\includegraphics[width=0.4\textwidth]{"mlp_itl_model_parameters/feature_size_50_bw_3"}
-		\caption{Confusion matrix for the MLP with a final dimensionality (before output) of $k=50$ and a xEnt bandwidth of $\sigma=3$.  The model classified 89\% of the test data correctly.}
+		\caption{Confusion matrix for the MLP with a final dimensionality (before output) of $k=50$ and a xEnt bandwidth of $\sigma=3$.  The model classified 88\% of the test data correctly.}
 		\label{fig:feature_size_50_bw_3}
 	\end{figure}
 \end{center}
@@ -326,7 +322,7 @@ From the confusion matrices, it can be observed that..
 	\begin{figure}[t]
 		\centering
 		\includegraphics[width=0.4\textwidth]{"mlp_itl_model_parameters/feature_size_25_bw_300"}
-		\caption{Confusion matrix for the MLP with a final dimensionality (before output) of $k=25$ and a xEnt bandwidth of $\sigma=300$.  The model classified 89\% of the test data correctly.}
+		\caption{Confusion matrix for the MLP with a final dimensionality (before output) of $k=25$ and a xEnt bandwidth of $\sigma=300$.  The model classified 73\% of the test data correctly.}
 		\label{fig:feature_size_25_bw_300}
 	\end{figure}
 \end{center}
@@ -335,7 +331,7 @@ From the confusion matrices, it can be observed that..
 	\begin{figure}[t]
 		\centering
 		\includegraphics[width=0.4\textwidth]{"mlp_itl_model_parameters/feature_size_10_bw_300"}
-		\caption{Confusion matrix for the MLP with a final dimensionality (before output) of $k=10$ and a xEnt bandwidth of $\sigma=300$.  The model classified 89\% of the test data correctly.}
+		\caption{Confusion matrix for the MLP with a final dimensionality (before output) of $k=10$ and a xEnt bandwidth of $\sigma=300$.  The model classified 80\% of the test data correctly.}
 		\label{fig:feature_size_10_bw_300}
 	\end{figure}
 \end{center}
@@ -397,7 +393,7 @@ In this sections, observations are made on results and insight is given to poten
 % \end{center}
 
 \subsection{Potential Improvements}
-In 
+In addition to a more thorough study of optimal parameter selection, two methods which could potentially aid with overall system performance might be to include an additional form of pre/post-processing to improve the confused classes or to train the model with a type of rank loss.  It terms of pre/post-processing, additional models could be trained to learn explicit differences between the coat, shirt and  pullover classes, and between the top and dress classes.  This could done before-hand by learning alternative  features representations for these samples before being passed to the main network, or after-the-fact with additional classification on any labels predicted to be in those difficult classes.  This could even be implemented in an ensemble approach to (hopefully) improve classification performance on the most-likely confused classes.  Another alternative  would be to employ a form of rank-loss, such as contrastive or triplet.  In this scenario, additional constraints could be applied to the objective function to enforce inter-class separability between disparate classes and promote intra-class compactness.  These approaches utilize pairs or triplets of similar and  dissimilar data samples to embed samples  in close/far relations according to a predefined metric.  The author believes this could be applied  in conjunction with the cost functions utilized in this work to improve results on the difficult classes.
 
 
 
@@ -406,66 +402,9 @@ In
 %===================================== Conclusions ================================================
 %==================================================================================================
 \section{Conclusions} \label{Conclusions}
-Three \\
+Classification of Fashion-MNIST images using information theoretic and non-information theoretic cost functions was investigated in this work.  Dimensionality reduction was performed using autoencoder neural networks and classification was performed using support vector machines. Additionally, multilayer perceptrons were trained using minimum cross-entropy 
 \indent
-Future research endeavors toward this topic include, 
-
-% \begin{center}
-% 	\begin{figure}[h!]
-% 		\centering
-% 		\includegraphics[width=0.4\textwidth]{"models/base_model_confusion_mat"}
-% 		\caption{Confusion matrix for the base MLP on 10000 blind test images.}
-% 		\label{fig:base_model_confusion_mat}
-% 	\end{figure}
-% \end{center}
-% \begin{center}
-% 	\begin{figure}[h!]
-% 		\centering
-% 		\includegraphics[width=0.4\textwidth]{"models/pca_100_model_confusion_mat"}
-% 		\caption{Confusion matrix for the PCA 100 model on 10000 blind test images.}
-% 		\label{fig:pca_100_model_confusion_mat}
-% 	\end{figure}
-% \end{center}
-% \begin{center}
-% 	\begin{figure}[h!]
-% 		\centering
-% 		\includegraphics[width=0.4\textwidth]{"models/pca_400_model_confusion_mat"}
-% 		\caption{Confusion matrix for the PCA 400 model on 10000 blind test images.}
-% 		\label{fig:pca_400_model_confusion_mat}
-% 	\end{figure}
-% \end{center}
-% \begin{center}
-% 	\begin{figure}[h!]
-% 		\centering
-% 		\includegraphics[width=0.4\textwidth]{"models/umap_100_model_confusion_mat"}
-% 		\caption{Confusion matrix for the UMAP 100 model on 10000 blind test images.}
-% 		\label{fig:umap_100_model_confusion_mat}
-% 	\end{figure}
-% \end{center}\begin{center}
-% 	\begin{figure}[h!]
-% 		\centering
-% 		\includegraphics[width=0.4\textwidth]{"models/umap_400_model_confusion_mat"}
-% 		\caption{Confusion matrix for the UMAP 400 model on 10000 blind test images.}
-% 		\label{fig:umap_400_model_confusion_mat}
-% 	\end{figure}
-% \end{center}
-% \begin{center}
-% 	\begin{figure}[h!]
-% 		\centering
-% 		\includegraphics[width=0.4\textwidth]{"models/auto_100_model_confusion_mat"}
-% 		\caption{Confusion matrix for the autoencoder 100 model on 10000 blind test images.}
-% 		\label{fig:auto_100_model_confusion_mat}
-% 	\end{figure}
-% \end{center}
-% \begin{center}
-% 	\begin{figure}[h!]\textbf{}
-% 		\centering
-% 		\includegraphics[width=0.4\textwidth]{"models/auto_400_model_confusion_mat"}
-% 		\caption{Confusion matrix for the autoencoder 400 model on 10000 blind test images.}
-% 		\label{fig:auto_400_model_confusion_mat}
-% 	\end{figure}
-% \end{center} 
-
+Future research endeavors toward this topic include, pre/post-processing or ensembling to improve classification results on the difficult-to-classify classes and investigating the incorporation of rank-loss in a metric embedding to provide improved separability of classes in the  feature space.
 
 %==================================================================================================
 %==================================== Bibliography ================================================
@@ -475,13 +414,12 @@ Future research endeavors toward this topic include,
 \noindent
 * I confirm that this assignment is my own work, it is not copied from any other person's work (published or unpublished), and has not been previously submitted for assessment either at University of Florida or elsewhere.
 
-% \begin{figure}[h!]
-% 	\centering
-% 	\includegraphics[width=0.20\textwidth]{"Signature"}
-% \end{figure}
+ \begin{figure}[h!]
+ 	\centering
+ 	\includegraphics[width=0.20\textwidth]{"Signature"}
+ \end{figure}
 
 \bibliography{Project2}
 \bibliographystyle{IEEEtran}
-%\bibliographystyle{plainnat}
 
 \end{document}
