@@ -183,59 +183,41 @@ Each of the autoencoder  networks tested achieved near-zero MSE loss. This value
 A confusion matrix demonstrates the discrepancies between predicted and true class values for groups of samples.  Essentially, it is a way to measure how accurate a classifier is, while providing insight into how the network confuses samples.  A diagonal matrix signifies zero mis-classifications among all categories.  Confusion matrices are used in this work to provide insight to classification performance.
 
 \subsection{Comparison of Bottleneck Size} \label{classification_accuracy}
-This section presents classification accuracies for the top performing baseline CNN and SVMs trained on the autoencoded data.  Table \ref{tab:step1comparison} shows that the baseline CNN achieved the best classification accuracy of 90\%.  The second-best performance was exhibited by the SVM trained on 100D features, which achieved 86\% classification accuracy.  Performance dropped sequentially with dimensionality reduction.  The lowest performing system was the SVM trained on 10D features.  This model obtained 76\% classification accuracy.  Confusion matrices for the baseline CNN, SVM on 100D data and SVM trained on 10D data are shown in Figures \ref{fig:conf_mat_cnn}, \ref{fig:conf_mat_svm_100} and \ref{fig:conf_mat_svm_10}, respectively.
+This section presents classification accuracies for the top performing baseline CNN and SVMs trained on the autoencoded data.  Table \ref{tab:step1comparison} shows that the baseline CNN achieved the best classification accuracy of 90\%.  The second-best performance was exhibited by the SVM trained on 100D features, which achieved 86\% classification accuracy.  Performance dropped sequentially with dimensionality reduction.  The lowest performing system was the SVM trained on 10D features.  This model obtained 76\% classification accuracy.  Confusion matrices for the baseline CNN, SVM on 100D data and SVM trained on 10D data are shown in Figure \ref{fig:step_1_conf_mat}.
 From the figures, it can be observed that the mis-classified classes are fairly consistent between each of the models.  The most-commonly confused classes are shirt, pullover, and coat.
-
-\begin{table}[h!]
-	\caption{Classification Accuracies for Different Neural Model/ Classification Systems}
-	\label{tab:step1comparison}
-	\normalsize
-		\begin{tabularx}{\columnwidth}{ |X|X| } 
-			\hline
-			\centering \textbf{Classification Model}  & \textbf{Accuracy} \\
-			\hline
-			\centering Baseline CNN & \textbf{0.90} \\
-			\hline
-			\centering SVM 100D & \underline{0.86} \\
-			\hline
-			\centering SVM 75D & 0.85 \\
-			\hline
-			\centering SVM 50D & 0.84 \\
-			\hline
-			\centering SVM 25D & 0.81 \\
-			\hline
-			\centering SVM 10D & 0.76 \\
-			\hline
-		\end{tabularx}
-\end{table} 
  
- 
- \begin{center}
- 	\begin{figure}[t]
- 		\centering
- 		\includegraphics[width=0.4\textwidth]{"cnn_model_parameters/baseline_cnn2_confusion_mat"}
- 		\caption{Confusion matrix for the baseline CNN.  The model classified 90\% of the test data correctly.}
- 		\label{fig:conf_mat_cnn}
- 	\end{figure}
- \end{center}
+ \begin{table}[h]
+ 	\caption{Classification Accuracies for Different Neural Model/ Classification Systems}
+ 	\label{tab:step1comparison}
+ 	\normalsize
+ 	\begin{tabularx}{\columnwidth}{ |X|X| } 
+ 		\hline
+ 		\centering \textbf{Classification Model}  & \textbf{Accuracy} \\
+ 		\hline
+ 		\centering Baseline CNN & \textbf{0.90} \\
+ 		\hline
+ 		\centering SVM 100D & \underline{0.86} \\
+ 		\hline
+ 		\centering SVM 75D & 0.85 \\
+ 		\hline
+ 		\centering SVM 50D & 0.84 \\
+ 		\hline
+ 		\centering SVM 25D & 0.81 \\
+ 		\hline
+ 		\centering SVM 10D & 0.76 \\
+ 		\hline
+ 	\end{tabularx}
+ \end{table} 
 
-\begin{center}
-	\begin{figure}[t]
-		\centering
-		\includegraphics[width=0.4\textwidth]{"svm_conf_mat/svm_feature_size_100_default"}
-		\caption{Confusion matrix for the SVM trained on data passed through an encoder network with bottleneck dimensionality 100.  The model classified 86\% of the test data correctly.}
-		\label{fig:conf_mat_svm_100}
-	\end{figure}
-\end{center}
+\begin{figure*}[h!]%
+	\centering
+	\subfloat[]{{\includegraphics[width=6cm]{"cnn_model_parameters/baseline_cnn2_confusion_mat"} }}%
+	\subfloat[]{{\includegraphics[width=6cm]{"svm_conf_mat/svm_feature_size_100_default"} }}%
+	\subfloat[]{{\includegraphics[width=6cm]{"svm_conf_mat/svm_feature_size_10_default"} }}%
+	\caption{Confusion matrix for the baseline CNN (a), SVM trained on data passed through an encoder network with bottleneck dimensionality 100 (b) and SVM trained on data passed through an encoder network with bottleneck dimensionality 10 (c).  The CNN model classified 90\% of the test data correctly while the SVM 100D model classified 86\% correctly and the  SVM 10D classified 76\% correctly.}%
+	\label{fig:step_1_conf_mat}%
+\end{figure*}
 
-\begin{center}
-	\begin{figure}[t]
-		\centering
-		\includegraphics[width=0.4\textwidth]{"svm_conf_mat/svm_feature_size_10_default"}
-		\caption{Confusion matrix for the SVM trained on data passed through an encoder network with bottleneck dimensionality 10.  The model classified 76\% of the test data correctly.}
-		\label{fig:conf_mat_svm_10}
-	\end{figure}
-\end{center}
  
 \subsection{Comparison of xEnt Kernel Bandwidths} \label{bw_comparison}
 This section demonstrates classification accuracies for the networks trained with MinxEnt.  Table \ref{tab:bw_comparison} shows test classification accuracies for the networks trained with different values for the parzen window estimator bandwidth and dimensionality of the smallest layer (before 10D final output).  Addtionally, confusion matrices for the best-performing models for each latent dimensionality are provided by Figures \ref{fig:feature_size_100_bw_300}, \ref{fig:feature_size_75_bw_300}, \ref{fig:feature_size_50_bw_3}, \ref{fig:feature_size_25_bw_300} and \ref{fig:feature_size_10_bw_300}, respectively. From the table, it can be seen that a bandwidth of $\sigma=300$ consistently provided the best results among the parameters compared. The highest performing model was the MLP with a final layer with  100 units and a MinxEnt bandwidth of 300.  Moreover, the confusion matrices show that the networks had similar confusers to the previous experiments.  The shirt, coat, and pullover classes were the most difficult for the networks to discriminate between.
@@ -311,7 +293,7 @@ This section demonstrates classification accuracies for the networks trained wit
 \end{center}
 
 \begin{center}
-	\begin{figure}[t]
+	\begin{figure}[h]
 		\centering
 		\includegraphics[width=0.4\textwidth]{"mlp_itl_model_parameters/feature_size_50_bw_3"}
 		\caption{Confusion matrix for the MLP with a final dimensionality (before output) of $k=50$ and a xEnt bandwidth of $\sigma=3$.  The model classified 88\% of the test data correctly.}
@@ -320,7 +302,7 @@ This section demonstrates classification accuracies for the networks trained wit
 \end{center}
 
 \begin{center}
-	\begin{figure}[t]
+	\begin{figure}[h]
 		\centering
 		\includegraphics[width=0.4\textwidth]{"mlp_itl_model_parameters/feature_size_25_bw_300"}
 		\caption{Confusion matrix for the MLP with a final dimensionality (before output) of $k=25$ and a xEnt bandwidth of $\sigma=300$.  The model classified 73\% of the test data correctly.}
@@ -329,7 +311,7 @@ This section demonstrates classification accuracies for the networks trained wit
 \end{center}
 
 \begin{center}
-	\begin{figure}[t]
+	\begin{figure}[th]
 		\centering
 		\includegraphics[width=0.4\textwidth]{"mlp_itl_model_parameters/feature_size_10_bw_300"}
 		\caption{Confusion matrix for the MLP with a final dimensionality (before output) of $k=10$ and a xEnt bandwidth of $\sigma=300$.  The model classified 80\% of the test data correctly.}
