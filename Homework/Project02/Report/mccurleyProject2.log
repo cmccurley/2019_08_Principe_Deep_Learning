@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2019.4.9)  6 DEC 2019 13:10
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2019.4.9)  6 DEC 2019 13:36
 entering extended mode
 **./mccurleyProject2.tex
 (mccurleyProject2.tex
@@ -975,11 +975,11 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 355.
 Here is how much of TeX's memory you used:
  11307 strings out of 493323
  181620 string characters out of 3139067
- 294302 words of memory out of 3000000
+ 294327 words of memory out of 3000000
  14590 multiletter control sequences out of 15000+200000
  43689 words of font info for 92 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 61i,12n,96p,2649b,450s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 61i,12n,96p,2640b,450s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/Mi
 KTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files/MiKTeX 2.9
 /fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
@@ -992,7 +992,7 @@ ts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr
 les/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fo
 nts/type1/urw/times/utmbi8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/ti
 mes/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on mccurleyProject2.pdf (7 pages, 671163 bytes).
+Output written on mccurleyProject2.pdf (7 pages, 672618 bytes).
 PDF statistics:
  286 PDF objects out of 1000 (max. 8388607)
  72 named destinations out of 1000 (max. 500000)
