@@ -43,7 +43,7 @@ Email: cmccurley@ufl.edu}
 
 
 \begin{abstract}
-	
+	This paper explores the utilization of information theory in supervised classification of Fashion-MNIST images.  Autoencoder neural networks were trained and used in conjunction with support vector machines to perform classification.  Similar multilayer perceptron networks were trained using information theoretic learning.  Both models were compared to a baseline convolutional neural network to gauge differences in performance.  Classifier performance was evaluated using overall accuracy.  Additionally, confusion matrices provided insight to each classifiers' confusers.  The baseline CNN obtained a test classification accuracy of 90\%, which was the highest amongst the methods compared.  This was followed closely by the information theoretic neural network.  Due to architectural differences which should have limited performance when compared to the CNN, the accuracy achieved by the information theoretic network suggests the usefulness of ITL in the learning process.  It is believed that performance could be improved by considering further classification refinement on the difficult classes, namely: shirt, coat and pullover.
 \end{abstract} 
 
 \begin{IEEEkeywords}
@@ -402,9 +402,10 @@ In addition to a more thorough study of optimal parameter selection, two methods
 %===================================== Conclusions ================================================
 %==================================================================================================
 \section{Conclusions} \label{Conclusions}
-Classification of Fashion-MNIST images using information theoretic and non-information theoretic cost functions was investigated in this work.  Dimensionality reduction was performed using autoencoder neural networks and classification was performed using support vector machines. Additionally, multilayer perceptrons were trained using minimum cross-entropy 
+Classification of Fashion-MNIST images using information theoretic and non-information theoretic cost functions was investigated in this work.  Dimensionality reduction was performed using autoencoder neural networks and classification was performed using support vector machines. Additionally, multilayer perceptrons were trained using minimum cross-entropy.  Both classification frameworks were compared to a baseline CNN model.  The baseline achieved the highest classification accuracy amongst the models compared with a 90\% correct classification rate.  Specific implementations of the AE + SVM and ITL MLP networks obtained comparable results.\\
+\indent The author believes that the primary differences in performance between the models comes from their methods of feature learning.  Autoencoders learn latent representations to preserve variation in the data, and do not necessarily learn latent features which are optimized for  discrimination.  However, both the CNN and ITL MLP networks are trained with classification in mind and thus have an advantage over the autoencoded features.  Moreover, as can be observed from the literature, convolutional features seem to represent image qualities better than traditional MLPs. However, the ITL MLP was able to obtain comparable results to the CNN despite this.  This might suggest the usefulness of the information theoretic cost function in improving classification results.  Performance might be improved more using a convolutional network with an  information theoretic cost function.  \\
 \indent
-Future research endeavors toward this topic include, pre/post-processing or ensembling to improve classification results on the difficult-to-classify classes and investigating the incorporation of rank-loss in a metric embedding to provide improved separability of classes in the  feature space.
+Future research endeavors toward this topic include pre/post-processing or ensembling to improve classification results on the difficult-to-classify classes and investigating the incorporation of rank-loss through metric embedding to provide improved separability of classes in the feature space.
 
 %==================================================================================================
 %==================================== Bibliography ================================================
