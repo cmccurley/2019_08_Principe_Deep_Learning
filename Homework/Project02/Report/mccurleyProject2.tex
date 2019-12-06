@@ -185,29 +185,6 @@ A confusion matrix demonstrates the discrepancies between predicted and true cla
 \subsection{Comparison of Bottleneck Size} \label{classification_accuracy}
 This section presents classification accuracies for the top performing baseline CNN and SVMs trained on the autoencoded data.  Table \ref{tab:step1comparison} shows that the baseline CNN achieved the best classification accuracy of 90\%.  The second-best performance was exhibited by the SVM trained on 100D features, which achieved 86\% classification accuracy.  Performance dropped sequentially with dimensionality reduction.  The lowest performing system was the SVM trained on 10D features.  This model obtained 76\% classification accuracy.  Confusion matrices for the baseline CNN, SVM on 100D data and SVM trained on 10D data are shown in Figure \ref{fig:step_1_conf_mat}.
 From the figures, it can be observed that the mis-classified classes are fairly consistent between each of the models.  The most-commonly confused classes are shirt, pullover, and coat.
- 
- \begin{table}[h]
- 	\caption{Classification Accuracies for Different Neural Model/ Classification Systems}
- 	\label{tab:step1comparison}
- 	\normalsize
- 	\begin{tabularx}{\columnwidth}{ |X|X| } 
- 		\hline
- 		\centering \textbf{Classification Model}  & \textbf{Accuracy} \\
- 		\hline
- 		\centering Baseline CNN & \textbf{0.90} \\
- 		\hline
- 		\centering SVM 100D & \underline{0.86} \\
- 		\hline
- 		\centering SVM 75D & 0.85 \\
- 		\hline
- 		\centering SVM 50D & 0.84 \\
- 		\hline
- 		\centering SVM 25D & 0.81 \\
- 		\hline
- 		\centering SVM 10D & 0.76 \\
- 		\hline
- 	\end{tabularx}
- \end{table} 
 
 \begin{figure*}[h!]%
 	\centering
@@ -220,7 +197,30 @@ From the figures, it can be observed that the mis-classified classes are fairly 
 
  
 \subsection{Comparison of xEnt Kernel Bandwidths} \label{bw_comparison}
-This section demonstrates classification accuracies for the networks trained with MinxEnt.  Table \ref{tab:bw_comparison} shows test classification accuracies for the networks trained with different values for the parzen window estimator bandwidth and dimensionality of the smallest layer (before 10D final output).  Addtionally, confusion matrices for the best-performing models for each latent dimensionality are provided by Figures \ref{fig:feature_size_100_bw_300}, \ref{fig:feature_size_75_bw_300}, \ref{fig:feature_size_50_bw_3}, \ref{fig:feature_size_25_bw_300} and \ref{fig:feature_size_10_bw_300}, respectively. From the table, it can be seen that a bandwidth of $\sigma=300$ consistently provided the best results among the parameters compared. The highest performing model was the MLP with a final layer with  100 units and a MinxEnt bandwidth of 300.  Moreover, the confusion matrices show that the networks had similar confusers to the previous experiments.  The shirt, coat, and pullover classes were the most difficult for the networks to discriminate between.
+This section demonstrates classification accuracies for the networks trained with MinxEnt.  Table \ref{tab:bw_comparison} shows test classification accuracies for the networks trained with different values for the parzen window estimator bandwidth and dimensionality of the smallest layer (before 10D final output).  Addtionally, confusion matrices for the best-performing models for each latent dimensionality are provided by Figures \ref{fig:step_2_conf_mat}. From the table, it can be seen that a bandwidth of $\sigma=300$ consistently provided the best results among the parameters compared. The highest performing model was the MLP with a final layer with  100 units and a MinxEnt bandwidth of 300.  Moreover, the confusion matrices show that the networks had similar confusers to the previous experiments.  The shirt, coat, and pullover classes were the most difficult for the networks to discriminate between.
+
+ \begin{table}[h]
+	\caption{Classification Accuracies for Different Neural Model/ Classification Systems}
+	\label{tab:step1comparison}
+	\normalsize
+	\begin{tabularx}{\columnwidth}{ |X|X| } 
+		\hline
+		\centering \textbf{Classification Model}  & \textbf{Accuracy} \\
+		\hline
+		\centering Baseline CNN & \textbf{0.90} \\
+		\hline
+		\centering SVM 100D & \underline{0.86} \\
+		\hline
+		\centering SVM 75D & 0.85 \\
+		\hline
+		\centering SVM 50D & 0.84 \\
+		\hline
+		\centering SVM 25D & 0.81 \\
+		\hline
+		\centering SVM 10D & 0.76 \\
+		\hline
+	\end{tabularx}
+\end{table} 
 
 \begin{table}[h!]
 	\caption{Classification Accuracies for Varying xEnt Kernel Bandwidths and Latent Dimensionalities}
@@ -274,57 +274,14 @@ This section demonstrates classification accuracies for the networks trained wit
 \end{table} 
 
 
-\begin{center}
-	\begin{figure}[t]
-		\centering
-		\includegraphics[width=0.4\textwidth]{"mlp_itl_model_parameters/feature_size_100_bw_300"}
-		\caption{Confusion matrix for the MLP with a final dimensionality (before output) of $k=100$ and a xEnt bandwidth of $\sigma=300$.  The model classified 89\% of the test data correctly.}
-		\label{fig:feature_size_100_bw_300}
-	\end{figure}
-\end{center}
 
-\begin{center}
-	\begin{figure}[t]
-		\centering
-		\includegraphics[width=0.4\textwidth]{"mlp_itl_model_parameters/feature_size_75_bw_300"}
-		\caption{Confusion matrix for the MLP with a final dimensionality (before output) of $k=75$ and a xEnt bandwidth of $\sigma=300$.  The model classified 74\% of the test data correctly.}
-		\label{fig:feature_size_75_bw_300}
-	\end{figure}
-\end{center}
-
-\begin{center}
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=0.4\textwidth]{"mlp_itl_model_parameters/feature_size_50_bw_3"}
-		\caption{Confusion matrix for the MLP with a final dimensionality (before output) of $k=50$ and a xEnt bandwidth of $\sigma=3$.  The model classified 88\% of the test data correctly.}
-		\label{fig:feature_size_50_bw_3}
-	\end{figure}
-\end{center}
-
-\begin{center}
-	\begin{figure}[h]
-		\centering
-		\includegraphics[width=0.4\textwidth]{"mlp_itl_model_parameters/feature_size_25_bw_300"}
-		\caption{Confusion matrix for the MLP with a final dimensionality (before output) of $k=25$ and a xEnt bandwidth of $\sigma=300$.  The model classified 73\% of the test data correctly.}
-		\label{fig:feature_size_25_bw_300}
-	\end{figure}
-\end{center}
-
-\begin{center}
-	\begin{figure}[th]
-		\centering
-		\includegraphics[width=0.4\textwidth]{"mlp_itl_model_parameters/feature_size_10_bw_300"}
-		\caption{Confusion matrix for the MLP with a final dimensionality (before output) of $k=10$ and a xEnt bandwidth of $\sigma=300$.  The model classified 80\% of the test data correctly.}
-		\label{fig:feature_size_10_bw_300}
-	\end{figure}
-\end{center}
 
 
 
 %==================================================================================================
 %====================================== Discussion ================================================
 %==================================================================================================
-\vspace{5cm}
+
 \section{Discussion} \label{Discussion}
 In this sections, observations are made on results and insight is given to potential influences.
 
@@ -349,6 +306,20 @@ In this work, models were only trained five times each, and the best performing 
 
 %% run time
 It should also be noted that run-time was not compared in this work.  This was due to the fact that the author was switching between machines when performing this experimentation, which resulted in highly-varying run-times for the same algorithm.  For clarity, this should not be done when demonstrating performance of methods, but it was sufficient for this work. 
+
+
+\begin{figure*}[h!]%
+	\centering
+	\subfloat[]{{\includegraphics[width=6cm]{"mlp_itl_model_parameters/feature_size_100_bw_300"} }}%
+	\subfloat[]{{\includegraphics[width=6cm]{"mlp_itl_model_parameters/feature_size_75_bw_300"} }}%
+	\subfloat[]{{\includegraphics[width=6cm]{"mlp_itl_model_parameters/feature_size_50_bw_3"} }}%
+	\quad
+	\subfloat[]{{\includegraphics[width=6cm]{"mlp_itl_model_parameters/feature_size_25_bw_300"} }}%
+	\subfloat[]{{\includegraphics[width=6cm]{"mlp_itl_model_parameters/feature_size_10_bw_300"} }}%
+	\caption{Confusion matrices for the ITL MLPs with a final dimensionality (before output) of (a) $k=100$ and a xEnt bandwidth of $\sigma=300$ which classified 89\% of the test data correctly, (b) $k=75$ and a xEnt bandwidth of $\sigma=300$ which classified 74\% of the test data correctly, (c) $k=50$ and a xEnt bandwidth of $\sigma=3$ which classified 88\% of the test data correctly, (d) $k=25$ and a xEnt bandwidth of $\sigma=300$ which classified 73\% of the test data correctly and (e) $k=10$ and a xEnt bandwidth of $\sigma=300$ which classified 80\% of the test data correctly.}%
+	\label{fig:step_2_conf_mat}%
+\end{figure*}
+
 
 \subsection{Potential Improvements}
 In addition to a more thorough study of optimal parameter selection, two methods which could potentially aid with overall system performance might be to include an additional form of pre/post-processing to improve the confused classes or to train the model with a type of rank loss.  It terms of pre/post-processing, additional models could be trained to learn explicit differences between the coat, shirt and  pullover classes, and between the top and dress classes.  This could done before-hand by learning alternative  features representations for these samples before being passed to the main network, or after-the-fact with additional classification on any labels predicted to be in those difficult classes.  This could even be implemented in an ensemble approach to (hopefully) improve classification performance on the most-likely confused classes.  Another alternative  would be to employ a form of rank-loss, such as contrastive or triplet.  In this scenario, additional constraints could be applied to the objective function to enforce inter-class separability between disparate classes and promote intra-class compactness.  These approaches utilize pairs or triplets of similar and  dissimilar data samples to embed samples  in close/far relations according to a predefined metric.  The author believes this could be applied  in conjunction with the cost functions utilized in this work to improve results on the difficult classes.

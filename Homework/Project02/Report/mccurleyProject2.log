@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2019.4.9)  6 DEC 2019 12:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (MiKTeX 2.9.6350 64-bit) (preloaded format=pdflatex 2019.4.9)  6 DEC 2019 13:03
 entering extended mode
 **./mccurleyProject2.tex
 (mccurleyProject2.tex
@@ -810,7 +810,7 @@ c file (type png)
 2/Report/Images/""cnn_model_parameters/baseline_cnn2_confusion_mat".png>
 Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
 ng/Homework/Project02/Report/Images/""cnn_model_parameters/baseline_cnn2_confus
-ion_mat".png used on input line 214.
+ion_mat".png used on input line 191.
 (pdftex.def)             Requested size: 170.71652pt x 128.0372pt.
 
 <"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project02/Re
@@ -824,7 +824,7 @@ File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project
 2/Report/Images/""svm_conf_mat/svm_feature_size_100_default".png>
 Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
 ng/Homework/Project02/Report/Images/""svm_conf_mat/svm_feature_size_100_default
-".png used on input line 215.
+".png used on input line 192.
 (pdftex.def)             Requested size: 170.71652pt x 128.0372pt.
 
 <"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project02/Re
@@ -838,10 +838,10 @@ type png)
 2/Report/Images/""svm_conf_mat/svm_feature_size_10_default".png>
 Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
 ng/Homework/Project02/Report/Images/""svm_conf_mat/svm_feature_size_10_default"
-.png used on input line 216.
+.png used on input line 193.
 (pdftex.def)             Requested size: 170.71652pt x 128.0372pt.
 
-Overfull \hbox (6.64975pt too wide) in paragraph at lines 214--217
+Overfull \hbox (6.64975pt too wide) in paragraph at lines 191--194
  [][][][][][] 
  []
 
@@ -849,8 +849,22 @@ Overfull \hbox (6.64975pt too wide) in paragraph at lines 214--217
 LaTeX Warning: `!h' float specifier changed to `!ht'.
 
 
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[4 <C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project02/
+Report/Images/ae_reconstructed_images/ae_latent_10_img_2.png> <C:/Users/Conma/D
+ocuments/2019_08_Principe_Deep_Learning/Homework/Project02/Report/Images/ae_rec
+onstructed_images/ae_latent_100_img_1.png>] [5 <C:/Users/Conma/Documents/2019_0
+8_Principe_Deep_Learning/Homework/Project02/Report/Images/cnn_model_parameters/
+baseline_cnn2_confusion_mat.png> <C:/Users/Conma/Documents/2019_08_Principe_Dee
+p_Learning/Homework/Project02/Report/Images/svm_conf_mat/svm_feature_size_100_d
+efault.png> <C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/P
+roject02/Report/Images/svm_conf_mat/svm_feature_size_10_default.png>]
 <"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project02/Re
-port/Images/""mlp_itl_model_parameters/feature_size_100_bw_300".png, id=182, 46
+port/Images/""mlp_itl_model_parameters/feature_size_100_bw_300".png, id=201, 46
 2.528pt x 346.896pt>
 File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project
 02/Report/Images/""mlp_itl_model_parameters/feature_size_100_bw_300".png Graphi
@@ -860,11 +874,11 @@ c file (type png)
 2/Report/Images/""mlp_itl_model_parameters/feature_size_100_bw_300".png>
 Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
 ng/Homework/Project02/Report/Images/""mlp_itl_model_parameters/feature_size_100
-_bw_300".png used on input line 280.
-(pdftex.def)             Requested size: 206.39685pt x 154.79962pt.
+_bw_300".png used on input line 313.
+(pdftex.def)             Requested size: 170.71652pt x 128.0372pt.
 
 <"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project02/Re
-port/Images/""mlp_itl_model_parameters/feature_size_75_bw_300".png, id=183, 462
+port/Images/""mlp_itl_model_parameters/feature_size_75_bw_300".png, id=202, 462
 .528pt x 346.896pt>
 File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project
 02/Report/Images/""mlp_itl_model_parameters/feature_size_75_bw_300".png Graphic
@@ -874,11 +888,11 @@ File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project
 2/Report/Images/""mlp_itl_model_parameters/feature_size_75_bw_300".png>
 Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
 ng/Homework/Project02/Report/Images/""mlp_itl_model_parameters/feature_size_75_
-bw_300".png used on input line 289.
-(pdftex.def)             Requested size: 206.39685pt x 154.79962pt.
+bw_300".png used on input line 314.
+(pdftex.def)             Requested size: 170.71652pt x 128.0372pt.
 
 <"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project02/Re
-port/Images/""mlp_itl_model_parameters/feature_size_50_bw_3".png, id=184, 462.5
+port/Images/""mlp_itl_model_parameters/feature_size_50_bw_3".png, id=203, 462.5
 28pt x 346.896pt>
 File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project
 02/Report/Images/""mlp_itl_model_parameters/feature_size_50_bw_3".png Graphic f
@@ -888,15 +902,11 @@ ile (type png)
 2/Report/Images/""mlp_itl_model_parameters/feature_size_50_bw_3".png>
 Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
 ng/Homework/Project02/Report/Images/""mlp_itl_model_parameters/feature_size_50_
-bw_3".png used on input line 298.
-(pdftex.def)             Requested size: 206.39685pt x 154.79962pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
+bw_3".png used on input line 315.
+(pdftex.def)             Requested size: 170.71652pt x 128.0372pt.
 
 <"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project02/Re
-port/Images/""mlp_itl_model_parameters/feature_size_25_bw_300".png, id=185, 462
+port/Images/""mlp_itl_model_parameters/feature_size_25_bw_300".png, id=204, 462
 .528pt x 346.896pt>
 File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project
 02/Report/Images/""mlp_itl_model_parameters/feature_size_25_bw_300".png Graphic
@@ -906,15 +916,11 @@ File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project
 2/Report/Images/""mlp_itl_model_parameters/feature_size_25_bw_300".png>
 Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
 ng/Homework/Project02/Report/Images/""mlp_itl_model_parameters/feature_size_25_
-bw_300".png used on input line 307.
-(pdftex.def)             Requested size: 206.39685pt x 154.79962pt.
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
+bw_300".png used on input line 317.
+(pdftex.def)             Requested size: 170.71652pt x 128.0372pt.
 
 <"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project02/Re
-port/Images/""mlp_itl_model_parameters/feature_size_10_bw_300".png, id=186, 462
+port/Images/""mlp_itl_model_parameters/feature_size_10_bw_300".png, id=205, 462
 .528pt x 346.896pt>
 File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project
 02/Report/Images/""mlp_itl_model_parameters/feature_size_10_bw_300".png Graphic
@@ -924,47 +930,37 @@ File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project
 2/Report/Images/""mlp_itl_model_parameters/feature_size_10_bw_300".png>
 Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
 ng/Homework/Project02/Report/Images/""mlp_itl_model_parameters/feature_size_10_
-bw_300".png used on input line 316.
-(pdftex.def)             Requested size: 206.39685pt x 154.79962pt.
+bw_300".png used on input line 318.
+(pdftex.def)             Requested size: 170.71652pt x 128.0372pt.
 
-[4 <C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project02/
-Report/Images/ae_reconstructed_images/ae_latent_10_img_2.png> <C:/Users/Conma/D
-ocuments/2019_08_Principe_Deep_Learning/Homework/Project02/Report/Images/ae_rec
-onstructed_images/ae_latent_100_img_1.png>]
-Underfull \vbox (badness 2582) has occurred while \output is active []
+Overfull \hbox (6.64975pt too wide) in paragraph at lines 313--319
+ [][][][][][] 
+ []
 
- [5 <C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project02
-/Report/Images/cnn_model_parameters/baseline_cnn2_confusion_mat.png> <C:/Users/
-Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project02/Report/Images
-/svm_conf_mat/svm_feature_size_100_default.png> <C:/Users/Conma/Documents/2019_
-08_Principe_Deep_Learning/Homework/Project02/Report/Images/svm_conf_mat/svm_fea
-ture_size_10_default.png> <C:/Users/Conma/Documents/2019_08_Principe_Deep_Learn
-ing/Homework/Project02/Report/Images/mlp_itl_model_parameters/feature_size_100_
-bw_300.png> <C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/P
-roject02/Report/Images/mlp_itl_model_parameters/feature_size_75_bw_300.png>] [6
- <C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project02/Re
-port/Images/mlp_itl_model_parameters/feature_size_50_bw_3.png> <C:/Users/Conma/
-Documents/2019_08_Principe_Deep_Learning/Homework/Project02/Report/Images/mlp_i
-tl_model_parameters/feature_size_25_bw_300.png> <C:/Users/Conma/Documents/2019_
-08_Principe_Deep_Learning/Homework/Project02/Report/Images/mlp_itl_model_parame
-ters/feature_size_10_bw_300.png>]
-Underfull \hbox (badness 3746) in paragraph at lines 363--367
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+Underfull \hbox (badness 3746) in paragraph at lines 334--338
 []\OT1/ptm/m/n/10 Future re-search en-deav-ors to-ward this topic in-clude
  []
 
 
 <"C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project02/Re
-port/Images/""Signature".jpg, id=223, 2664.95625pt x 935.495pt>
+port/Images/""Signature".jpg, id=206, 2664.95625pt x 935.495pt>
 File: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project
 02/Report/Images/""Signature".jpg Graphic file (type jpg)
 
 <use "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project0
 2/Report/Images/""Signature".jpg>
 Package pdftex.def Info: "C:/Users/Conma/Documents/2019_08_Principe_Deep_Learni
-ng/Homework/Project02/Report/Images/""Signature".jpg used on input line 378.
+ng/Homework/Project02/Report/Images/""Signature".jpg used on input line 349.
 (pdftex.def)             Requested size: 103.19843pt x 36.21436pt.
- (mccurleyProject2.bbl [7 <C:/Users/Conma/Documents/2019_08_Principe_Deep_Learn
-ing/Homework/Project02/Report/Images/Signature.jpg>])
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+(mccurleyProject2.bbl)
 
 ** Conference Paper **
 Before submitting the final camera ready copy, remember to:
@@ -976,26 +972,36 @@ Before submitting the final camera ready copy, remember to:
  uses only Type 1 fonts and that every step in the generation
  process uses the appropriate paper size.
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 384.
-[8
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 355.
+[6] [7
 
-]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 384.
+ <C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project02/Re
+port/Images/mlp_itl_model_parameters/feature_size_100_bw_300.png> <C:/Users/Con
+ma/Documents/2019_08_Principe_Deep_Learning/Homework/Project02/Report/Images/ml
+p_itl_model_parameters/feature_size_75_bw_300.png> <C:/Users/Conma/Documents/20
+19_08_Principe_Deep_Learning/Homework/Project02/Report/Images/mlp_itl_model_par
+ameters/feature_size_50_bw_3.png> <C:/Users/Conma/Documents/2019_08_Principe_De
+ep_Learning/Homework/Project02/Report/Images/mlp_itl_model_parameters/feature_s
+ize_25_bw_300.png> <C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Hom
+ework/Project02/Report/Images/mlp_itl_model_parameters/feature_size_10_bw_300.p
+ng> <C:/Users/Conma/Documents/2019_08_Principe_Deep_Learning/Homework/Project02
+/Report/Images/Signature.jpg>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 355.
  (mccurleyProject2.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 384.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 384.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 355.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 355.
 Package rerunfilecheck Info: File `mccurleyProject2.out' has not changed.
-(rerunfilecheck)             Checksum: E62B0CD81FFB6055B52C5DCE77095684;1088.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 384.
+(rerunfilecheck)             Checksum: 4EEF0536B07C64408E1B5AE4457A32F3;1088.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 355.
  ) 
 Here is how much of TeX's memory you used:
- 11319 strings out of 493323
- 182302 string characters out of 3139067
- 295725 words of memory out of 3000000
- 14598 multiletter control sequences out of 15000+200000
+ 11315 strings out of 493323
+ 182175 string characters out of 3139067
+ 294302 words of memory out of 3000000
+ 14594 multiletter control sequences out of 15000+200000
  43689 words of font info for 92 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 61i,12n,96p,2649b,459s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 61i,12n,96p,2649b,448s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/base/8r.enc}<C:/Program Files/Mi
 KTeX 2.9/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Program Files/MiKTeX 2.9
 /fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Program Files/MiKTeX 2.9/fonts/t
@@ -1008,9 +1014,9 @@ ts/cm/cmr10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/amsfonts/cm/cmr
 les/MiKTeX 2.9/fonts/type1/urw/times/utmb8a.pfb><C:/Program Files/MiKTeX 2.9/fo
 nts/type1/urw/times/utmbi8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/ti
 mes/utmr8a.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/urw/times/utmri8a.pfb>
-Output written on mccurleyProject2.pdf (8 pages, 1040791 bytes).
+Output written on mccurleyProject2.pdf (7 pages, 1039193 bytes).
 PDF statistics:
- 297 PDF objects out of 1000 (max. 8388607)
+ 290 PDF objects out of 1000 (max. 8388607)
  73 named destinations out of 1000 (max. 500000)
  202 words of extra memory for PDF output out of 10000 (max. 10000000)
 
