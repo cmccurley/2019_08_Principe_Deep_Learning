@@ -328,52 +328,32 @@ This section demonstrates classification accuracies for the networks trained wit
 \section{Discussion} \label{Discussion}
 In this sections, observations are made on results and insight is given to potential influences.
 
+\subsection{Results and Experimental Design}
+
 %% Comparison of ae reconstruction
-
-%% Comparison of classifiers
-
-%% autoencoder only captures variation and may not be best for discrimination, whereas CNN features were learned with classifcaiton in mind
-
+The first experimentation performed was a comparison of reconstruction error from various autoencoder bottleneck sizes.  Because the image values were normalized between $[0,1]$ when converting to a tensor, and the outputs were passed through a sigmoid activation to scale them appropriately, all MSE values were very low.  This  made it difficult to evaluate performance quantitatively.  However, when plotting images passed through the various networks (as shown in Figure \ref{fig:ae_reconstruction}), a clear trend could be seen.  Specifically, as the bottleneck layer's dimensionality decreased the reconstructed image became less accurate (compared to the original).  This intuitively makes sense, as there is a greater loss of information through smaller bottleneck sizes.  The goal would then be to use the bottleneck layer with the smallest dimensionality which still preserved discriminative qualities between the classes. When tacking on a support vector machine, a clear correlation between bottleneck dimensionality and classification accuracy can be seen.  They highest performing AE + SVM was the model which took the bottle neck features of size 100.  The performance dropped sequentially with a decrease in bottleneck size.  Again, this result is intuitive and, in practice, one would use the smallest feature dimensionality which still allowed the model to achieve a desired level of performance.
 
 %% Comparison of ITL bandwidth
+Next, multilayer perceptrons  of the same size to the encoder networks were employed and trained with MinxEnt.  When comparing classification performance over a range bandwidth values, the sensitivity to this parameter in terms of classification accuracy can be observed. The bandwidths of $\sigma=3$ and $\sigma=3000$ consistently resulted in the lowest  level of performance, while a $\sigma=300$ typically provided the best.  This suggests that, for this dataset, the optimal bandwidth value might be somewhere in the magnitude of the hundreds.  However, performance due to bandwidth, which effects both the magnitude and granularity of the error, might not be well represented in this experimentation.  Error could have resulted from the training time of the networks, which was fixed at 20 epochs for every model.  A smaller bandwidth may have taken more epochs of training to reach a minimum (which may have been lower than what was achieved).
+
+
+%% Comparison of classifiers
+When comparing the CNN, AE + SVM, and ITL MLP, the differences in performance can be analyzed.  The baseline CNN model obtained the best performance among the models tested with an overall classification accuracy of 90\%.  This was followed in suit by the ITL MLP with a final 100D layer and a bandwidth of $\sigma=300$ which achieved 89\% accuracy and the ITL MLP with a final 50D layer and a bandwidth of $\sigma=3$ which achieved 88\% accuracy.  The best performing AE + SVM model was the one with a bottleneck size of 100.  This classification system obtained 86\% classification accuracy on the hold-out test set.  However, these results match the author's intuition.  To begin, autoencoders are not designed to preserve class discriminability in the latent space.  They specifically attempt ot compress the data into  representations which capture the highest level of variation in the dataset.  On images of faces, for example, latent features might represent (presumably) color, pose, eye shape, lighting variations, etc.  While these features might provide appropriate features for class discrimination, there is no guarantee they will meet this objective.  Therefore, one would expect the AE + SVM networks to achieve lesser classification accuracy than the alternatives compared in this work.
+
+
+%% autoencoder only captures variation and may not be best for discrimination, whereas CNN features were learned with classifcaiton in mind
 
 %% Best ITL without convolution was as good as baseline cnn
 
 
 %% potentially suboptimal parameters in all experimentation
+It should be noted that, due to time limitations, hyperparameters for each method were chosen only to provide a rough generalization of performance over a wide range of parameter values.  Hyperparameters were not necessarily tuned in any scenario, which could mis-lead results concerning the overall ``best" algorithm.  If given more time, a more thorough parameter search would be conducted in attempt to discover the optimal models for comparison.
 
 %% cross-validation
+In this work, models were only trained five times each, and the best performing model on validation data was analyzed further.  It would have, however, been more insightful to the stability of the methods to run an extensive cross-validation analysis.  This could provide bounds on performance variations due to training, and could highlight the robustness of particular methods which may not have been captured by this set of experiments.
 
 %% run time
-
-\subsection{Results}
-
-% \begin{center}
-% 	\begin{figure}[t]
-% 		\centering
-% 		\includegraphics[width=0.5\textwidth]{"models/embedding_pca"}
-% 		\caption{Fashion MNIST emmbedding of the training set via PCA}
-% 		\label{fig:pca_embedding}
-% 	\end{figure}
-% \end{center}
-
-% \begin{center}
-% 	\begin{figure}[t]
-% 		\centering
-% 		\includegraphics[width=0.5\textwidth]{"models/embedding_umap"}
-% 		\caption{Fashion MNIST embedding of the training set via UMAP}
-% 		\label{fig:umap_embedding}
-% 	\end{figure}
-% \end{center}
-
-%  \begin{center}
-% 	\begin{figure}[t]
-% 		\centering
-% 		\includegraphics[width=0.5\textwidth]{"hist_after_umap_100"}
-% 		\caption{Histograms of one versus all Euclidean distances after projecting to 100 dimensions with UMAP for top left): Pullover, top right): Dress, bottom left): Sandal, and bottom right): Trouser classes.  The red bars represent Euclidean distances for samples of the given class to their mean.  Blue represents the distance of every other training sample to the same mean.}
-% 		\label{fig:hist_after_umap_100}
-% 	\end{figure}
-% \end{center}
+It should also be noted that run-time was not compared in this work.  This was due to the fact that the author was switching between machines when performing this experimentation, which resulted in highly-varying run-times for the same algorithm.  For clarity, this should not be done when demonstrating performance of methods, but it was sufficient for this work. 
 
 \subsection{Potential Improvements}
 In addition to a more thorough study of optimal parameter selection, two methods which could potentially aid with overall system performance might be to include an additional form of pre/post-processing to improve the confused classes or to train the model with a type of rank loss.  It terms of pre/post-processing, additional models could be trained to learn explicit differences between the coat, shirt and  pullover classes, and between the top and dress classes.  This could done before-hand by learning alternative  features representations for these samples before being passed to the main network, or after-the-fact with additional classification on any labels predicted to be in those difficult classes.  This could even be implemented in an ensemble approach to (hopefully) improve classification performance on the most-likely confused classes.  Another alternative  would be to employ a form of rank-loss, such as contrastive or triplet.  In this scenario, additional constraints could be applied to the objective function to enforce inter-class separability between disparate classes and promote intra-class compactness.  These approaches utilize pairs or triplets of similar and  dissimilar data samples to embed samples  in close/far relations according to a predefined metric.  The author believes this could be applied  in conjunction with the cost functions utilized in this work to improve results on the difficult classes.
