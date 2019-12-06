@@ -295,7 +295,7 @@ Next, multilayer perceptrons  of the same size to the encoder networks were empl
 
 
 %% Comparison of classifiers
-When comparing the CNN, AE + SVM, and ITL MLP, the differences in performance can be analyzed.  The baseline CNN model obtained the best performance among the models tested with an overall classification accuracy of 90\%.  This was followed in suit by the ITL MLP with a final 100D layer and a bandwidth of $\sigma=300$ which achieved 89\% accuracy and the ITL MLP with a final 50D layer and a bandwidth of $\sigma=3$ which achieved 88\% accuracy.  The best performing AE + SVM model was the one with a bottleneck size of 100.  This classification system obtained 86\% classification accuracy on the hold-out test set.  However, these results match the author's intuition.  To begin, autoencoders are not designed to preserve class discriminability in the latent space.  They specifically attempt ot compress the data into  representations which capture the highest level of variation in the dataset.  On images of faces, for example, latent features might represent (presumably) color, pose, eye shape, lighting variations, etc.  While these features might provide appropriate features for class discrimination, there is no guarantee they will meet this objective.  Therefore, one would expect the AE + SVM networks to achieve lesser classification accuracy than the alternatives compared in this work.  Next, while both the CNN and ITL MLP methods were trained to  learn features which promote discriminability, the author expected the CNN to outperform the MLP.  This expectation was simply based off influence from the literature which suggests that convolutional features are able to capture interesting image artifacts easier than MLPs due to their inherent consideration of spatial information.  Therefore, it was somewhat surprising that the ITL MLP was able to achieve comparable classification performance.  This suggests the benefit of information theoretic learning approaches compared to what the author would consider as ``traditional" learning strategies.  Because ITL takes advantage of higher-order data statistics, a more-accurate measure of error between the  prediction and label distributions can be computed.  This better representation of error can guide a learning algorithm to potentially locate  the optimal  parameter values of a model.  From this insight, it would be interesting to compare the baseline CNN to a CNN implementing an information theoretic cost function.  Presumably, this may only significantly alter  the parameters of the fully connected layers, but the author believes it would be interesting to evaluate how the convolutional features are altered through the backpropagation.
+When comparing the CNN, AE + SVM, and ITL MLP, the differences in performance can be analyzed.  The baseline CNN model obtained the best performance among the models tested with an overall classification accuracy of 90\%.  This was followed in suit by the ITL MLP with a final 100D layer and a bandwidth of $\sigma=300$ which achieved 89\% accuracy and the ITL MLP with a final 50D layer and a bandwidth of $\sigma=3$ which achieved 88\% accuracy.  The best performing AE + SVM model was the one with a bottleneck size of 100.  This classification system obtained 86\% classification accuracy on the hold-out test set.  However, these results match the author's intuition.  To begin, autoencoders are not designed to preserve class discriminability in the latent space.  They specifically attempt to compress the data into  representations which capture the highest level of variation in the dataset.  On images of faces, for example, latent features might represent (presumably) color, pose, eye shape, lighting variations, etc.  While these features might provide appropriate features for class discrimination, there is no guarantee they will meet this objective.  Therefore, one would expect the AE + SVM networks to achieve lesser classification accuracy than the alternatives compared in this work.  Next, while both the CNN and ITL MLP methods were trained to  learn features which promote discriminability, the author expected the CNN to outperform the MLP.  This expectation was simply based off influence from the literature which suggests that convolutional features are able to capture interesting image artifacts easier than MLPs due to their inherent consideration of spatial information.  Therefore, it was somewhat surprising that the ITL MLP was able to achieve comparable classification performance.  This suggests the benefit of information theoretic learning approaches compared to what the author would consider as ``traditional" learning strategies.  Because ITL takes advantage of higher-order data statistics, a more-accurate measure of error between the  prediction and label distributions can be computed.  This better representation of error can guide a learning algorithm to potentially locate  the optimal  parameter values of a model.  From this insight, it would be interesting to compare the baseline CNN to a CNN implementing an information theoretic cost function.  Presumably, this may only significantly alter  the parameters of the fully connected layers, but the author believes it would be interesting to evaluate how the convolutional features are altered through the backpropagation.
 
 
 %% potentially suboptimal parameters in all experimentation
@@ -308,23 +308,11 @@ In this work, models were only trained five times each, and the best performing 
 It should also be noted that run-time was not compared in this work.  This was due to the fact that the author was switching between machines when performing this experimentation, which resulted in highly-varying run-times for the same algorithm.  For clarity, this should not be done when demonstrating performance of methods, but it was sufficient for this work. 
 
 
-\begin{figure*}[h!]%
-	\centering
-	\subfloat[]{{\includegraphics[width=6cm]{"mlp_itl_model_parameters/feature_size_100_bw_300"} }}%
-	\subfloat[]{{\includegraphics[width=6cm]{"mlp_itl_model_parameters/feature_size_75_bw_300"} }}%
-	\subfloat[]{{\includegraphics[width=6cm]{"mlp_itl_model_parameters/feature_size_50_bw_3"} }}%
-	\quad
-	\subfloat[]{{\includegraphics[width=6cm]{"mlp_itl_model_parameters/feature_size_25_bw_300"} }}%
-	\subfloat[]{{\includegraphics[width=6cm]{"mlp_itl_model_parameters/feature_size_10_bw_300"} }}%
-	\caption{Confusion matrices for the ITL MLPs with a final dimensionality (before output) of (a) $k=100$ and a xEnt bandwidth of $\sigma=300$ which classified 89\% of the test data correctly, (b) $k=75$ and a xEnt bandwidth of $\sigma=300$ which classified 74\% of the test data correctly, (c) $k=50$ and a xEnt bandwidth of $\sigma=3$ which classified 88\% of the test data correctly, (d) $k=25$ and a xEnt bandwidth of $\sigma=300$ which classified 73\% of the test data correctly and (e) $k=10$ and a xEnt bandwidth of $\sigma=300$ which classified 80\% of the test data correctly.}%
-	\label{fig:step_2_conf_mat}%
-\end{figure*}
+
 
 
 \subsection{Potential Improvements}
 In addition to a more thorough study of optimal parameter selection, two methods which could potentially aid with overall system performance might be to include an additional form of pre/post-processing to improve the confused classes or to train the model with a type of rank loss.  It terms of pre/post-processing, additional models could be trained to learn explicit differences between the coat, shirt and  pullover classes, and between the top and dress classes.  This could done before-hand by learning alternative  features representations for these samples before being passed to the main network, or after-the-fact with additional classification on any labels predicted to be in those difficult classes.  This could even be implemented in an ensemble approach to (hopefully) improve classification performance on the most-likely confused classes.  Another alternative  would be to employ a form of rank-loss, such as contrastive or triplet.  In this scenario, additional constraints could be applied to the objective function to enforce inter-class separability between disparate classes and promote intra-class compactness.  These approaches utilize pairs or triplets of similar and  dissimilar data samples to embed samples  in close/far relations according to a predefined metric.  The author believes this could be applied  in conjunction with the cost functions utilized in this work to improve results on the difficult classes.
-
-
 
 
 %==================================================================================================
@@ -344,12 +332,24 @@ Future research endeavors toward this topic include pre/post-processing or ensem
 \noindent
 * I confirm that this assignment is my own work, it is not copied from any other person's work (published or unpublished), and has not been previously submitted for assessment either at University of Florida or elsewhere.
 
- \begin{figure}[h!]
- 	\centering
- 	\includegraphics[width=0.20\textwidth]{"Signature"}
- \end{figure}
+% \begin{figure}[h!]
+% 	\centering
+% 	\includegraphics[width=0.20\textwidth]{"Signature"}
+% \end{figure}
 
 \bibliography{Project2}
 \bibliographystyle{IEEEtran}
+
+\begin{figure*}[t]%
+	\centering
+	\subfloat[]{{\includegraphics[width=6cm]{"mlp_itl_model_parameters/feature_size_100_bw_300"} }}%
+	\subfloat[]{{\includegraphics[width=6cm]{"mlp_itl_model_parameters/feature_size_75_bw_300"} }}%
+	\subfloat[]{{\includegraphics[width=6cm]{"mlp_itl_model_parameters/feature_size_50_bw_3"} }}%
+	\quad
+	\subfloat[]{{\includegraphics[width=6cm]{"mlp_itl_model_parameters/feature_size_25_bw_300"} }}%
+	\subfloat[]{{\includegraphics[width=6cm]{"mlp_itl_model_parameters/feature_size_10_bw_300"} }}%
+	\caption{Confusion matrices for the ITL MLPs with a final dimensionality (before output) of (a) $k=100$ and a xEnt bandwidth of $\sigma=300$ which classified 89\% of the test data correctly, (b) $k=75$ and a xEnt bandwidth of $\sigma=300$ which classified 74\% of the test data correctly, (c) $k=50$ and a xEnt bandwidth of $\sigma=3$ which classified 88\% of the test data correctly, (d) $k=25$ and a xEnt bandwidth of $\sigma=300$ which classified 73\% of the test data correctly and (e) $k=10$ and a xEnt bandwidth of $\sigma=300$ which classified 80\% of the test data correctly.}%
+	\label{fig:step_2_conf_mat}%
+\end{figure*}
 
 \end{document}
